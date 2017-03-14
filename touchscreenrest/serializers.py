@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Tour, Accomodation, Map, Advertisement, Image, Video
+from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Tour, Accomodation, Map,\
+    Advertisement, Image, Video
 
 class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
@@ -18,7 +19,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     imageAdvertisement = ImageSerializer(many=True, read_only=True)
     class Meta:
         model = Advertisement
-        fields = ('id', 'title', 'description', 'inTopDeal', 'numberOfShow', 'numberOfClicks',
+        fields = ('id', 'title', 'description', 'inTopDeal', 'numberOfShows', 'numberOfClicks',
                   'orderTopDeal', 'highlighted', 'imageAdvertisement', 'videoAdvertisement')
 
 class MapSerializer(serializers.ModelSerializer):

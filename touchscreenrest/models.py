@@ -123,7 +123,7 @@ class Advertisement(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     inTopDeal = models.BooleanField(blank=False, default=False)
-    numberOfShow = models.IntegerField(default=0)
+    numberOfShows = models.IntegerField(default=0)
     numberOfClicks = models.IntegerField(default=0)
     orderTopDeal = models.IntegerField(blank=False)
     highlighted = models.BooleanField(blank=False, default=False)
