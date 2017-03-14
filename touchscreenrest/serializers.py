@@ -19,7 +19,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = ('id', 'title', 'description', 'inTopDeal', 'numberOfShow', 'numberOfClicks',
-        'imageAdvertisement', 'videoAdvertisement')
+                  'orderTopDeal', 'highlighted', 'imageAdvertisement', 'videoAdvertisement')
 
 class MapSerializer(serializers.ModelSerializer):
     mapImage = serializers.ImageField(max_length=None, use_url=True)
@@ -42,16 +42,18 @@ class AccomodationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Accomodation
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo',
-                  'numberOfClicks', 'videoAccomodation', 'imageAccomodation',
+                  'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
                   'advertisementAccomodation', 'mapAccomodation')
 
 class TourSerializer(serializers.ModelSerializer):
     videoTour = VideoSerializer(many=True, read_only=True)
     imageTour = ImageSerializer(many=True, read_only=True)
     advertisementTour = AdvertisementSerializer(many=True)
+    mapTour = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Tour
-        fields = ('id', 'title', 'numberOfClick', 'videoTour', 'imageTour', 'advertisementTour')
+        fields = ('id', 'title', 'numberOfClick', 'videoTour', 'imageTour', 'advertisementTour',
+                  'mapTour')
 
 class EventSerializer(serializers.ModelSerializer):
     videoEvent = VideoSerializer(many=True, read_only=True)
@@ -70,7 +72,8 @@ class PeriodSerializer(serializers.ModelSerializer):
     advertisementPeriod = AdvertisementSerializer(many=True)
     class Meta:
         model = Period
-        fields = ('id', 'title', 'numberOfClicks', 'videoPeriod', 'imagePeriod', 'advertisementPeriod')
+        fields = ('id', 'title', 'numberOfClicks', 'videoPeriod', 'imagePeriod',
+                  'advertisementPeriod')
 
 class RestaurantSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -81,7 +84,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks',
-                  'mapRestaurant', 'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
+                  'order', 'mapRestaurant', 'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
 
 class DestinationSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)

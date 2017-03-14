@@ -53,6 +53,7 @@ class Restaurant(models.Model):
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='restaurant_logos/')
     numberOfClicks = models.IntegerField(default=0)
+    order = models.IntegerField(blank=False)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
 
 class Deal(models.Model):
@@ -83,6 +84,7 @@ class Accomodation(models.Model):
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='accomodation_logos/')
     numberOfClicks = models.IntegerField(default=0)
+    order = models.IntegerField(blank=False)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
 
 class Map(models.Model):
@@ -93,6 +95,11 @@ class Map(models.Model):
     title = models.CharField(max_length=200, blank=False)
     mapImage = models.ImageField(upload_to='maps/')
     
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='mapTour', null=True)
+    def is_tour_map(self):
+        '''Checks whether this map instance is a tour map'''
+        return not self.tour is None
+
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='mapRestaurant', null=True)
     def is_restaurant_map(self):
         '''Checks whether this map instance is a restaurant map'''
@@ -118,6 +125,8 @@ class Advertisement(models.Model):
     inTopDeal = models.BooleanField(blank=False, default=False)
     numberOfShow = models.IntegerField(default=0)
     numberOfClicks = models.IntegerField(default=0)
+    orderTopDeal = models.IntegerField(blank=False)
+    highlighted = models.BooleanField(blank=False, default=False)
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', null=True)
     def is_tour_advertisement(self):
