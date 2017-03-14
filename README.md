@@ -12,13 +12,13 @@ Utilising MySQL Database system
 
 * Configure pip (tool for installing Python packages)
     * Securely Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
-    * Run ```python python get-pip.py``` (If error try ```python sudo python get-pip.py``` instead)
+    * Run ```python get-pip.py``` (If error try ```sudo python get-pip.py``` instead)
 
-* Install Django: ```python pip install Django``` (Similarly, if error try ```python sudo pip install Django```)
+* Install Django: ```pip install Django``` (Similarly, if error try ```sudo pip install Django```)
 
-* Install Django REST Framework: ```python pip install djangorestframework```
+* Install Django REST Framework: ```pip install djangorestframework```
 
-* Install Pillow ```python pip install Pillow```
+* Install Pillow ```pip install Pillow```
 
 ###How to run REST Server###
 * python manage.py runserver x.x.x.:port
