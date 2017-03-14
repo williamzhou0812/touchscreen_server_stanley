@@ -14,7 +14,6 @@ Utilising MySQL Database system
     * Securely Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
     * Run ```python python get-pip.py``` (If error try ```python sudo python get-pip.py``` instead)
 
-
 * Install Django: ```python pip install Django``` (Similarly, if error try ```python sudo pip install Django```)
 
 * Install Django REST Framework: ```python pip install djangorestframework```
