@@ -34,6 +34,9 @@ class Event(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False)
+    untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     numberOfClicks = models.IntegerField(default=0)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod')
@@ -100,7 +103,7 @@ class Map(models.Model):
         '''Checks whether this map instance is an event map'''
         return not self.event is None
 
-    accomodation = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='mapAccomodation', null=True)
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='mapAccomodation', null=True)
     def is_accomodation_map(self):
         '''Checks whether this map instance is an accomodation map'''
         return not self.accomodation is None
@@ -125,6 +128,11 @@ class Advertisement(models.Model):
     def is_accomodation_advertisement(self):
         '''Checks whether this advertisement instance is an accomodation advertisement'''
         return not self.accomodation is None
+
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='advertisementPeriod', null=True)
+    def is_period_advertisement(self):
+        '''Checks whether this advertisement instance is part of the event period advertisement'''
+        return not self.period is None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='advertisementEvent', null=True)
     def is_event_advertisement(self):
@@ -140,6 +148,11 @@ class Advertisement(models.Model):
     def is_destination_advertisement(self):
         '''Checks whether this advertisement instance is a destination advertisement'''
         return not self.destination is None
+
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='advertisementActivity', null=True)
+    def is_activity_advertisement(self):
+        '''Checks whether this advertisement instance is an activity advertisement'''
+        return not self.activity is None
 
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
@@ -161,6 +174,11 @@ class Video(models.Model):
     def is_accomodation_video(self):
         '''Checks whether this video instance is an accomodation video'''
         return not self.accomodation is None
+
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='videoPeriod', null=True)
+    def is_period_video(self):
+        '''Checks whether this video instance is part of the event period video'''
+        return not self.period is None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='videoEvent', null=True)
     def is_event_video(self):
@@ -203,12 +221,17 @@ class Image(models.Model):
         '''Checks whether this image instance is an accomodation image'''
         return not self.accomodation is None
 
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='imagePeriod', null=True)
+    def is_period_image(self):
+        '''Checks whether this image instance is part of the events period image'''
+        return not self.accomodation is None
+    
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='imageEvent', null=True)
     def is_event_image(self):
         '''Checks whether this image instance is an event image'''
         return not self.event is None
     
-    restaurant = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='imageRestaurant', null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='imageRestaurant', null=True)
     def is_restaurant_image(self):
         '''Checks whether this image instance is a restaurant image'''
         return not self.restaurant is None
