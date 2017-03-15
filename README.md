@@ -4,7 +4,7 @@ Django Rest Server for NAC Touchscreen Project
 
 Utilising MySQL Database system
 
-### How do I get set up? ###
+### How do I get set up?
 
 * Install [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) 
 
@@ -20,8 +20,13 @@ Utilising MySQL Database system
 
 * Install Pillow ```pip install Pillow```
 
-###How to run REST Server###
-* python manage.py runserver x.x.x.:port
+###How to run REST Server
+* Navigate to project directory via Terminal
+* Execute ```python manage.py runserver``` for local testing; alternatively, execute ```python manage.py runserver x.x.x.:port```
+to allow multiple device access via LAN/WLAN
+
+###Testing Rest Server
+* Install [Postman](https://www.getpostman.com/apps)
 
 ###Sample admin account (can be changed later)###
 * username = root
