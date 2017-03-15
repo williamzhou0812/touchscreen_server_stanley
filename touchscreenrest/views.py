@@ -91,11 +91,78 @@ class PeriodDetail(generics.RetrieveUpdateAPIView):
     serializer_class = PeriodSerializer
 
     def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.numberOfClicks = request.data.get("click")
+        instance.save()
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
+class EventList(generics.ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
+class EventDetail(generics.RetrieveUpdateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.numberOfClicks = request.data.get("click")
+        instance.save()
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
+class RestaurantList(generics.ListAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
 
+class RestaurantDetail(generics.RetrieveUpdateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.numberOfClicks = request.data.get("click")
+        instance.save()
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
+class TourList(generics.ListAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
 
+class TourDetail(generics.RetrieveUpdateAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.numberOfClicks = request.data.get("click")
+        instance.save()
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+class AccomodationList(generics.ListAPIView):
+    queryset = Accomodation.objects.all()
+    serializer_class = AccomodationSerializer
+
+class AccomodationDetail(generics.RetrieveUpdateAPIView):
+    queryset = Accomodation.objects.all()
+    serializer_class = AccomodationSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.numberOfClicks = request.data.get("click")
+        instance.save()
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
