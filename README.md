@@ -8,7 +8,7 @@ Utilising MySQL Database system
 
 * Install [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) 
 
-* Install [Python 2.x](https://www.python.org/)
+* Install [Python 2.x](https://www.python.org/downloads/)
 
 * Configure pip (tool for installing Python packages)
     * Securely Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
@@ -28,6 +28,6 @@ to allow multiple device access via LAN/WLAN
 ###Testing Rest Server
 * Install [Postman](https://www.getpostman.com/apps)
 
-###Sample admin account (can be changed later)###
+###Sample admin account (can be changed later)
 * username = root
 * password = root1234
