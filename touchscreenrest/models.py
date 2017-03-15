@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import RegexValidator
+from datetime import datetime
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
@@ -34,9 +35,9 @@ class Event(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False)
-    untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False)
+    description = models.TextField(default='')
+    fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now)
+    untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now)
     numberOfClicks = models.IntegerField(default=0)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod')
@@ -51,9 +52,9 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=300, blank=False)
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
-    logo = models.ImageField(upload_to='restaurant_logos/')
+    logo = models.ImageField(upload_to='restaurant_logos/', null=True)
     numberOfClicks = models.IntegerField(default=0)
-    order = models.IntegerField(blank=False)
+    order = models.IntegerField(blank=False, default=1)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
 
 class Deal(models.Model):
@@ -82,9 +83,9 @@ class Accomodation(models.Model):
     address = models.CharField(max_length=300, blank=False)
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
-    logo = models.ImageField(upload_to='accomodation_logos/')
+    logo = models.ImageField(upload_to='accomodation_logos/', null=True)
     numberOfClicks = models.IntegerField(default=0)
-    order = models.IntegerField(blank=False)
+    order = models.IntegerField(blank=False, default=1)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
 
 class Map(models.Model):
@@ -121,11 +122,12 @@ class Advertisement(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    company = models.CharField(max_length=200, blank=False, default='')
     description = models.TextField()
     inTopDeal = models.BooleanField(blank=False, default=False)
     numberOfShows = models.IntegerField(default=0)
     numberOfClicks = models.IntegerField(default=0)
-    orderTopDeal = models.IntegerField(blank=False)
+    orderTopDeal = models.IntegerField(blank=False, default=1)
     highlighted = models.BooleanField(blank=False, default=False)
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', null=True)
