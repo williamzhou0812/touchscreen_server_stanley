@@ -22,3 +22,7 @@ Utilising MySQL Database system
 
 ###How to run REST Server###
 * python manage.py runserver x.x.x.:port
+
+###Sample admin account###
+* username = root
+* password = root1234
