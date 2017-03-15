@@ -6,7 +6,7 @@ class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
         model = Image
-        fields = ('id', 'title', 'isRestaurantLogo', 'isAccomodationLogo')
+        fields = ('id', 'title', 'imageFile')
 
 class VideoSerializer(serializers.ModelSerializer):
     videoFile = serializers.FileField(max_length=None, use_url=True)
@@ -73,7 +73,7 @@ class PeriodSerializer(serializers.ModelSerializer):
     advertisementPeriod = AdvertisementSerializer(many=True)
     class Meta:
         model = Period
-        fields = ('id', 'title', 'numberOfClicks', 'videoPeriod', 'imagePeriod',
+        fields = ('id', 'title', 'numberOfClicks', 'eventPeriod', 'videoPeriod', 'imagePeriod',
                   'advertisementPeriod')
 
 class RestaurantSerializer(serializers.ModelSerializer):
@@ -96,4 +96,5 @@ class DestinationSerializer(serializers.ModelSerializer):
     advertisementDestination = AdvertisementSerializer(many=True)
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'numberOfClicks', 'videoDestination', 'imageDestination', 'advertisementDestination')
+        fields = ('id', 'title', 'numberOfClicks', 'eventDestination', 'accomodationDestination', 'restaurantDestination',
+                  'videoDestination', 'imageDestination', 'advertisementDestination')

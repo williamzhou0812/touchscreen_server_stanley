@@ -52,7 +52,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=300, blank=False)
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
-    logo = models.ImageField(upload_to='restaurant_logos/', null=True)
+    logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0)
     order = models.IntegerField(blank=False, default=1)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
@@ -83,7 +83,7 @@ class Accomodation(models.Model):
     address = models.CharField(max_length=300, blank=False)
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
-    logo = models.ImageField(upload_to='accomodation_logos/', null=True)
+    logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0)
     order = models.IntegerField(blank=False, default=1)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
@@ -96,22 +96,22 @@ class Map(models.Model):
     title = models.CharField(max_length=200, blank=False)
     mapImage = models.ImageField(upload_to='maps/')
     
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='mapTour', null=True)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='mapTour', blank=True, null=True)
     def is_tour_map(self):
         '''Checks whether this map instance is a tour map'''
         return not self.tour is None
 
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='mapRestaurant', null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='mapRestaurant', blank=True, null=True)
     def is_restaurant_map(self):
         '''Checks whether this map instance is a restaurant map'''
         return  not self.restaurant is None
     
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='mapEvent', null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='mapEvent', blank=True, null=True)
     def is_event_map(self):
         '''Checks whether this map instance is an event map'''
         return not self.event is None
 
-    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='mapAccomodation', null=True)
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='mapAccomodation', blank=True, null=True)
     def is_accomodation_map(self):
         '''Checks whether this map instance is an accomodation map'''
         return not self.accomodation is None
@@ -130,37 +130,37 @@ class Advertisement(models.Model):
     orderTopDeal = models.IntegerField(blank=False, default=1)
     highlighted = models.BooleanField(blank=False, default=False)
     
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', null=True)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
         '''Checks whether this advertisement instance is a tour advertisement'''
         return not self.tour is None
 
-    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='advertisementAccomodation', null=True)
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='advertisementAccomodation', blank=True, null=True)
     def is_accomodation_advertisement(self):
         '''Checks whether this advertisement instance is an accomodation advertisement'''
         return not self.accomodation is None
 
-    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='advertisementPeriod', null=True)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='advertisementPeriod', blank=True, null=True)
     def is_period_advertisement(self):
         '''Checks whether this advertisement instance is part of the event period advertisement'''
         return not self.period is None
     
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='advertisementEvent', null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='advertisementEvent', blank=True, null=True)
     def is_event_advertisement(self):
         '''Checks whether this advertisement instance is an event advertisement'''
         return not self.event is None
     
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='advertisementRestaurant', null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='advertisementRestaurant', blank=True, null=True)
     def is_restaurant_advertisement(self):
         '''Checks whether this advertisement instance is a restaurant advertisement'''
         return not self.restaurant is None
 
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='advertisementDestination', null=True)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='advertisementDestination', blank=True, null=True)
     def is_destination_advertisement(self):
         '''Checks whether this advertisement instance is a destination advertisement'''
         return not self.destination is None
 
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='advertisementActivity', null=True)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='advertisementActivity', blank=True, null=True)
     def is_activity_advertisement(self):
         '''Checks whether this advertisement instance is an activity advertisement'''
         return not self.activity is None
@@ -176,32 +176,32 @@ class Video(models.Model):
     title = models.CharField(max_length=200, blank=False)
     videoFile = models.FileField(upload_to='videos/', blank=False, null=False)
 
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='videoTour', null=True)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='videoTour', blank=True, null=True)
     def is_tour_video(self):
         '''Checks whether this video instance is a tour video'''
         return not self.tour is None
 
-    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='videoAccomodation', null=True)
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='videoAccomodation', blank=True, null=True)
     def is_accomodation_video(self):
         '''Checks whether this video instance is an accomodation video'''
         return not self.accomodation is None
 
-    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='videoPeriod', null=True)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='videoPeriod', blank=True, null=True)
     def is_period_video(self):
         '''Checks whether this video instance is part of the event period video'''
         return not self.period is None
     
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='videoEvent', null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='videoEvent', blank=True, null=True)
     def is_event_video(self):
         '''Checks whether this video instance is an event video'''
         return not self.event is None
     
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='videoRestaurant', null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='videoRestaurant', blank=True, null=True)
     def is_restaurant_video(self):
         '''Checks whether this video instance is a restaurant video'''
         return not self.restaurant is None
     
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='videoDestination', null = True)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='videoDestination', blank=True, null=True)
     def is_destination_video(self):
         '''Checks whether this video instance is a destination video'''
         return not self.destination is None
@@ -209,7 +209,7 @@ class Video(models.Model):
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
 
-    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='videoAdvertisement', null=True)
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='videoAdvertisement', blank=True, null=True)
     def is_advertisement_video(self):
         '''Checks whether this video instance is an advertisement video'''
         return not self.advertisement is None
@@ -222,32 +222,32 @@ class Image(models.Model):
     title = models.CharField(max_length=200, blank=False)
     imageFile = models.ImageField(upload_to='images/', blank=False, null=False)
 
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imageTour', null=True)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imageTour', blank=True, null=True)
     def is_tour_image(self):
         '''Checks whether this image instance is a tour image'''
         return not self.tour is None
 
-    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='imageAccomodation', null=True)
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='imageAccomodation', blank=True, null=True)
     def is_accomodation_image(self):
         '''Checks whether this image instance is an accomodation image'''
         return not self.accomodation is None
 
-    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='imagePeriod', null=True)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='imagePeriod', blank=True, null=True)
     def is_period_image(self):
         '''Checks whether this image instance is part of the events period image'''
         return not self.accomodation is None
     
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='imageEvent', null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='imageEvent', blank=True, null=True)
     def is_event_image(self):
         '''Checks whether this image instance is an event image'''
         return not self.event is None
     
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='imageRestaurant', null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='imageRestaurant', blank=True, null=True)
     def is_restaurant_image(self):
         '''Checks whether this image instance is a restaurant image'''
         return not self.restaurant is None
 
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='imageDestination', null=True)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='imageDestination', blank=True, null=True)
     def is_destination_image(self):
         '''Checks whether this image instance is a destination image'''
         return not self.destination is None
@@ -255,6 +255,6 @@ class Image(models.Model):
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
 
-    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', null=True)
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', blank=True, null=True)
     def is_advertisement_image(self):
         return not self.advertisement is None
