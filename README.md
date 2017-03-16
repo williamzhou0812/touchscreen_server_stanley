@@ -22,8 +22,14 @@ Utilising MySQL Database system
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
-* Execute ```python manage.py runserver``` for local testing; alternatively, execute ```python manage.py runserver x.x.x.:port```
+* Execute ```python manage.py runserver``` for local testing
+* Alternatively, execute ```python manage.py runserver x.x.x.x:port```
 to allow multiple device access via LAN/WLAN
+    * x.x.x.x is the current device's IP Address. [Here's](http://www.wikihow.com/Find-Your-IP-Address-on-a-Mac) how to
+     check your IP address on a Mac.
+    * You might have to disable your firewall to allow different devices to request data from the REST Server
+    * Before running the server, please add your IP address as ```'x.x.x.x'``` inside ```settings.py``` under ```ALLOWED_HOSTS``` so it will look something similar to this:
+    ```ALLOWED_HOSTS = ['127.0.0.1']```
 
 ###Testing Rest Server
 * Install [Postman](https://www.getpostman.com/apps)
