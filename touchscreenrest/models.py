@@ -11,7 +11,7 @@ class Activity(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    numberOfClicks = models.IntegerField(default=0)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
 
 class Destination(models.Model):
     def __str__(self):
@@ -19,7 +19,7 @@ class Destination(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    numberOfClicks = models.IntegerField(default=0)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
 
 class Period(models.Model):
     def __str__(self):
@@ -27,7 +27,7 @@ class Period(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    numberOfClicks = models.IntegerField(default=0)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
 
 class Event(models.Model):
     def __str__(self):
@@ -36,9 +36,11 @@ class Event(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField(default='')
-    fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now)
-    untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now)
-    numberOfClicks = models.IntegerField(default=0)
+    fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now,
+                                     verbose_name="From event date")
+    untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now,
+                                      verbose_name="Until event date")
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod')
 
@@ -53,8 +55,8 @@ class Restaurant(models.Model):
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
-    numberOfClicks = models.IntegerField(default=0)
-    order = models.IntegerField(blank=False, default=1)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=1, verbose_name="Restaurant order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
 
 class Deal(models.Model):
@@ -84,8 +86,8 @@ class Accomodation(models.Model):
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
-    numberOfClicks = models.IntegerField(default=0)
-    order = models.IntegerField(blank=False, default=1)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=1, verbose_name="Accomodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
 
 class Map(models.Model):
@@ -124,11 +126,11 @@ class Advertisement(models.Model):
     title = models.CharField(max_length=200, blank=False)
     company = models.CharField(max_length=200, blank=False, default='')
     description = models.TextField()
-    inTopDeal = models.BooleanField(blank=False, default=False)
-    numberOfShows = models.IntegerField(default=0)
-    numberOfClicks = models.IntegerField(default=0)
-    orderTopDeal = models.IntegerField(blank=False, default=1)
-    highlighted = models.BooleanField(blank=False, default=False)
+    inTopDeal = models.BooleanField(blank=False, default=False, verbose_name="In top deals?")
+    numberOfShows = models.IntegerField(default=0, verbose_name="Number of shows")
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    orderTopDeal = models.IntegerField(blank=False, default=1, verbose_name="Top deal order display")
+    highlighted = models.BooleanField(blank=False, default=False, verbose_name="In featured ads?")
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
