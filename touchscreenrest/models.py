@@ -99,22 +99,22 @@ class Map(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='mapTour', blank=True, null=True)
     def is_tour_map(self):
         '''Checks whether this map instance is a tour map'''
-        return not self.tour is None
+        return self.tour is not None
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='mapRestaurant', blank=True, null=True)
     def is_restaurant_map(self):
         '''Checks whether this map instance is a restaurant map'''
-        return  not self.restaurant is None
+        return self.restaurant is not None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='mapEvent', blank=True, null=True)
     def is_event_map(self):
         '''Checks whether this map instance is an event map'''
-        return not self.event is None
+        return self.event is not None
 
     accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='mapAccomodation', blank=True, null=True)
     def is_accomodation_map(self):
         '''Checks whether this map instance is an accomodation map'''
-        return not self.accomodation is None
+        return self.accomodation is not None
 
 class Advertisement(models.Model):
     def __str__(self):
@@ -133,37 +133,37 @@ class Advertisement(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
         '''Checks whether this advertisement instance is a tour advertisement'''
-        return not self.tour is None
+        return self.tour is not None
 
     accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='advertisementAccomodation', blank=True, null=True)
     def is_accomodation_advertisement(self):
         '''Checks whether this advertisement instance is an accomodation advertisement'''
-        return not self.accomodation is None
+        return self.accomodation is not None
 
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='advertisementPeriod', blank=True, null=True)
     def is_period_advertisement(self):
         '''Checks whether this advertisement instance is part of the event period advertisement'''
-        return not self.period is None
+        return self.period is not None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='advertisementEvent', blank=True, null=True)
     def is_event_advertisement(self):
         '''Checks whether this advertisement instance is an event advertisement'''
-        return not self.event is None
+        return self.event is not None
     
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='advertisementRestaurant', blank=True, null=True)
     def is_restaurant_advertisement(self):
         '''Checks whether this advertisement instance is a restaurant advertisement'''
-        return not self.restaurant is None
+        return self.restaurant is not None
 
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='advertisementDestination', blank=True, null=True)
     def is_destination_advertisement(self):
         '''Checks whether this advertisement instance is a destination advertisement'''
-        return not self.destination is None
+        return self.destination is not None
 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='advertisementActivity', blank=True, null=True)
     def is_activity_advertisement(self):
         '''Checks whether this advertisement instance is an activity advertisement'''
-        return not self.activity is None
+        return self.activity is not None
 
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
@@ -179,32 +179,32 @@ class Video(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='videoTour', blank=True, null=True)
     def is_tour_video(self):
         '''Checks whether this video instance is a tour video'''
-        return not self.tour is None
+        return self.tour is not None
 
     accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='videoAccomodation', blank=True, null=True)
     def is_accomodation_video(self):
         '''Checks whether this video instance is an accomodation video'''
-        return not self.accomodation is None
+        return self.accomodation is not None
 
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='videoPeriod', blank=True, null=True)
     def is_period_video(self):
         '''Checks whether this video instance is part of the event period video'''
-        return not self.period is None
+        return self.period is not None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='videoEvent', blank=True, null=True)
     def is_event_video(self):
         '''Checks whether this video instance is an event video'''
-        return not self.event is None
+        return self.event is not None
     
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='videoRestaurant', blank=True, null=True)
     def is_restaurant_video(self):
         '''Checks whether this video instance is a restaurant video'''
-        return not self.restaurant is None
+        return self.restaurant is not None
     
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='videoDestination', blank=True, null=True)
     def is_destination_video(self):
         '''Checks whether this video instance is a destination video'''
-        return not self.destination is None
+        return self.destination is not None
     
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
@@ -212,7 +212,7 @@ class Video(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='videoAdvertisement', blank=True, null=True)
     def is_advertisement_video(self):
         '''Checks whether this video instance is an advertisement video'''
-        return not self.advertisement is None
+        return self.advertisement is not None
 
 class Image(models.Model):
     def __str__(self):
@@ -225,36 +225,36 @@ class Image(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imageTour', blank=True, null=True)
     def is_tour_image(self):
         '''Checks whether this image instance is a tour image'''
-        return not self.tour is None
+        return self.tour is not None
 
     accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='imageAccomodation', blank=True, null=True)
     def is_accomodation_image(self):
         '''Checks whether this image instance is an accomodation image'''
-        return not self.accomodation is None
+        return self.accomodation is not None
 
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='imagePeriod', blank=True, null=True)
     def is_period_image(self):
         '''Checks whether this image instance is part of the events period image'''
-        return not self.accomodation is None
+        return self.accomodation is not None
     
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='imageEvent', blank=True, null=True)
     def is_event_image(self):
         '''Checks whether this image instance is an event image'''
-        return not self.event is None
+        return self.event is not None
     
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='imageRestaurant', blank=True, null=True)
     def is_restaurant_image(self):
         '''Checks whether this image instance is a restaurant image'''
-        return not self.restaurant is None
+        return self.restaurant is not None
 
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='imageDestination', blank=True, null=True)
     def is_destination_image(self):
         '''Checks whether this image instance is a destination image'''
-        return not self.destination is None
+        return self.destination is not None
 
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
 
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', blank=True, null=True)
     def is_advertisement_image(self):
-        return not self.advertisement is None
+        return self.advertisement is not None
