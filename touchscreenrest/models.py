@@ -2,8 +2,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import RegexValidator
 from datetime import datetime
+from django.utils.safestring import mark_safe
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+
 
 class Activity(models.Model):
     def __str__(self):
@@ -58,6 +61,9 @@ class Restaurant(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=1, verbose_name="Restaurant order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Restaurant Logo'
 
 class Deal(models.Model):
     def __str__(self):
@@ -89,6 +95,10 @@ class Accomodation(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=1, verbose_name="Accomodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Accomodation Logo'
+
 
 class Map(models.Model):
     def __str__(self):
@@ -118,6 +128,10 @@ class Map(models.Model):
         '''Checks whether this map instance is an accomodation map'''
         return self.accomodation is not None
 
+    def map_preview(self):
+        return mark_safe('''<img src="%s" />''' % self.mapImage.url)
+    map_preview.short_description = 'Map preview'
+
 class Advertisement(models.Model):
     def __str__(self):
         return self.title
@@ -126,11 +140,11 @@ class Advertisement(models.Model):
     title = models.CharField(max_length=200, blank=False)
     company = models.CharField(max_length=200, blank=False, default='')
     description = models.TextField()
-    inTopDeal = models.BooleanField(blank=False, default=False, verbose_name="In top deals?")
+    inTopDeal = models.BooleanField(blank=False, default=False, verbose_name="In top deals?", choices=BOOL_CHOICES)
     numberOfShows = models.IntegerField(default=0, verbose_name="Number of shows")
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     orderTopDeal = models.IntegerField(blank=False, default=1, verbose_name="Top deal order display")
-    highlighted = models.BooleanField(blank=False, default=False, verbose_name="In featured ads?")
+    highlighted = models.BooleanField(blank=False, default=False, verbose_name="In featured ads?", choices=BOOL_CHOICES)
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
@@ -216,6 +230,10 @@ class Video(models.Model):
         '''Checks whether this video instance is an advertisement video'''
         return self.advertisement is not None
 
+    def video_preview(self):
+        return mark_safe('''<video src="%s" controls>Your browser does not support the video tag.</video>''' % self.videoFile.url)
+    video_preview.short_description = 'Video preview'
+
 class Image(models.Model):
     def __str__(self):
         return self.title
@@ -260,3 +278,7 @@ class Image(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', blank=True, null=True)
     def is_advertisement_image(self):
         return self.advertisement is not None
+
+    def image_preview(self):
+        return mark_safe('''<img src="%s" />''' % self.imageFile.url)
+    image_preview.short_description = 'Image preview'
