@@ -22,65 +22,59 @@ class ImageTour(ListAPIView):
     queryset = Image.objects.exclude(tour=None)
     serializer_class = ImageSerializer
 
-class ImageTourDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(tour_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImageTourDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(tour_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 
 class ImageAccomodation(ListAPIView):
     queryset = Image.objects.exclude(accomodation=None)
     serializer_class = ImageSerializer
 
-class ImageAccomodationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(accomodation_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImageAccomodationDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(accomodation_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 
 class ImagePeriod(ListAPIView):
     queryset = Image.objects.exclude(period=None)
     serializer_class = ImageSerializer
 
-class ImagePeriodDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(period_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImagePeriodDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(period_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 class ImageEvent(ListAPIView):
     queryset = Image.objects.exclude(event=None)
     serializer_class = ImageSerializer
 
-class ImageEventDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(event_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImageEventDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(event_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 
 class ImageRestaurant(ListAPIView):
     queryset = Image.objects.exclude(restaurant=None)
     serializer_class = ImageSerializer
 
-class ImageRestaurantDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(restaurant_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImageRestaurantDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(restaurant_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 
 class ImageDestination(ListAPIView):
     queryset = Image.objects.exclude(destination=None)
     serializer_class = ImageSerializer
 
-class ImageDestinationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Image.objects.filter(destination_id=pk)
-        serializer = ImageSerializer(instance, many=True)
-        return Response(serializer.data)
+class ImageDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 
 class VideoList(ListAPIView):
@@ -95,65 +89,59 @@ class VideoTour(ListAPIView):
     queryset = Video.objects.exclude(tour=None)
     serializer_class = VideoSerializer
 
-class VideoTourDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(tour_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
+class VideoTourDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(tour_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 
 class VideoAccomodation(ListAPIView):
     queryset = Video.objects.exclude(accomodation=None)
     serializer_class = VideoSerializer
 
-class VideoAccomodationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(accomodation_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
-
+class VideoAccomodationDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(accomodation_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 class VideoPeriod(ListAPIView):
     queryset = Video.objects.exclude(period=None)
     serializer_class = VideoSerializer
 
-class VideoPeriodDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(period_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
+class VideoPeriodDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(period_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 class VideoEvent(ListAPIView):
     queryset = Video.objects.exclude(event=None)
     serializer_class = VideoSerializer
 
-class VideoEventDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(event_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
+class VideoEventDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(event_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 
 class VideoRestaurant(ListAPIView):
     queryset = Video.objects.exclude(restaurant=None)
     serializer_class = VideoSerializer
 
-class VideoRestaurantDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(restaurant_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
+class VideoRestaurantDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(restaurant_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 
 class VideoDestination(ListAPIView):
     queryset = Video.objects.exclude(destination=None)
     serializer_class = VideoSerializer
 
-class VideoDestinationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Video.objects.filter(destination_id=pk)
-        serializer = VideoSerializer(instance, many=True)
-        return Response(serializer.data)
+class VideoDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
+
 
 class MapList(ListAPIView):
     queryset = Map.objects.all()
@@ -168,61 +156,54 @@ class MapTour(ListAPIView):
     queryset = Map.objects.exclude(tour=None)
     serializer_class = MapSerializer
 
-class MapTourDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Map.objects.filter(tour_id=pk)
-        serializer = MapSerializer(instance, many=True)
-        return Response(serializer.data)
-
+class MapTourDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(tour_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
 
 class MapRestaurant(ListAPIView):
     queryset = Map.objects.exclude(restaurant=None)
     serializer_class = MapSerializer
 
-class MapRestaurantDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Map.objects.filter(restaurant_id=pk)
-        serializer = MapSerializer(instance, many=True)
-        return Response(serializer.data)
-
+class MapRestaurantDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(restaurant_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
 
 class MapEvent(ListAPIView):
     queryset = Map.objects.exclude(event=None)
     serializer_class = MapSerializer
 
-class MapEventDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Map.objects.filter(event_id=pk)
-        serializer = MapSerializer(instance, many=True)
-        return Response(serializer.data)
+class MapEventDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(event_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
 
 
 class MapAccomodation(ListAPIView):
     queryset = Map.objects.exclude(accomodation=None)
     serializer_class = MapSerializer
 
-class MapAccomodationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Map.objects.filter(accomodation_id=pk)
-        serializer = MapSerializer(instance, many=True)
-        return Response(serializer.data)
+class MapAccomodationDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(accomodation_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
 
 
 class AdvertisementList(ListAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
 
-class AdvertisementDetail(APIView):
+class AdvertisementDetail(RetrieveAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementPost(APIView):
     def get_object(self, pk):
         try:
             return Advertisement.objects.get(pk=pk)
         except Advertisement.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = AdvertisementSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -266,94 +247,86 @@ class AdvertisementTour(ListAPIView):
     queryset = Advertisement.objects.exclude(tour=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementTourDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(tour_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementTourDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(tour_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementAccomodation(ListAPIView):
     queryset = Advertisement.objects.exclude(accomodation=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementAccomodationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(accomodation_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementAccomodationDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(accomodation_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementPeriod(ListAPIView):
     queryset = Advertisement.objects.exclude(period=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementPeriodDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(period_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementPeriodDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(period_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementEvent(ListAPIView):
     queryset = Advertisement.objects.exclude(event=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementEventDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(event_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementEventDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(event_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementRestaurant(ListAPIView):
     queryset = Advertisement.objects.exclude(restaurant=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementRestaurantDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(restaurant_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementRestaurantDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(restaurant_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementDestination(ListAPIView):
     queryset = Advertisement.objects.exclude(destination=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementDestinationDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(destination_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class AdvertisementActivity(ListAPIView):
     queryset = Advertisement.objects.exclude(activity=None)
     serializer_class = AdvertisementSerializer
 
-class AdvertisementActivityDetail(APIView):
-    def get(self, request, pk, format=None):
-        instance = Advertisement.objects.filter(activity_id=pk)
-        serializer = AdvertisementSerializer(instance, many=True)
-        return Response(serializer.data)
+class AdvertisementActivityDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(activity_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 
 class ActivityList(ListAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-class ActivityDetail(APIView):
+class ActivityDetail(RetrieveAPIView):
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+
+class ActivityPost(APIView):
     def get_object(self, pk):
         try:
             return Activity.objects.get(pk=pk)
         except Activity.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = ActivitySerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -366,17 +339,16 @@ class DestinationList(ListAPIView):
     queryset = Destination.objects.all()
     serializer_class = DestinationSerializer
 
-class DestinationDetail(APIView):
+class DestinationDetail(RetrieveAPIView):
+    queryset = Destination.objects.all()
+    serializer_class = DestinationSerializer
+
+class DestinationPost(APIView):
     def get_object(self, pk):
         try:
             return Destination.objects.get(pk=pk)
         except Destination.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = DestinationSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -389,17 +361,16 @@ class PeriodList(ListAPIView):
     queryset = Period.objects.all()
     serializer_class = PeriodSerializer
 
-class PeriodDetail(APIView):
+class PeriodDetail(RetrieveAPIView):
+    queryset = Period.objects.all()
+    serializer_class = PeriodSerializer
+
+class PeriodPost(APIView):
     def get_object(self, pk):
         try:
             return Period.objects.get(pk=pk)
         except Period.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = PeriodSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -412,17 +383,16 @@ class EventList(ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-class EventDetail(APIView):
+class EventDetail(RetrieveAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+class EventPost(APIView):
     def get_object(self, pk):
         try:
             return Event.objects.get(pk=pk)
         except Event.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = EventSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -435,17 +405,16 @@ class RestaurantList(ListAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
-class RestaurantDetail(APIView):
+class RestaurantDetail(RetrieveAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+
+class RestaurantPost(APIView):
     def get_object(self, pk):
         try:
             return Restaurant.objects.get(pk=pk)
         except Restaurant.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = RestaurantSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -458,17 +427,16 @@ class TourList(ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
 
-class TourDetail(APIView):
+class TourDetail(RetrieveAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
+
+class TourPost(APIView):
     def get_object(self, pk):
         try:
             return Tour.objects.get(pk=pk)
         except Tour.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = TourSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
@@ -481,17 +449,16 @@ class AccomodationList(ListAPIView):
     queryset = Accomodation.objects.all()
     serializer_class = AccomodationSerializer
 
-class AccomodationDetail(APIView):
+class AccomodationDetail(RetrieveAPIView):
+    queryset = Accomodation.objects.all()
+    serializer_class = AccomodationSerializer
+
+class AccomodationPost(APIView):
     def get_object(self, pk):
         try:
             return Accomodation.objects.get(pk=pk)
         except Accomodation.DoesNotExist:
             raise Http404
-
-    def get(self, request, pk, format=None):
-        instance = self.get_object(pk)
-        serializer = AccomodationSerializer(instance)
-        return Response(serializer.data)
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)

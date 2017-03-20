@@ -46,6 +46,7 @@ urlpatterns = [
 
     url(r'^advertisement/$', views.AdvertisementList.as_view()),
     url(r'^advertisement/(?P<pk>[0-9]+)/$', views.AdvertisementDetail.as_view()),
+    url(r'^advertisementpost/(?P<pk>[0-9]+)/$', views.AdvertisementPost.as_view()),
     url(r'^topdeal/$', views.AdvertisementTopDeal.as_view()),
     url(r'^featuredad/$', views.AdvertisementHighlighted.as_view()),
     url(r'^adstour/$', views.AdvertisementTour.as_view()),
@@ -65,24 +66,31 @@ urlpatterns = [
 
     url(r'^activity/$', views.ActivityList.as_view()),
     url(r'^activity/(?P<pk>[0-9]+)/$', views.ActivityDetail.as_view()),
+    url(r'^activitypost/(?P<pk>[0-9]+)/$', views.ActivityPost.as_view()),
 
     url(r'^destination/$', views.DestinationList.as_view()),
     url(r'^destination/(?P<pk>[0-9]+)/$', views.DestinationDetail.as_view()),
+    url(r'^destinationpost/(?P<pk>[0-9]+)/$', views.DestinationPost.as_view()),
 
     url(r'^period/$', views.PeriodList.as_view()),
     url(r'^period/(?P<pk>[0-9]+)/$', views.PeriodDetail.as_view()),
+    url(r'^periodpost/(?P<pk>[0-9]+)/$', views.PeriodPost.as_view()),
 
     url(r'^event/$', views.EventList.as_view()),
     url(r'^event/(?P<pk>[0-9]+)/$', views.EventDetail.as_view()),
+    url(r'^eventpost/(?P<pk>[0-9]+)/$', views.EventPost.as_view()),
 
     url(r'^restaurant/$', views.RestaurantList.as_view()),
     url(r'^restaurant/(?P<pk>[0-9]+)/$', views.RestaurantDetail.as_view()),
+    url(r'^restaurantpost/(?P<pk>[0-9]+)/$', views.RestaurantPost.as_view()),
 
     url(r'^tour/$', views.TourList.as_view()),
     url(r'^tour/(?P<pk>[0-9]+)/$', views.TourDetail.as_view()),
+    url(r'^tourpost/(?P<pk>[0-9]+)/$', views.TourPost.as_view()),
 
     url(r'^accomodation/$', views.AccomodationList.as_view()),
     url(r'^accomodation/(?P<pk>[0-9]+)/$', views.AccomodationDetail.as_view()),
+    url(r'^accomodationpost/(?P<pk>[0-9]+)/$', views.AccomodationPost.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
