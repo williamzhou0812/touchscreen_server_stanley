@@ -59,7 +59,7 @@ class Restaurant(models.Model):
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
-    order = models.IntegerField(blank=False, default=1, verbose_name="Restaurant order display")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Restaurant order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
@@ -93,7 +93,7 @@ class Accomodation(models.Model):
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
-    order = models.IntegerField(blank=False, default=1, verbose_name="Accomodation order display")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Accomodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
@@ -143,7 +143,7 @@ class Advertisement(models.Model):
     inTopDeal = models.BooleanField(blank=False, default=False, verbose_name="In top deals?", choices=BOOL_CHOICES)
     numberOfShows = models.IntegerField(default=0, verbose_name="Number of shows")
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
-    orderTopDeal = models.IntegerField(blank=False, default=1, verbose_name="Top deal order display")
+    orderTopDeal = models.IntegerField(blank=False, default=0, verbose_name="Top deal order display")
     highlighted = models.BooleanField(blank=False, default=False, verbose_name="In featured ads?", choices=BOOL_CHOICES)
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)

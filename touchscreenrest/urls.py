@@ -14,6 +14,8 @@ urlpatterns = [
 
     url(r'^advertisement/$', views.AdvertisementList.as_view()),
     url(r'^advertisement/(?P<pk>[0-9]+)/$', views.AdvertisementDetail.as_view()),
+    url(r'topdeal/$', views.AdvertisementTopDeal.as_view()),
+    url(r'featuredad/$', views.AdvertisementHighlighted.as_view()),
 
     url(r'^activity/$', views.ActivityList.as_view()),
     url(r'^activity/(?P<pk>[0-9]+)/$', views.ActivityDetail.as_view()),
