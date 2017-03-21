@@ -1,8 +1,8 @@
 from django.contrib import admin
 from forms import AdvertisementForm
 from django.utils.safestring import mark_safe
-from touchscreenrest.models import Activity, Destination, Period, Event,Restaurant, Tour, Accomodation, Map,\
-    Advertisement, Image, Video
+from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Transportation, Retail, Mining,\
+    EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 
 IMAGE_SRC = '''<img src="%s" />'''
 VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video tag.</video>'''
@@ -12,7 +12,8 @@ class AccomodationImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'period', 'event', 'restaurant', 'destination', 'advertisement')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'destination', 'advertisement')
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
     render_image.short_description = 'Image preview'
@@ -22,7 +23,8 @@ class AccomodationVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('tour', 'period', 'event', 'restaurant', 'destination', 'advertisement')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'destination', 'advertisement')
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
     render_video.short_description = 'Video preview'
@@ -32,7 +34,7 @@ class AccomodationMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'restaurant', 'event')
+    exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event')
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -40,7 +42,8 @@ class AccomodationMapInLine(admin.TabularInline):
 class AccomodationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('tour', 'period', 'event', 'restaurant', 'destination', 'activity')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'destination', 'activity')
     form = AdvertisementForm
 
 class AccomodationAdmin(admin.ModelAdmin):
@@ -85,7 +88,8 @@ admin.site.register(Activity, ActivityAdmin)
 class DestinationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    exclude = ('tour', 'period', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
 
@@ -99,7 +103,8 @@ class DestinationVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('tour', 'period', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -108,7 +113,8 @@ class DestinationVideoInLine(admin.TabularInline):
 class DestinationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('tour', 'period', 'event', 'restaurant', 'accomodation', 'activity')
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'accomodation', 'activity')
     form = AdvertisementForm
 
 class DestinationAdmin(admin.ModelAdmin):
@@ -130,7 +136,8 @@ class PeriodImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'destination', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -141,7 +148,8 @@ class PeriodVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('tour', 'destination', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -150,7 +158,8 @@ class PeriodVideoInLine(admin.TabularInline):
 class PeriodAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('tour', 'destination', 'event', 'restaurant', 'accomodation', 'activity')
+    exclude = ('tour', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'accomodation', 'activity')
     form = AdvertisementForm
 
 class PeriodEventInLine(admin.StackedInline):
@@ -176,7 +185,8 @@ class EventImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'destination', 'period', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'destination', 'period', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -187,7 +197,8 @@ class EventVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('tour', 'destination', 'period', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('tour', 'destination', 'period', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -198,7 +209,7 @@ class EventMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'restaurant')
+    exclude = ('tour', 'accomodation', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -207,7 +218,8 @@ class EventMapInLine(admin.TabularInline):
 class EventAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('tour', 'destination', 'period', 'restaurant', 'accomodation', 'activity')
+    exclude = ('tour', 'destination', 'period', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'accomodation', 'activity')
     form = AdvertisementForm
 
 class EventAdmin(admin.ModelAdmin):
@@ -237,7 +249,8 @@ class RestaurantImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'period', 'event', 'accomodation', 'destination', 'advertisement')
+    exclude = ('tour', 'period', 'event', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -248,7 +261,8 @@ class RestaurantVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('tour', 'period', 'event', 'accomodation', 'destination', 'advertisement')
+    exclude = ('tour', 'period', 'event', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -259,7 +273,7 @@ class RestaurantMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event')
+    exclude = ('tour', 'accomodation', 'event', 'transportation', 'retail', 'mining', 'essentialservice')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -268,7 +282,8 @@ class RestaurantMapInLine(admin.TabularInline):
 class RestaurantAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('tour', 'period', 'event', 'accomodation', 'destination', 'activity')
+    exclude = ('tour', 'period', 'event', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'activity')
     form = AdvertisementForm
 
 class RestaurantAdmin(admin.ModelAdmin):
@@ -295,7 +310,8 @@ class TourImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('period', 'destination', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -306,7 +322,8 @@ class TourVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('period', 'destination', 'event', 'restaurant', 'advertisement', 'accomodation')
+    exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'advertisement', 'accomodation')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -317,7 +334,7 @@ class TourMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('restaurant', 'accomodation', 'event')
+    exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -326,7 +343,8 @@ class TourMapInLine(admin.TabularInline):
 class TourAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
-    exclude = ('period', 'destination', 'event', 'restaurant', 'accomodation', 'activity')
+    exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'accomodation', 'activity')
     form = AdvertisementForm
 
 class TourAdmin(admin.ModelAdmin):
@@ -343,7 +361,12 @@ admin.site.register(Tour, TourAdmin)
 
 ## Start of Map Administration ##
 class MapAdmin(admin.ModelAdmin):
-    fields = ('title', 'mapImage', 'map_preview', 'tour', 'restaurant', 'event', 'accomodation')
+    fieldsets = [
+        ('Map Information', {'fields': ['title', 'mapImage', 'map_preview']}),
+        ('Where to Show Map', {'fields': ['tour', 'restaurant', 'transportation', 'retail', 'mining',
+                                          'essentialservice', 'event', 'accomodation']}
+         ),
+    ]
     readonly_fields = ('map_preview',)
 admin.site.register(Map, MapAdmin)
 ## End of Map Administration ##
@@ -354,7 +377,8 @@ class AdvertisementImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('period', 'destination', 'event', 'restaurant', 'tour', 'accomodation')
+    exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'tour', 'accomodation')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -365,7 +389,8 @@ class AdvertisementVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
-    exclude = ('period', 'destination', 'event', 'restaurant', 'tour', 'accomodation')
+    exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'tour', 'accomodation')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -375,6 +400,10 @@ class AdvertisementAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Advertisement Information', {'fields': ['title', 'company', 'description']}),
         ('Other Settings', {'fields': ['inTopDeal', 'orderTopDeal', 'numberOfShows', 'numberOfClicks', 'highlighted']}),
+        ('Where to Show Advertisement', {'fields': ['tour', 'accomodation', 'period', 'event', 'restaurant',
+                                                    'transportation', 'retail', 'mining', 'essentialservice',
+                                                    'destination', 'activity']}
+         ),
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
     list_display = ('title', 'company')
@@ -387,16 +416,272 @@ admin.site.register(Advertisement, AdvertisementAdmin)
 
 ## Start of Image Administration ##
 class ImageAdmin(admin.ModelAdmin):
-    fields = ('title', 'imageFile', 'image_preview','tour', 'accomodation', 'period', 'event', 'restaurant', 'destination',
-              'advertisement')
+    fieldsets = [
+        ('Image Information', {'fields': ['title', 'imageFile', 'image_preview']}),
+        ('Where to Show Image', {'fields': ['tour', 'accomodation', 'period', 'event', 'restaurant', 'transportation',
+                                            'retail', 'mining', 'essentialservice', 'destination', 'advertisement']}
+         ),
+    ]
     readonly_fields = ('image_preview',)
 admin.site.register(Image, ImageAdmin)
 ## End of Image Administration ##
 
 ## Start of Video Administration ##
 class VideoAdmin(admin.ModelAdmin):
-    fields = ('title', 'videoFile', 'video_preview', 'tour', 'accomodation', 'period', 'event', 'restaurant', 'destination',
-              'advertisement')
+    fieldsets = [
+        ('Video Information', {'fields': ['title', 'videoFile', 'video_preview']}),
+        ('Where to Show Video', {'fields': ['tour', 'accomodation', 'period', 'event', 'restaurant', 'transportation',
+                                            'retail', 'mining', 'essentialservice', 'destination', 'advertisement']}
+         ),
+    ]
     readonly_fields = ('video_preview',)
 admin.site.register(Video, VideoAdmin)
 ## End of Event Administration ##
+
+## Start of Transportation Administration ##
+class TransportationImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class TransportationVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class TransportationMapInLine(admin.TabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'retail', 'mining', 'essentialservice')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.mapImage.url)
+    render_image.short_description = 'Map preview'
+
+class TransportationAdvertisementInLine(admin.StackedInline):
+    model = Advertisement
+    extra = 1
+    exclude = ('tour', 'period', 'event', 'restaurant', 'retail', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'activity')
+    form = AdvertisementForm
+
+class TransportationAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Car Hire & Transportation Information', {'fields': ['title', 'description', 'address', 'phone', 'email',
+                                                              'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+    ]
+    inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine,
+               TransportationAdvertisementInLine]
+    readonly_fields = ('image_logo',)
+    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_filter = ['title', 'destination']
+    search_fields = ['title', 'address', 'destination__title']
+
+    def get_title(self, obj):
+        return obj.destination.title
+    get_title.short_description = "title"
+
+admin.site.register(Transportation, TransportationAdmin)
+## End of Transportation Administration ##
+
+## Start of Retail Administration ##
+class RetailImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class RetailVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class RetailMapInLine(admin.TabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.mapImage.url)
+    render_image.short_description = 'Map preview'
+
+class RetailAdvertisementInLine(admin.StackedInline):
+    model = Advertisement
+    extra = 1
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice', 'accomodation',
+               'destination', 'activity')
+    form = AdvertisementForm
+
+class RetailAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Retail Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+    ]
+    inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine, RetailAdvertisementInLine]
+    readonly_fields = ('image_logo',)
+    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_filter = ['title', 'destination']
+    search_fields = ['title', 'address', 'destination__title']
+
+    def get_title(self, obj):
+        return obj.destination.title
+    get_title.short_description = "title"
+
+admin.site.register(Retail, RetailAdmin)
+## End of Retail Administration ##
+
+## Start of Mining Administration ##
+class MiningImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class MiningVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class MiningMapInLine(admin.TabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.mapImage.url)
+    render_image.short_description = 'Map preview'
+
+class MiningAdvertisementInLine(admin.StackedInline):
+    model = Advertisement
+    extra = 1
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice', 'accomodation',
+               'destination', 'activity')
+    form = AdvertisementForm
+
+class MiningAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Mining Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+    ]
+    inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine, MiningAdvertisementInLine]
+    readonly_fields = ('image_logo',)
+    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_filter = ['title', 'destination']
+    search_fields = ['title', 'address', 'destination__title']
+
+    def get_title(self, obj):
+        return obj.destination.title
+    get_title.short_description = "title"
+
+admin.site.register(Mining, MiningAdmin)
+## End of Mining Administration ##
+
+## Start of Essential Services Administration ##
+class EssentialServiceImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class EssentialServiceVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
+               'destination', 'advertisement')
+
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class EssentialServiceMapInLine(admin.TabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'retail')
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.mapImage.url)
+    render_image.short_description = 'Map preview'
+
+class EssentialServiceAdvertisementInLine(admin.StackedInline):
+    model = Advertisement
+    extra = 1
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
+               'destination', 'activity')
+    form = AdvertisementForm
+
+class EssentialServiceAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Essential Service Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo',
+                                                       'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+    ]
+    inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine,
+               EssentialServiceAdvertisementInLine]
+    readonly_fields = ('image_logo',)
+    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_filter = ['title', 'destination']
+    search_fields = ['title', 'address', 'destination__title']
+
+    def get_title(self, obj):
+        return obj.destination.title
+    get_title.short_description = "title"
+
+admin.site.register(EssentialService, EssentialServiceAdmin)
+## End of Essential Services Administration ##
