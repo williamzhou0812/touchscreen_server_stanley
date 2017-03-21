@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Tour, Accomodation, Map,\
-    Advertisement, Image, Video
+from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Transportation, Retail, Mining,\
+    EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 
 class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
@@ -86,6 +86,52 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks',
                   'order', 'mapRestaurant', 'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
+
+class TransportationSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(max_length=None, use_url=True)
+    mapTransportation = MapSerializer(many=True, read_only=True)
+    videoTransportation = VideoSerializer(many=True, read_only=True)
+    imageTransportation = ImageSerializer(many=True, read_only=True)
+    advertisementTransportation = AdvertisementSerializer(many=True)
+    class Meta:
+        model = Transportation
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks',
+                  'order', 'mapTransportation', 'videoTransportation', 'imageTransportation',
+                  'advertisementTransportation')
+
+class RetailSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(max_length=None, use_url=True)
+    mapRetail = MapSerializer(many=True, read_only=True)
+    videoRetail = VideoSerializer(many=True, read_only=True)
+    imageRetail = ImageSerializer(many=True, read_only=True)
+    advertisementRetail = AdvertisementSerializer(many=True)
+    class Meta:
+        model = Retail
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+                  'mapRetail', 'videoRetail', 'imageRetail', 'advertisementRetail')
+
+class MiningSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(max_length=None, use_url=True)
+    mapMining = MapSerializer(many=True, read_only=True)
+    videoMining = VideoSerializer(many=True, read_only=True)
+    imageMining = ImageSerializer(many=True, read_only=True)
+    advertisementMining = AdvertisementSerializer(many=True)
+    class Meta:
+        model = Retail
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+                  'mapMining', 'videoMining', 'imageMining', 'advertisementMining')
+
+class EssentialServiceSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(max_length=None, use_url=True)
+    mapEssentialService = MapSerializer(many=True, read_only=True)
+    videoEssentialService = VideoSerializer(many=True, read_only=True)
+    imageEssentialService = ImageSerializer(many=True, read_only=True)
+    advertisementEssentialService = AdvertisementSerializer(many=True)
+    class Meta:
+        model = Retail
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+                  'mapEssentialService', 'videoEssentialService', 'imageEssentialService',
+                  'advertisementEssentialService')
 
 class DestinationSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
