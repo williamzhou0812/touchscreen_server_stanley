@@ -65,6 +65,78 @@ class Restaurant(models.Model):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
 
+class Transportation(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    address = models.CharField(max_length=300, blank=False)
+    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    email = models.EmailField(max_length=100)
+    logo = models.ImageField(upload_to='transportation_logos/', blank=True, null=True)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Transportation order display")
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='transportationDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Transportation Logo'
+
+class Retail(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    address = models.CharField(max_length=300, blank=False)
+    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    email = models.EmailField(max_length=100)
+    logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Retail order display")
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='retailDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Retail Logo'
+
+class Mining(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    address = models.CharField(max_length=300, blank=False)
+    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    email = models.EmailField(max_length=100)
+    logo = models.ImageField(upload_to='mining_logos/', blank=True, null=True)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Mining order display")
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='miningDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Mining Logo'
+
+class EssentialService(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    address = models.CharField(max_length=300, blank=False)
+    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    email = models.EmailField(max_length=100)
+    logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Essential Service order display")
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='essentialServiceDestination')
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Essential Service Logo'
+
 class Deal(models.Model):
     def __str__(self):
         return self.title
@@ -117,7 +189,29 @@ class Map(models.Model):
     def is_restaurant_map(self):
         '''Checks whether this map instance is a restaurant map'''
         return self.restaurant is not None
-    
+
+    transportation = models.ForeignKey(Transportation, on_delete=models.CASCADE, related_name='mapTransportation',
+                                       blank=True, null=True)
+    def is_transportation_map(self):
+        '''Checks whether this map instance is a transportation map'''
+        return self.transportation is not None
+
+    retail = models.ForeignKey(Retail, on_delete=models.CASCADE, related_name='mapRetail', blank=True, null=True)
+    def is_retail_map(self):
+        '''Checks whether this map instance is a retail map'''
+        return self.retail is not None
+
+    mining = models.ForeignKey(Mining, on_delete=models.CASCADE, related_name='mapMining', blank=True, null=True)
+    def is_mining_map(self):
+        '''Checks whether this map instance is a mining map'''
+        return self.mining is not None
+
+    essentialservice = models.ForeignKey(EssentialService, on_delete=models.CASCADE, related_name='mapEssentialService',
+                                     blank=True, null=True)
+    def is_essential_service_map(self):
+        '''Checks whether this map instance is an essential service map'''
+        return self.essentialservice is not None
+
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='mapEvent', blank=True, null=True)
     def is_event_map(self):
         '''Checks whether this map instance is an event map'''
@@ -171,6 +265,30 @@ class Advertisement(models.Model):
         '''Checks whether this advertisement instance is a restaurant advertisement'''
         return self.restaurant is not None
 
+    transportation = models.ForeignKey(Transportation, on_delete=models.CASCADE, related_name='advertisementTransportation',
+                                       blank=True, null=True)
+    def is_transportation_advertisement(self):
+        '''Checks whether this advertisement instance is a transportation advertisement'''
+        return self.transportation is not None
+
+    retail = models.ForeignKey(Retail, on_delete=models.CASCADE, related_name='advertisementRetail', blank=True,
+                               null=True)
+    def is_retail_advertisement(self):
+        '''Checks whether this advertisement instance is a advertisement image'''
+        return self.retail is not None
+
+    mining = models.ForeignKey(Mining, on_delete=models.CASCADE, related_name='advertisementMining', blank=True,
+                               null=True)
+    def is_mining_advertisement(self):
+        '''Checks whether this advertisement instance is a mining advertisement'''
+        return self.mining is not None
+
+    essentialservice = models.ForeignKey(EssentialService, on_delete=models.CASCADE,
+                                         related_name='advertisementEssentialService', blank=True, null=True)
+    def is_essential_service_advertisement(self):
+        '''Checks whether this advertisement instance is an essential service advertisement'''
+        return self.essentialservice is not None
+
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='advertisementDestination', blank=True, null=True)
     def is_destination_advertisement(self):
         '''Checks whether this advertisement instance is a destination advertisement'''
@@ -216,7 +334,29 @@ class Video(models.Model):
     def is_restaurant_video(self):
         '''Checks whether this video instance is a restaurant video'''
         return self.restaurant is not None
-    
+
+    transportation = models.ForeignKey(Transportation, on_delete=models.CASCADE, related_name='videoTransportation',
+                                       blank=True, null=True)
+    def is_transportation_video(self):
+        '''Checks whether this video instance is a transportation video'''
+        return self.transportation is not None
+
+    retail = models.ForeignKey(Retail, on_delete=models.CASCADE, related_name='videoRetail', blank=True, null=True)
+    def is_retail_video(self):
+        '''Checks whether this video instance is a retail video'''
+        return self.retail is not None
+
+    mining = models.ForeignKey(Mining, on_delete=models.CASCADE, related_name='videoMining', blank=True, null=True)
+    def is_mining_video(self):
+        '''Checks whether this video instance is a mining video'''
+        return self.mining is not None
+
+    essentialservice = models.ForeignKey(EssentialService, on_delete=models.CASCADE, related_name='videoEssentialService',
+                                     blank=True, null=True)
+    def is_essential_service_video(self):
+        '''Checks whether this video instance is an essential service video'''
+        return self.essentialservice is not None
+
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='videoDestination', blank=True, null=True)
     def is_destination_video(self):
         '''Checks whether this video instance is a destination video'''
@@ -266,6 +406,28 @@ class Image(models.Model):
     def is_restaurant_image(self):
         '''Checks whether this image instance is a restaurant image'''
         return self.restaurant is not None
+
+    transportation = models.ForeignKey(Transportation, on_delete=models.CASCADE, related_name='imageTransportation',
+                                       blank=True,null=True)
+    def is_transportation_image(self):
+        '''Checks whether this image instance is a transportation image'''
+        return self.transportation is not None
+
+    retail = models.ForeignKey(Retail, on_delete=models.CASCADE, related_name='imageRetail', blank=True, null=True)
+    def is_retail_image(self):
+        '''Checks whether this image instance is a retail image'''
+        return self.retail is not None
+
+    mining = models.ForeignKey(Mining, on_delete=models.CASCADE, related_name='imageMining', blank=True, null=True)
+    def is_mining_image(self):
+        '''Checks whether this image instance is a mining image'''
+        return self.mining is not None
+
+    essentialservice = models.ForeignKey(EssentialService, on_delete=models.CASCADE, related_name='imageEssentialService',
+                                         blank=True, null=True)
+    def is_essential_service_image(self):
+        '''Checks whether this image instance is an essential service image'''
+        return self.essentialservice is not None
 
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='imageDestination', blank=True, null=True)
     def is_destination_image(self):
