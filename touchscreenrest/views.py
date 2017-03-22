@@ -6,9 +6,20 @@ from touchscreenrest.serializers import ImageSerializer, VideoSerializer, Advert
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import Http404
-from rest_framework.status import HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND
 from unicodedata import numeric
+
+def return_success():
+    final_response = {'status': 200, 'message': 'OK'}
+    return Response(final_response, HTTP_200_OK)
+
+def return_failure(message):
+    final_response = {'status': 400, 'message': message}
+    return Response(final_response, HTTP_400_BAD_REQUEST)
+
+def return_not_found():
+    final_response = {'status': 404, 'message': 'Resource not found'}
+    return Response(final_response, HTTP_404_NOT_FOUND)
 
 class ImageList(ListAPIView):
     queryset = Image.objects.all()
@@ -302,13 +313,13 @@ class AdvertisementPost(APIView):
         try:
             return Advertisement.objects.get(pk=pk)
         except Advertisement.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
         #Checking data
         if request.data.get("show") is None and request.data.get("click") is None:
-            return Response("No POST input(s) received.", HTTP_400_BAD_REQUEST)
+            return return_failure("No POST input(s) received.")
 
         #Updating attribute number of shows
         if request.data.get("show") is not None:
@@ -316,7 +327,7 @@ class AdvertisementPost(APIView):
             try:
                 numeric(request.data.get("show"))
             except (TypeError, ValueError):
-                return Response("Incorrect POST input 'show' received.", HTTP_400_BAD_REQUEST)
+                return return_failure("Incorrect POST input 'show' received.")
             instance.numberOfShows = request.data.get("show")
 
         # Updating attribute number of click
@@ -325,13 +336,17 @@ class AdvertisementPost(APIView):
             try:
                 numeric(request.data.get("click"))
             except (TypeError, ValueError):
-                return Response("Incorrect POST input 'click' received.", HTTP_400_BAD_REQUEST)
+                return return_failure("Incorrect POST input 'click' received.")
             instance.numberOfClicks = request.data.get("click")
 
         #Saving instance before returning response
         instance.save()
-        serializer = AdvertisementSerializer(instance)
-        return Response(serializer.data)
+        return Response({'click': instance.numberOfClicks,
+                         'show': instance.numberOfShows,
+                         'id': instance.id,
+                         'status': 200,
+                         'message': 'OK'
+                         }, HTTP_200_OK)
 
 class AdvertisementTopDeal(ListAPIView):
     queryset = Advertisement.objects.filter(inTopDeal=True).order_by('orderTopDeal')
@@ -454,14 +469,15 @@ class ActivityPost(APIView):
         try:
             return Activity.objects.get(pk=pk)
         except Activity.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Activity):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = ActivitySerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class DestinationList(ListAPIView):
     queryset = Destination.objects.all()
@@ -476,14 +492,15 @@ class DestinationPost(APIView):
         try:
             return Destination.objects.get(pk=pk)
         except Destination.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Destination):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = DestinationSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class PeriodList(ListAPIView):
     queryset = Period.objects.all()
@@ -498,14 +515,15 @@ class PeriodPost(APIView):
         try:
             return Period.objects.get(pk=pk)
         except Period.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Period):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = PeriodSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class EventList(ListAPIView):
     queryset = Event.objects.all()
@@ -520,14 +538,15 @@ class EventPost(APIView):
         try:
             return Event.objects.get(pk=pk)
         except Event.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Event):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = EventSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class RestaurantList(ListAPIView):
     queryset = Restaurant.objects.all()
@@ -542,14 +561,15 @@ class RestaurantPost(APIView):
         try:
             return Restaurant.objects.get(pk=pk)
         except Restaurant.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Restaurant):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = RestaurantSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class TransportationList(ListAPIView):
     queryset = Transportation.objects.all()
@@ -564,14 +584,15 @@ class TransportationPost(APIView):
         try:
             return Transportation.objects.get(pk=pk)
         except Transportation.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Transportation):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = TransportationSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class RetailList(ListAPIView):
     queryset = Retail.objects.all()
@@ -586,14 +607,15 @@ class RetailPost(APIView):
         try:
             return Retail.objects.get(pk=pk)
         except Retail.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Retail):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = RetailSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class MiningList(ListAPIView):
     queryset = Mining.objects.all()
@@ -608,14 +630,15 @@ class MiningPost(APIView):
         try:
             return Mining.objects.get(pk=pk)
         except Mining.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Mining):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = MiningSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class EssentialServiceList(ListAPIView):
     queryset = EssentialService.objects.all()
@@ -630,14 +653,16 @@ class EssentialServicePost(APIView):
         try:
             return EssentialService.objects.get(pk=pk)
         except EssentialService.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, EssentialService):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
         serializer = EssentialServiceSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class TourList(ListAPIView):
     queryset = Tour.objects.all()
@@ -652,14 +677,15 @@ class TourPost(APIView):
         try:
             return Tour.objects.get(pk=pk)
         except Tour.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Tour):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = TourSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
 
 class AccomodationList(ListAPIView):
     queryset = Accomodation.objects.all()
@@ -674,11 +700,12 @@ class AccomodationPost(APIView):
         try:
             return Accomodation.objects.get(pk=pk)
         except Accomodation.DoesNotExist:
-            raise Http404
+            return return_not_found()
 
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
+        if not isinstance(instance, Accomodation):
+            return instance
         instance.numberOfClicks += 1
         instance.save()
-        serializer = AccomodationSerializer(instance)
-        return Response(serializer.data)
+        return return_success()
