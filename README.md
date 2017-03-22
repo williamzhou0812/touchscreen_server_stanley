@@ -2,7 +2,7 @@
 
 Django RESTful Server for NAC Touchscreen Project
 
-Utilising MySQL Database system
+Utilising MySQL Database System
 
 ### How do I get set up?
 
@@ -22,6 +22,34 @@ Utilising MySQL Database system
 * Install Django REST Framework via Terminal: ```pip install djangorestframework```
 
 * Install Pillow via Terminal: ```pip install Pillow```
+
+* Configure MySQL (Database System)
+    * Start MySQL Server via Systems Preferences
+    * Create a [MySQL Administrator User](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql)
+    * Find out [MySQL Server host and port](http://stackoverflow.com/questions/4093603/how-do-i-find-out-my-mysql-url-host-port-and-username)
+    * Create a new connection in MySQL Workbench
+    * Create a new schema with MySQL Workbench
+    * Open `settings.py` modify line:
+
+    `DATABASES = {`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;`'default': {`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'ENGINE': 'django.db.backends.mysql',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'NAME': '<SchemaName>',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'USER': '<Administrator account>',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'PASSWORD': '<Administrator password>',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'HOST': '<MySQL Server Host>',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'PORT': '<MySQL Server Port>',`
+
+    &nbsp;&nbsp;&nbsp;&nbsp;`}`
+
+    `}`
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
