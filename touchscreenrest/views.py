@@ -1,8 +1,8 @@
-from touchscreenrest.models import Activity, Destination, Period, Event,Restaurant, Tour, Accomodation, Map,\
-    Advertisement, Image, Video
+from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Transportation, Retail, Mining,\
+    EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
-    DestinationSerializer
+    TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -27,7 +27,6 @@ class ImageTourDetail(ListAPIView):
         return Image.objects.filter(tour_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
-
 class ImageAccomodation(ListAPIView):
     queryset = Image.objects.exclude(accomodation=None)
     serializer_class = ImageSerializer
@@ -36,7 +35,6 @@ class ImageAccomodationDetail(ListAPIView):
     def get_queryset(self):
         return Image.objects.filter(accomodation_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
-
 
 class ImagePeriod(ListAPIView):
     queryset = Image.objects.exclude(period=None)
@@ -56,7 +54,6 @@ class ImageEventDetail(ListAPIView):
         return Image.objects.filter(event_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
-
 class ImageRestaurant(ListAPIView):
     queryset = Image.objects.exclude(restaurant=None)
     serializer_class = ImageSerializer
@@ -66,6 +63,41 @@ class ImageRestaurantDetail(ListAPIView):
         return Image.objects.filter(restaurant_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageTransportation(ListAPIView):
+    queryset = Image.objects.exclude(transportation=None)
+    serializer_class = ImageSerializer
+
+class ImageTransportationDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(transportation_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageRetail(ListAPIView):
+    queryset = Image.objects.exclude(retail=None)
+    serializer_class = ImageSerializer
+
+class ImageRetailDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(retail_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageMining(ListAPIView):
+    queryset = Image.objects.exclude(mining=None)
+    serializer_class = ImageSerializer
+
+class ImageMiningDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(mining_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageEssentialService(ListAPIView):
+    queryset = Image.objects.exclude(essentialservice=None)
+    serializer_class = ImageSerializer
+
+class ImageEssentialServiceDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(essentialservice_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
 
 class ImageDestination(ListAPIView):
     queryset = Image.objects.exclude(destination=None)
@@ -94,7 +126,6 @@ class VideoTourDetail(ListAPIView):
         return Video.objects.filter(tour_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
-
 class VideoAccomodation(ListAPIView):
     queryset = Video.objects.exclude(accomodation=None)
     serializer_class = VideoSerializer
@@ -122,7 +153,6 @@ class VideoEventDetail(ListAPIView):
         return Video.objects.filter(event_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
-
 class VideoRestaurant(ListAPIView):
     queryset = Video.objects.exclude(restaurant=None)
     serializer_class = VideoSerializer
@@ -132,6 +162,41 @@ class VideoRestaurantDetail(ListAPIView):
         return Video.objects.filter(restaurant_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
+class VideoTransportation(ListAPIView):
+    queryset = Video.objects.exclude(transportation=None)
+    serializer_class = VideoSerializer
+
+class VideoTransportationDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(transportation_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
+
+class VideoRetail(ListAPIView):
+    queryset = Video.objects.exclude(retail=None)
+    serializer_class = VideoSerializer
+
+class VideoRetailDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(retail_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
+
+class VideoMining(ListAPIView):
+    queryset = Video.objects.exclude(mining=None)
+    serializer_class = VideoSerializer
+
+class VideoMiningDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(mining_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
+
+class VideoEssentialService(ListAPIView):
+    queryset = Video.objects.exclude(essentialservice=None)
+    serializer_class = VideoSerializer
+
+class VideoEssentialServiceDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(essentialservice_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
 
 class VideoDestination(ListAPIView):
     queryset = Video.objects.exclude(destination=None)
@@ -151,7 +216,6 @@ class MapDetail(RetrieveAPIView):
     queryset = Map.objects.all()
     serializer_class = MapSerializer
 
-
 class MapTour(ListAPIView):
     queryset = Map.objects.exclude(tour=None)
     serializer_class = MapSerializer
@@ -170,6 +234,42 @@ class MapRestaurantDetail(ListAPIView):
         return Map.objects.filter(restaurant_id=self.kwargs['pk'])
     serializer_class = MapSerializer
 
+class MapTransportation(ListAPIView):
+    queryset = Map.objects.exclude(transportation=None)
+    serializer_class = MapSerializer
+
+class MapTransportationDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(transportation_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
+
+class MapRetail(ListAPIView):
+    queryset = Map.objects.exclude(retail=None)
+    serializer_class = MapSerializer
+
+class MapRetailDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(retail_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
+
+class MapMining(ListAPIView):
+    queryset = Map.objects.exclude(mining=None)
+    serializer_class = MapSerializer
+
+class MapMiningDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(mining_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
+
+class MapEssentialService(ListAPIView):
+    queryset = Map.objects.exclude(essentialservice=None)
+    serializer_class = MapSerializer
+
+class MapEssentialServiceDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(essentialservice_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
+
 class MapEvent(ListAPIView):
     queryset = Map.objects.exclude(event=None)
     serializer_class = MapSerializer
@@ -178,7 +278,6 @@ class MapEventDetail(ListAPIView):
     def get_queryset(self):
         return Map.objects.filter(event_id=self.kwargs['pk'])
     serializer_class = MapSerializer
-
 
 class MapAccomodation(ListAPIView):
     queryset = Map.objects.exclude(accomodation=None)
@@ -242,7 +341,6 @@ class AdvertisementHighlighted(ListAPIView):
     queryset = Advertisement.objects.filter(highlighted=True)
     serializer_class = AdvertisementSerializer
 
-
 class AdvertisementTour(ListAPIView):
     queryset = Advertisement.objects.exclude(tour=None)
     serializer_class = AdvertisementSerializer
@@ -251,7 +349,6 @@ class AdvertisementTourDetail(ListAPIView):
     def get_queryset(self):
         return Advertisement.objects.filter(tour_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
-
 
 class AdvertisementAccomodation(ListAPIView):
     queryset = Advertisement.objects.exclude(accomodation=None)
@@ -262,7 +359,6 @@ class AdvertisementAccomodationDetail(ListAPIView):
         return Advertisement.objects.filter(accomodation_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
 
-
 class AdvertisementPeriod(ListAPIView):
     queryset = Advertisement.objects.exclude(period=None)
     serializer_class = AdvertisementSerializer
@@ -271,7 +367,6 @@ class AdvertisementPeriodDetail(ListAPIView):
     def get_queryset(self):
         return Advertisement.objects.filter(period_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
-
 
 class AdvertisementEvent(ListAPIView):
     queryset = Advertisement.objects.exclude(event=None)
@@ -282,7 +377,6 @@ class AdvertisementEventDetail(ListAPIView):
         return Advertisement.objects.filter(event_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
 
-
 class AdvertisementRestaurant(ListAPIView):
     queryset = Advertisement.objects.exclude(restaurant=None)
     serializer_class = AdvertisementSerializer
@@ -292,6 +386,41 @@ class AdvertisementRestaurantDetail(ListAPIView):
         return Advertisement.objects.filter(restaurant_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
 
+class AdvertisementTransportation(ListAPIView):
+    queryset = Advertisement.objects.exclude(transportation=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementTransportationDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(transportation_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementRetail(ListAPIView):
+    queryset = Advertisement.objects.exclude(retail=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementRetailDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(retail_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementMining(ListAPIView):
+    queryset = Advertisement.objects.exclude(mining=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementMiningDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(mining_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementEssentialService(ListAPIView):
+    queryset = Advertisement.objects.exclude(essentialservice=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementEssentialServiceDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(essentialservice_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 class AdvertisementDestination(ListAPIView):
     queryset = Advertisement.objects.exclude(destination=None)
@@ -301,7 +430,6 @@ class AdvertisementDestinationDetail(ListAPIView):
     def get_queryset(self):
         return Advertisement.objects.filter(destination_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
-
 
 class AdvertisementActivity(ListAPIView):
     queryset = Advertisement.objects.exclude(activity=None)
@@ -421,6 +549,94 @@ class RestaurantPost(APIView):
         instance.numberOfClicks += 1
         instance.save()
         serializer = RestaurantSerializer(instance)
+        return Response(serializer.data)
+
+class TransportationList(ListAPIView):
+    queryset = Transportation.objects.all()
+    serializer_class = TransportationSerializer
+
+class TransportationDetail(RetrieveAPIView):
+    queryset = Transportation.objects.all()
+    serializer_class = TransportationSerializer
+
+class TransportationPost(APIView):
+    def get_object(self, pk):
+        try:
+            return Transportation.objects.get(pk=pk)
+        except Transportation.DoesNotExist:
+            raise Http404
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.numberOfClicks += 1
+        instance.save()
+        serializer = TransportationSerializer(instance)
+        return Response(serializer.data)
+
+class RetailList(ListAPIView):
+    queryset = Retail.objects.all()
+    serializer_class = RetailSerializer
+
+class RetailDetail(RetrieveAPIView):
+    queryset = Retail.objects.all()
+    serializer_class = RetailSerializer
+
+class RetailPost(APIView):
+    def get_object(self, pk):
+        try:
+            return Retail.objects.get(pk=pk)
+        except Retail.DoesNotExist:
+            raise Http404
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.numberOfClicks += 1
+        instance.save()
+        serializer = RetailSerializer(instance)
+        return Response(serializer.data)
+
+class MiningList(ListAPIView):
+    queryset = Mining.objects.all()
+    serializer_class = MiningSerializer
+
+class MiningDetail(RetrieveAPIView):
+    queryset = Mining.objects.all()
+    serializer_class = MiningSerializer
+
+class MiningPost(APIView):
+    def get_object(self, pk):
+        try:
+            return Mining.objects.get(pk=pk)
+        except Mining.DoesNotExist:
+            raise Http404
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.numberOfClicks += 1
+        instance.save()
+        serializer = MiningSerializer(instance)
+        return Response(serializer.data)
+
+class EssentialServiceList(ListAPIView):
+    queryset = EssentialService.objects.all()
+    serializer_class = EssentialServiceSerializer
+
+class EssentialServiceDetail(RetrieveAPIView):
+    queryset = EssentialService.objects.all()
+    serializer_class = EssentialServiceSerializer
+
+class EssentialServicePost(APIView):
+    def get_object(self, pk):
+        try:
+            return EssentialService.objects.get(pk=pk)
+        except EssentialService.DoesNotExist:
+            raise Http404
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.numberOfClicks += 1
+        instance.save()
+        serializer = EssentialServiceSerializer(instance)
         return Response(serializer.data)
 
 class TourList(ListAPIView):
