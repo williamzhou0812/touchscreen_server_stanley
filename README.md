@@ -29,27 +29,22 @@ Utilising MySQL Database System
     * Find out [MySQL Server host and port](http://stackoverflow.com/questions/4093603/how-do-i-find-out-my-mysql-url-host-port-and-username)
     * Create a new connection in MySQL Workbench
     * Create a new schema with MySQL Workbench
-    * Open `settings.py` modify line:
+    * Open `settings.py` modify variable `DATABASES` with parameters:
+        
+        'default': {
 
-    `DATABASES = {`
+             'ENGINE': 'django.db.backends.mysql',
 
-    &nbsp;&nbsp;&nbsp;&nbsp;`'default': {`
+             'NAME': '<SchemaName>',
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'ENGINE': 'django.db.backends.mysql',`
+             'USER': '<Administrator account>',
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'NAME': '<SchemaName>',`
+             'PASSWORD': '<Administrator password>',
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'USER': '<Administrator account>',`
+             'HOST': '<MySQL Server Host>',
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'PASSWORD': '<Administrator password>',`
-
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'HOST': '<MySQL Server Host>',`
-
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`'PORT': '<MySQL Server Port>',`
-
-    &nbsp;&nbsp;&nbsp;&nbsp;`}`
-
-    `}`
+             'PORT': '<MySQL Server Port>',
+        }
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
