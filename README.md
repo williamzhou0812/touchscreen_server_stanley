@@ -23,6 +23,8 @@ Utilising MySQL Database System
 
 * Install Pillow via Terminal: ```pip install Pillow```
 
+* Install Django-Cors-Header (to enable cross-origin resource sharing) via Terminal: `pip install django-cors-headers`
+
 * Configure MySQL (Database System)
     * Start MySQL Server via Systems Preferences
     * Create a [MySQL Administrator User](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql)
