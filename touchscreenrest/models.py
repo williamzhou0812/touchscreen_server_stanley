@@ -157,6 +157,11 @@ class Tour(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
+    address = models.CharField(max_length=300, blank=False)
+    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    email = models.EmailField(max_length=100)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='tourActivity', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0)
 
 class Accomodation(models.Model):
@@ -318,6 +323,11 @@ class Video(models.Model):
     title = models.CharField(max_length=200, blank=False)
     videoFile = models.FileField(upload_to='videos/', blank=False, null=False)
 
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='videoActivity', blank=True, null=True)
+    def is_activity_video(self):
+        '''Checks whether this video instance is an activity video'''
+        return self.activity is not None
+
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='videoTour', blank=True, null=True)
     def is_tour_video(self):
         '''Checks whether this video instance is a tour video'''
@@ -390,6 +400,11 @@ class Image(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     imageFile = models.ImageField(upload_to='images/', blank=False, null=False)
+
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='imageActivity', blank=True, null=True)
+    def is_activity_image(self):
+        '''Checks whether this image instance is an activity image'''
+        return self.activity is not None
 
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imageTour', blank=True, null=True)
     def is_tour_image(self):

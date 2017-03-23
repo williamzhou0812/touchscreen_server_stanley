@@ -5,6 +5,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^image/$', views.ImageList.as_view()),
     url(r'^image/(?P<pk>[0-9]+)/$', views.ImageDetail.as_view()),
+    url(r'^imageactivity/$', views.ImageActivity.as_view()),
+    url(r'^imageactivity/(?P<pk>[0-9]+)/$', views.ImageActivityDetail.as_view()),
     url(r'^imagetour/$', views.ImageTour.as_view()),
     url(r'^imagetour/(?P<pk>[0-9]+)/$', views.ImageTourDetail.as_view()),
     url(r'^imageaccomodation/$', views.ImageAccomodation.as_view()),
@@ -28,6 +30,8 @@ urlpatterns = [
 
     url(r'^video/$', views.VideoList.as_view()),
     url(r'^video/(?P<pk>[0-9]+)/$', views.VideoDetail.as_view()),
+    url(r'^videoactivity/$', views.VideoActivity.as_view()),
+    url(r'^videoactivity/(?P<pk>[0-9]+)/$', views.VideoActivityDetail.as_view()),
     url(r'^videotour/$', views.VideoTour.as_view()),
     url(r'^videotour/(?P<pk>[0-9]+)/$', views.VideoTourDetail.as_view()),
     url(r'^videoaccomodation/$', views.VideoAccomodation.as_view()),

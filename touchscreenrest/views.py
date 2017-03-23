@@ -2,7 +2,8 @@ from touchscreenrest.models import Activity, Destination, Period, Event, Restaur
     EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
-    TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer
+    TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
+    DestinationDetailedSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -27,6 +28,15 @@ class ImageList(ListAPIView):
 
 class ImageDetail(RetrieveAPIView):
     queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+
+class ImageActivity(ListAPIView):
+    queryset = Image.objects.exclude(activity=None)
+    serializer_class = ImageSerializer
+
+class ImageActivityDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(activity_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
 class ImageTour(ListAPIView):
@@ -126,6 +136,15 @@ class VideoList(ListAPIView):
 
 class VideoDetail(RetrieveAPIView):
     queryset = Video.objects.all()
+    serializer_class = VideoSerializer
+
+class VideoActivity(ListAPIView):
+    queryset = Video.objects.exclude(activity=None)
+    serializer_class = VideoSerializer
+
+class VideoActivityDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(activity_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
 class VideoTour(ListAPIView):
@@ -485,7 +504,7 @@ class DestinationList(ListAPIView):
 
 class DestinationDetail(RetrieveAPIView):
     queryset = Destination.objects.all()
-    serializer_class = DestinationSerializer
+    serializer_class = DestinationDetailedSerializer
 
 class DestinationPost(APIView):
     def get_object(self, pk):

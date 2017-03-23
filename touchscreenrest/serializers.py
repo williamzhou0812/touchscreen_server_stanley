@@ -28,11 +28,25 @@ class MapSerializer(serializers.ModelSerializer):
         model = Map
         fields = ('id', 'title', 'mapImage')
 
+class TourSerializer(serializers.ModelSerializer):
+    videoTour = VideoSerializer(many=True, read_only=True)
+    imageTour = ImageSerializer(many=True, read_only=True)
+    advertisementTour = AdvertisementSerializer(many=True)
+    mapTour = MapSerializer(many=True, read_only=True)
+    class Meta:
+        model = Tour
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'numberOfClicks', 'videoTour', 'imageTour',
+                  'advertisementTour', 'mapTour')
+
 class ActivitySerializer(serializers.ModelSerializer):
     advertisementActivity = AdvertisementSerializer(many=True)
+    imageActivity = ImageSerializer(many=True, read_only=True)
+    videoActivity = ImageSerializer(many=True, read_only=True)
+    tourActivity = TourSerializer(many=True, read_only=True)
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'numberOfClicks', 'advertisementActivity')
+        fields = ('id', 'title', 'numberOfClicks', 'advertisementActivity', 'imageActivity', 'videoActivity',
+                  'tourActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -45,16 +59,6 @@ class AccomodationSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo',
                   'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
                   'advertisementAccomodation', 'mapAccomodation')
-
-class TourSerializer(serializers.ModelSerializer):
-    videoTour = VideoSerializer(many=True, read_only=True)
-    imageTour = ImageSerializer(many=True, read_only=True)
-    advertisementTour = AdvertisementSerializer(many=True)
-    mapTour = MapSerializer(many=True, read_only=True)
-    class Meta:
-        model = Tour
-        fields = ('id', 'title', 'numberOfClick', 'videoTour', 'imageTour', 'advertisementTour',
-                  'mapTour')
 
 class EventSerializer(serializers.ModelSerializer):
     videoEvent = VideoSerializer(many=True, read_only=True)
@@ -117,7 +121,7 @@ class MiningSerializer(serializers.ModelSerializer):
     imageMining = ImageSerializer(many=True, read_only=True)
     advertisementMining = AdvertisementSerializer(many=True)
     class Meta:
-        model = Retail
+        model = Mining
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
                   'mapMining', 'videoMining', 'imageMining', 'advertisementMining')
 
@@ -128,12 +132,20 @@ class EssentialServiceSerializer(serializers.ModelSerializer):
     imageEssentialService = ImageSerializer(many=True, read_only=True)
     advertisementEssentialService = AdvertisementSerializer(many=True)
     class Meta:
-        model = Retail
+        model = EssentialService
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
                   'mapEssentialService', 'videoEssentialService', 'imageEssentialService',
                   'advertisementEssentialService')
 
 class DestinationSerializer(serializers.ModelSerializer):
+    videoDestination = VideoSerializer(many=True, read_only=True)
+    imageDestination = ImageSerializer(many=True, read_only=True)
+    advertisementDestination = AdvertisementSerializer(many=True)
+    class Meta:
+        model = Destination
+        fields = ('id', 'title', 'numberOfClicks', 'videoDestination', 'imageDestination', 'advertisementDestination')
+
+class DestinationDetailedSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
     restaurantDestination = RestaurantSerializer(many=True)
     accomodationDestination = AccomodationSerializer(many=True)
