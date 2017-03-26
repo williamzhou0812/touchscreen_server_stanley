@@ -143,7 +143,8 @@ class DestinationSerializer(serializers.ModelSerializer):
     advertisementDestination = AdvertisementSerializer(many=True)
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'numberOfClicks', 'videoDestination', 'imageDestination', 'advertisementDestination')
+        fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
+                  'advertisementDestination')
 
 class DestinationDetailedSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
@@ -154,5 +155,5 @@ class DestinationDetailedSerializer(serializers.ModelSerializer):
     advertisementDestination = AdvertisementSerializer(many=True)
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'numberOfClicks', 'eventDestination', 'accomodationDestination', 'restaurantDestination',
-                  'videoDestination', 'imageDestination', 'advertisementDestination')
+        fields = ('id', 'title', 'description', 'numberOfClicks', 'eventDestination', 'accomodationDestination',
+                  'restaurantDestination', 'videoDestination', 'imageDestination', 'advertisementDestination')

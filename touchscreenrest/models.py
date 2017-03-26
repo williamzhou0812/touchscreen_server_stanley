@@ -22,6 +22,7 @@ class Destination(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
 
 class Period(models.Model):
