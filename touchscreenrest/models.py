@@ -169,7 +169,8 @@ class Tour(models.Model):
     logo = models.ImageField(upload_to='tour_logos/', blank=True, null=True)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='tourActivity', blank=True, null=True)
     activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
-                                            related_name='tourActivityDestination', blank=True, null=True)
+                                            related_name='tourActivityDestination', blank=True, null=True,
+                                            verbose_name='Destination for Activity')
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='tourDestination', blank=True,
                                     null=True)
     numberOfClicks = models.IntegerField(default=0)
@@ -326,7 +327,8 @@ class Advertisement(models.Model):
         return self.activity is not None
 
     activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
-                                            related_name='advertisementActivityDestination', blank=True, null=True)
+                                            related_name='advertisementActivityDestination', blank=True, null=True,
+                                            verbose_name='Destination for Activity')
     def is_activity_destination_advertisement(self):
         '''Checks whether this advertisement instance is an activity destination image'''
         return self.activityDestination is not None
@@ -348,7 +350,8 @@ class Video(models.Model):
         return self.activity is not None
 
     activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
-                                            related_name='videoActivityDestination', blank=True, null=True)
+                                            related_name='videoActivityDestination', blank=True, null=True,
+                                            verbose_name='Destination for Activity')
     def is_activity_destination_video(self):
         '''Checks whether this video instance is an activity destination image'''
         return self.activityDestination is not None
@@ -432,7 +435,8 @@ class Image(models.Model):
         return self.activity is not None
 
     activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
-                                            related_name='imageActivityDestination', blank=True, null=True)
+                                            related_name='imageActivityDestination', blank=True, null=True,
+                                            verbose_name = 'Destination for Activity')
     def is_activity_destination_image(self):
         '''Checks whether this image instance is an activity destination image'''
         return self.activityDestination is not None
