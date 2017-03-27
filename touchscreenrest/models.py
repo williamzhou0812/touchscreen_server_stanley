@@ -162,8 +162,12 @@ class Tour(models.Model):
     address = models.CharField(max_length=300, blank=False)
     phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
     email = models.EmailField(max_length=100)
+    logo = models.ImageField(upload_to='tour_logos/', blank=True, null=True)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='tourActivity', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0)
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Tour Logo'
 
 class Accomodation(models.Model):
     def __str__(self):

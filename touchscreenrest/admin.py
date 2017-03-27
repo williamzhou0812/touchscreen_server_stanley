@@ -377,10 +377,11 @@ class TourAdvertisementInLine(admin.StackedInline):
 
 class TourAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email']}),
+        ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity']}),
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine, TourAdvertisementInLine]
+    readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'phone', 'email', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity']
     search_fields = ['title', 'activity__title']

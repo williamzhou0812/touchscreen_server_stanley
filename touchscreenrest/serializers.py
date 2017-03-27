@@ -29,13 +29,14 @@ class MapSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'mapImage')
 
 class TourSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(max_length=None, use_url=True)
     videoTour = VideoSerializer(many=True, read_only=True)
     imageTour = ImageSerializer(many=True, read_only=True)
     advertisementTour = AdvertisementSerializer(many=True)
     mapTour = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Tour
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'numberOfClicks', 'videoTour', 'imageTour',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks', 'videoTour', 'imageTour',
                   'advertisementTour', 'mapTour')
 
 class ActivitySerializer(serializers.ModelSerializer):
