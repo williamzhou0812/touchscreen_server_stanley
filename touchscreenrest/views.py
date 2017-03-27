@@ -1,9 +1,9 @@
-from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Transportation, Retail, Mining,\
-    EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
+from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
+    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
     TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
-    DestinationDetailedSerializer
+    DestinationDetailedSerializer, ActivityDestinationSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -37,6 +37,15 @@ class ImageActivity(ListAPIView):
 class ImageActivityDetail(ListAPIView):
     def get_queryset(self):
         return Image.objects.filter(activity_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageActivityDestination(ListAPIView):
+    queryset = Image.objects.exclude(activityDestination=None)
+    serializer_class = ImageSerializer
+
+class ImageActivityDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(activityDestination_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
 class ImageTour(ListAPIView):
@@ -140,6 +149,15 @@ class VideoDetail(RetrieveAPIView):
 
 class VideoActivity(ListAPIView):
     queryset = Video.objects.exclude(activity=None)
+    serializer_class = VideoSerializer
+
+class VideoActivityDestination(ListAPIView):
+    queryset = Video.objects.exclude(activityDestination=None)
+    serializer_class = VideoSerializer
+
+class VideoActivityDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(activityDestination_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
 class VideoActivityDetail(ListAPIView):
@@ -474,6 +492,14 @@ class AdvertisementActivityDetail(ListAPIView):
         return Advertisement.objects.filter(activity_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
 
+class AdvertisementActivityDestination(ListAPIView):
+    queryset = Advertisement.objects.exclude(activityDestination=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementActivityDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(activityDestination_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
 
 class ActivityList(ListAPIView):
     queryset = Activity.objects.all()
@@ -724,6 +750,29 @@ class AccomodationPost(APIView):
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
         if not isinstance(instance, Accomodation):
+            return instance
+        instance.numberOfClicks += 1
+        instance.save()
+        return return_success()
+
+class ActivityDestinationList(ListAPIView):
+    queryset = ActivityDestination.objects.all()
+    serializer_class = ActivityDestinationSerializer
+
+class ActivityDestinationDetail(RetrieveAPIView):
+    queryset = ActivityDestination.objects.all()
+    serializer_class = ActivityDestinationSerializer
+
+class ActivityDestinationPost(APIView):
+    def get_object(self, pk):
+        try:
+            return ActivityDestination.objects.get(pk=pk)
+        except ActivityDestination.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, ActivityDestination):
             return instance
         instance.numberOfClicks += 1
         instance.save()

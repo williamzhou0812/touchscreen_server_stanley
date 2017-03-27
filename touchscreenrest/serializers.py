@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from touchscreenrest.models import Activity, Destination, Period, Event, Restaurant, Transportation, Retail, Mining,\
-    EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
+from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
+    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
 
 class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
@@ -39,15 +39,25 @@ class TourSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks', 'videoTour', 'imageTour',
                   'advertisementTour', 'mapTour')
 
+class ActivityDestinationSerializer(serializers.ModelSerializer):
+    advertisementActivityDestination = AdvertisementSerializer(many=True)
+    imageActivityDestination = ImageSerializer(many=True, read_only=True)
+    videoActivityDestination = VideoSerializer(many=True, read_only=True)
+    tourActivityDestination = TourSerializer(many=True, read_only=True)
+    class Meta:
+        model = ActivityDestination
+        fields = ('id', 'title', 'numberOfClicks', 'tourActivityDestination', 'imageActivityDestination',
+                  'videoActivityDestination', 'advertisementActivityDestination')
+
 class ActivitySerializer(serializers.ModelSerializer):
     advertisementActivity = AdvertisementSerializer(many=True)
     imageActivity = ImageSerializer(many=True, read_only=True)
     videoActivity = ImageSerializer(many=True, read_only=True)
-    tourActivity = TourSerializer(many=True, read_only=True)
+    activityDestinationActivity = ActivityDestinationSerializer(many=True, read_only=True)
     class Meta:
         model = Activity
         fields = ('id', 'title', 'numberOfClicks', 'advertisementActivity', 'imageActivity', 'videoActivity',
-                  'tourActivity')
+                  'activityDestinationActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
