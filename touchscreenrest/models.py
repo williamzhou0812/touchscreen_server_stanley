@@ -144,13 +144,17 @@ class EssentialService(models.Model):
     class Meta:
         verbose_name = 'Essential Service'
 
-class Deal(models.Model):
+class ActivityDestination(models.Model):
     def __str__(self):
         return self.title
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activityDestinationActivity',
+                                 blank=True, null=True)
+    class Meta:
+        verbose_name = 'Destination for Activity'
 
 class Tour(models.Model):
     def __str__(self):
@@ -164,6 +168,10 @@ class Tour(models.Model):
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='tour_logos/', blank=True, null=True)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='tourActivity', blank=True, null=True)
+    activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
+                                            related_name='tourActivityDestination', blank=True, null=True)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='tourDestination', blank=True,
+                                    null=True)
     numberOfClicks = models.IntegerField(default=0)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
@@ -317,6 +325,12 @@ class Advertisement(models.Model):
         '''Checks whether this advertisement instance is an activity advertisement'''
         return self.activity is not None
 
+    activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
+                                            related_name='advertisementActivityDestination', blank=True, null=True)
+    def is_activity_destination_advertisement(self):
+        '''Checks whether this advertisement instance is an activity destination image'''
+        return self.activityDestination is not None
+
     ### Service Model still undefined / unclear ###
     # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
 
@@ -332,6 +346,12 @@ class Video(models.Model):
     def is_activity_video(self):
         '''Checks whether this video instance is an activity video'''
         return self.activity is not None
+
+    activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
+                                            related_name='videoActivityDestination', blank=True, null=True)
+    def is_activity_destination_video(self):
+        '''Checks whether this video instance is an activity destination image'''
+        return self.activityDestination is not None
 
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='videoTour', blank=True, null=True)
     def is_tour_video(self):
@@ -410,6 +430,12 @@ class Image(models.Model):
     def is_activity_image(self):
         '''Checks whether this image instance is an activity image'''
         return self.activity is not None
+
+    activityDestination = models.ForeignKey(ActivityDestination, on_delete=models.CASCADE,
+                                            related_name='imageActivityDestination', blank=True, null=True)
+    def is_activity_destination_image(self):
+        '''Checks whether this image instance is an activity destination image'''
+        return self.activityDestination is not None
 
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imageTour', blank=True, null=True)
     def is_tour_image(self):
