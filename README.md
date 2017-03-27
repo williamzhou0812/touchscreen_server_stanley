@@ -31,7 +31,7 @@ Utilising MySQL Database System
     * Find out [MySQL Server host and port](http://stackoverflow.com/questions/4093603/how-do-i-find-out-my-mysql-url-host-port-and-username)
     * Create a new connection in MySQL Workbench
     * Create a new schema with MySQL Workbench
-    * Open `settings.py` modify variable `DATABASES` with parameters:
+    * Open `settings.py` inside <project directory/touchscreen> and modify variable `DATABASES` with parameters:
         
         'default': {
 
@@ -47,6 +47,8 @@ Utilising MySQL Database System
 
              'PORT': '<MySQL Server Port>',
         }
+
+    * With Terminal in project directory, execute: `python manage.py makemigrations` and `python manage.py migrate`
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
