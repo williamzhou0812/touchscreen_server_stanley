@@ -48,7 +48,7 @@ Utilising MySQL Database System
              'PORT': '<MySQL Server Port>',
         }
 
-    * With Terminal in project directory, execute: `python manage.py makemigrations` and `python manage.py migrate`
+    * Open Terminal, navigate to project directory, and execute: `python manage.py makemigrations` and `python manage.py migrate`
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
