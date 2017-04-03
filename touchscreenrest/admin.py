@@ -34,7 +34,8 @@ class AccomodationMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event')
+    exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
+               'destination')
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -144,6 +145,17 @@ class DestinationVideoInLine(admin.TabularInline):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
     render_video.short_description = 'Video preview'
 
+class DestinationMapInLine(admin.TabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage', 'render_image')
+    readonly_fields = ('render_image',)
+    exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
+               'accomodation')
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.mapImage.url)
+    render_image.short_description = 'Map preview'
+
 class DestinationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
@@ -156,7 +168,8 @@ class DestinationAdmin(admin.ModelAdmin):
         ('Destination Information', {'fields': ['title', 'description']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationAdvertisementInLine]
+    inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine,
+               DestinationAdvertisementInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
@@ -243,7 +256,8 @@ class EventMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice')
+    exclude = ('tour', 'accomodation', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -307,7 +321,8 @@ class RestaurantMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event', 'transportation', 'retail', 'mining', 'essentialservice')
+    exclude = ('tour', 'accomodation', 'event', 'transportation', 'retail', 'mining', 'essentialservice',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -368,7 +383,8 @@ class TourMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event')
+    exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -400,7 +416,7 @@ class MapAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Map Information', {'fields': ['title', 'mapImage', 'map_preview']}),
         ('Where to Show Map', {'fields': ['tour', 'restaurant', 'transportation', 'retail', 'mining',
-                                          'essentialservice', 'event', 'accomodation']}
+                                          'essentialservice', 'event', 'accomodation', 'destination']}
          ),
     ]
     readonly_fields = ('map_preview',)
@@ -506,7 +522,8 @@ class TransportationMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'retail', 'mining', 'essentialservice')
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'retail', 'mining', 'essentialservice',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -569,7 +586,8 @@ class RetailMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice')
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -630,7 +648,8 @@ class MiningMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice')
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice',
+               'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -691,7 +710,7 @@ class EssentialServiceMapInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'mapImage', 'render_image')
     readonly_fields = ('render_image',)
-    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'retail')
+    exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'destination')
 
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)

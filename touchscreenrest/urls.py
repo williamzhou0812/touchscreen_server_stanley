@@ -75,6 +75,8 @@ urlpatterns = [
     url(r'^mapevent/(?P<pk>[0-9]+)/$', views.MapEventDetail.as_view()),
     url(r'^mapaccomodation/$', views.MapAccomodation.as_view()),
     url(r'^mapaccomodation/(?P<pk>[0-9]+)/$', views.MapAccomodationDetail.as_view()),
+    url(r'^mapdestination/$', views.MapDestination.as_view()),
+    url(r'^mapdestination/(?P<pk>[0-9]+)/$', views.MapDestinationDetail.as_view()),
 
     url(r'^advertisement/$', views.AdvertisementList.as_view()),
     url(r'^advertisement/(?P<pk>[0-9]+)/$', views.AdvertisementDetail.as_view()),

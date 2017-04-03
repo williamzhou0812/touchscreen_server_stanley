@@ -248,6 +248,12 @@ class Map(models.Model):
         '''Checks whether this map instance is an accomodation map'''
         return self.accomodation is not None
 
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='mapDestination', blank=True,
+                                    null=True)
+    def is_destination_map(self):
+        '''Checks whether this map instance is a destination map'''
+        return self.accomodation is not None
+
     def map_preview(self):
         return mark_safe('''<img src="%s" />''' % self.mapImage.url)
     map_preview.short_description = 'Map preview'

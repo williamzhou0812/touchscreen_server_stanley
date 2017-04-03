@@ -336,6 +336,14 @@ class MapAccomodationDetail(ListAPIView):
         return Map.objects.filter(accomodation_id=self.kwargs['pk'])
     serializer_class = MapSerializer
 
+class MapDestination(ListAPIView):
+    queryset = Map.objects.exclude(destination=None)
+    serializer_class = MapSerializer
+
+class MapDestinationDetail(ListAPIView):
+    def get_queryset(self):
+        return Map.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = MapSerializer
 
 class AdvertisementList(ListAPIView):
     queryset = Advertisement.objects.all()
