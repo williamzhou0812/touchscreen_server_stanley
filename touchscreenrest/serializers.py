@@ -152,10 +152,11 @@ class DestinationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
     imageDestination = ImageSerializer(many=True, read_only=True)
     advertisementDestination = AdvertisementSerializer(many=True)
+    mapDestination = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Destination
         fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
-                  'advertisementDestination')
+                  'advertisementDestination', 'mapDestination')
 
 class DestinationDetailedSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
