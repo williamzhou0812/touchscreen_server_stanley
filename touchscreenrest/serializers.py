@@ -166,8 +166,9 @@ class DestinationDetailedSerializer(serializers.ModelSerializer):
     imageDestination = ImageSerializer(many=True, read_only=True)
     advertisementDestination = AdvertisementSerializer(many=True)
     mapDestination = MapSerializer(many=True, read_only=True)
+    tourDestination = TourSerializer(many=True, read_only=True)
     class Meta:
         model = Destination
         fields = ('id', 'title', 'description', 'numberOfClicks', 'eventDestination', 'accomodationDestination',
                   'restaurantDestination', 'videoDestination', 'imageDestination', 'advertisementDestination',
-                  'mapDestination')
+                  'tourDestination', 'mapDestination')
