@@ -218,7 +218,7 @@ class PeriodAdmin(admin.ModelAdmin):
         ('Period Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [PeriodImageInLine, PeriodVideoInLine, PeriodEventInLine, PeriodAdvertisementInLine]
+    inlines = [PeriodImageInLine, PeriodVideoInLine, PeriodAdvertisementInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']

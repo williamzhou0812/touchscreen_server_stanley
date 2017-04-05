@@ -32,6 +32,8 @@ class Period(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    class Meta:
+        ordering = ['pk']
 
 class Event(models.Model):
     def __str__(self):
@@ -46,7 +48,7 @@ class Event(models.Model):
                                       verbose_name="Until event date")
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
-    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod')
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod', blank=True, null=True)
 
 class Restaurant(models.Model):
     def __str__(self):
