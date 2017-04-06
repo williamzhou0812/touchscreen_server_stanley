@@ -58,8 +58,8 @@ Utilising MySQL Database System
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
-* Execute ```python manage.py runserver``` for local testing
-* Alternatively, execute ```python manage.py runserver x.x.x.x:port```
+* Execute ```sudo python manage.py runserver``` for local testing
+* Alternatively, execute ```sudo python manage.py runserver x.x.x.x:port```
 to allow multiple device access via LAN/WLAN
     * x.x.x.x is the current device's IP Address. [Here's](http://www.wikihow.com/Find-Your-IP-Address-on-a-Mac) how to
      check your IP address on a Mac.
