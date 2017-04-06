@@ -28,6 +28,7 @@ Utilising MySQL Database System
 * Configure MySQL (Database System)
     * Start MySQL Server via Systems Preferences
     * Create a [MySQL Administrator User](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql)
+    * If error in creating user, please see these links: [1](https://www.youtube.com/watch?v=90TGTG_4CQ0) [2](http://stackoverflow.com/questions/30692812/mysql-user-db-does-not-have-password-columns-installing-mysql-on-osx)
     * Find out [MySQL Server host and port](http://stackoverflow.com/questions/4093603/how-do-i-find-out-my-mysql-url-host-port-and-username)
     * Create a new connection in MySQL Workbench
     * Create a new schema with MySQL Workbench
