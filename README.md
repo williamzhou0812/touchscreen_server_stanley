@@ -21,6 +21,8 @@ Utilising MySQL Database System
 
 * Install Django REST Framework via Terminal: ```pip install djangorestframework```
 
+* Install Python MySQLclient via Terminal: ```pip install mysqlclient```
+
 * Install Pillow via Terminal: ```pip install Pillow```
 
 * Install Django-Cors-Header (to enable cross-origin resource sharing) via Terminal: `pip install django-cors-headers`
