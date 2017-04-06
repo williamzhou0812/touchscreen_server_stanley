@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from forms import AdvertisementForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
@@ -793,3 +794,4 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
 
 admin.site.register(ActivityDestination, ActivityDestinationAdmin)
 ## End of Activity Destination Administration ##
+admin.site.unregister(Group)
