@@ -27,6 +27,8 @@ Utilising MySQL Database System
 
 * Install Django-Cors-Header (to enable cross-origin resource sharing) via Terminal: `pip install django-cors-headers`
 
+* Clone the project via [SourceTree](https://www.sourcetreeapp.com/)
+
 * Configure MySQL (Database System)
     * Start MySQL Server via Systems Preferences
     * Create a [MySQL Administrator User](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql)
@@ -52,6 +54,7 @@ Utilising MySQL Database System
         }
 
     * Open Terminal, navigate to project directory, and execute: `python manage.py makemigrations` and `python manage.py migrate`
+    * To create a new administrator user execute `python manage.py createsuperuser`
 
 ###How to run REST Server
 * Navigate to project directory via Terminal
