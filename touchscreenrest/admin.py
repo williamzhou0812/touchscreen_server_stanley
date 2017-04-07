@@ -50,12 +50,13 @@ class AccomodationAdvertisementInLine(admin.StackedInline):
 
 class AccomodationAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Accomodation Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Accomodation Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                                 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine, AccomodationAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 
@@ -338,12 +339,13 @@ class RestaurantAdvertisementInLine(admin.StackedInline):
 
 class RestaurantAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Restaurant Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Restaurant Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                               'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine, RestaurantAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 
@@ -400,12 +402,13 @@ class TourAdvertisementInLine(admin.StackedInline):
 
 class TourAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                         'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine, TourAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'phone', 'email', 'activity', 'numberOfClicks')
+    list_display = ('title', 'address', 'phone', 'email', 'website', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
     search_fields = ['title', 'activity__title', 'activityDestination__title']
 
@@ -540,13 +543,13 @@ class TransportationAdvertisementInLine(admin.StackedInline):
 class TransportationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Car Hire & Transportation Information', {'fields': ['title', 'description', 'address', 'phone', 'email',
-                                                              'logo', 'image_logo']}),
+                                                              'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine,
                TransportationAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 
@@ -603,12 +606,13 @@ class RetailAdvertisementInLine(admin.StackedInline):
 
 class RetailAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Retail Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Retail Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                           'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine, RetailAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 
@@ -665,12 +669,13 @@ class MiningAdvertisementInLine(admin.StackedInline):
 
 class MiningAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Mining Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo', 'image_logo']}),
+        ('Mining Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                           'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine, MiningAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 
@@ -726,14 +731,14 @@ class EssentialServiceAdvertisementInLine(admin.StackedInline):
 
 class EssentialServiceAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Essential Service Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'logo',
-                                                       'image_logo']}),
+        ('Essential Service Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website',
+                                                      'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine,
                EssentialServiceAdvertisementInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email')
+    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
 

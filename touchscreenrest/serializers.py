@@ -36,7 +36,7 @@ class TourSerializer(serializers.ModelSerializer):
     mapTour = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Tour
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks', 'videoTour', 'imageTour',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks', 'videoTour', 'imageTour',
                   'advertisementTour', 'mapTour')
 
 class ActivityDestinationSerializer(serializers.ModelSerializer):
@@ -67,7 +67,7 @@ class AccomodationSerializer(serializers.ModelSerializer):
     mapAccomodation = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Accomodation
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                   'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
                   'advertisementAccomodation', 'mapAccomodation')
 
@@ -99,7 +99,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     advertisementRestaurant = AdvertisementSerializer(many=True)
     class Meta:
         model = Restaurant
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks',
                   'order', 'mapRestaurant', 'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
 
 class TransportationSerializer(serializers.ModelSerializer):
@@ -110,7 +110,7 @@ class TransportationSerializer(serializers.ModelSerializer):
     advertisementTransportation = AdvertisementSerializer(many=True)
     class Meta:
         model = Transportation
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks',
                   'order', 'mapTransportation', 'videoTransportation', 'imageTransportation',
                   'advertisementTransportation')
 
@@ -122,7 +122,7 @@ class RetailSerializer(serializers.ModelSerializer):
     advertisementRetail = AdvertisementSerializer(many=True)
     class Meta:
         model = Retail
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
                   'mapRetail', 'videoRetail', 'imageRetail', 'advertisementRetail')
 
 class MiningSerializer(serializers.ModelSerializer):
@@ -133,7 +133,7 @@ class MiningSerializer(serializers.ModelSerializer):
     advertisementMining = AdvertisementSerializer(many=True)
     class Meta:
         model = Mining
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
                   'mapMining', 'videoMining', 'imageMining', 'advertisementMining')
 
 class EssentialServiceSerializer(serializers.ModelSerializer):
@@ -144,7 +144,7 @@ class EssentialServiceSerializer(serializers.ModelSerializer):
     advertisementEssentialService = AdvertisementSerializer(many=True)
     class Meta:
         model = EssentialService
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'logo', 'numberOfClicks','order',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
                   'mapEssentialService', 'videoEssentialService', 'imageEssentialService',
                   'advertisementEssentialService')
 
