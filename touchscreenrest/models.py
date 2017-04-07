@@ -1,11 +1,32 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 from django.utils.safestring import mark_safe
+import phonenumbers
 
-phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+# phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+
+def validate_phone(value):
+    #Allow emergency numbers
+    if len(value) == 3:
+        return
+
+    #Check phone number not longer than 15 digits
+    if len(value) > 15:
+        raise ValidationError(
+            _('Up to 15 digits allowed for phone numbers.')
+        )
+
+    #Check phone number is a valid PNG or AUS number
+    png = phonenumbers.parse(value, "AU")
+    aus = phonenumbers.parse(value, "PG")
+    if phonenumbers.is_valid_number(png) or phonenumbers.is_valid_number(aus):
+        return
+    else:
+        raise ValidationError(_('Incorrect phone number inputted'))
 
 
 class Activity(models.Model):
@@ -58,7 +79,7 @@ class Restaurant(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
@@ -76,7 +97,7 @@ class Transportation(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='transportation_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
@@ -96,7 +117,7 @@ class Retail(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
@@ -114,7 +135,7 @@ class Mining(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='mining_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
@@ -134,7 +155,7 @@ class EssentialService(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
@@ -166,7 +187,7 @@ class Tour(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='tour_logos/', blank=True, null=True)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='tourActivity', blank=True, null=True)
@@ -188,7 +209,7 @@ class Accomodation(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[phone_regex], blank=False)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100)
     logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
