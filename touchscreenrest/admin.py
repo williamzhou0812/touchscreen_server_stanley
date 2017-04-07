@@ -55,7 +55,7 @@ class AccomodationAdmin(admin.ModelAdmin):
                                                  'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine, AccomodationAdvertisementInLine]
+    inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -113,8 +113,7 @@ class ActivityAdmin(admin.ModelAdmin):
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, ActivityTourInLine,
-               ActivityAdvertisementInLine]
+    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, ActivityTourInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
@@ -171,8 +170,7 @@ class DestinationAdmin(admin.ModelAdmin):
         ('Destination Information', {'fields': ['title', 'description']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine,
-               DestinationAdvertisementInLine]
+    inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
@@ -221,7 +219,7 @@ class PeriodAdmin(admin.ModelAdmin):
         ('Period Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [PeriodImageInLine, PeriodVideoInLine, PeriodAdvertisementInLine]
+    inlines = [PeriodImageInLine, PeriodVideoInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
@@ -278,7 +276,7 @@ class EventAdmin(admin.ModelAdmin):
         ('Event Information', {'fields': ['title', 'description', 'fromEventDate', 'untilEventDate', 'destination', 'period']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [EventImageInLine, EventVideoInLine, EventMapInLine, EventAdvertisementInLine]
+    inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
     list_display = ('title', 'fromEventDate', 'untilEventDate', 'destination', 'period')
     list_filter = ['title', 'destination', 'period']
     search_fields = ['title', 'destination__title', 'period__title']
@@ -344,7 +342,7 @@ class RestaurantAdmin(admin.ModelAdmin):
                                                'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine, RestaurantAdvertisementInLine]
+    inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -407,7 +405,7 @@ class TourAdmin(admin.ModelAdmin):
                                          'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
     ]
-    inlines = [TourImageInLine, TourVideoInLine, TourMapInLine, TourAdvertisementInLine]
+    inlines = [TourImageInLine, TourVideoInLine, TourMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'phone', 'email', 'website', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
@@ -548,8 +546,7 @@ class TransportationAdmin(admin.ModelAdmin):
                                                               'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine,
-               TransportationAdvertisementInLine]
+    inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -612,7 +609,7 @@ class RetailAdmin(admin.ModelAdmin):
                                            'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine, RetailAdvertisementInLine]
+    inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -675,7 +672,7 @@ class MiningAdmin(admin.ModelAdmin):
                                            'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine, MiningAdvertisementInLine]
+    inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -737,8 +734,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
                                                       'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
-    inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine,
-               EssentialServiceAdvertisementInLine]
+    inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
@@ -793,8 +789,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity']}),
     ]
-    inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine,
-               ActivityDestinationAdvertisementInLine]
+    inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title', 'activity']
     search_fields = ['title', 'activity__title']
