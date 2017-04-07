@@ -25,6 +25,8 @@ Utilising MySQL Database System
 
 * Install Pillow via Terminal: ```pip install Pillow```
 
+* Install PhoneNumbers via Terminal: ```pip install phonenumbers```
+
 * Install Django-Cors-Header (to enable cross-origin resource sharing) via Terminal: `pip install django-cors-headers`
 
 * Clone the project via [SourceTree](https://www.sourcetreeapp.com/)
