@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^imagedestination/(?P<pk>[0-9]+)/$', views.ImageDestinationDetail.as_view()),
 
     url(r'^video/$', views.VideoList.as_view()),
+    url(r'^videodisplay/$', views.VideoDisplay.as_view()),
     url(r'^video/(?P<pk>[0-9]+)/$', views.VideoDetail.as_view()),
     url(r'^videoactivity/$', views.VideoActivity.as_view()),
     url(r'^videoactivity/(?P<pk>[0-9]+)/$', views.VideoActivityDetail.as_view()),

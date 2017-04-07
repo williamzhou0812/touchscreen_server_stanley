@@ -143,6 +143,10 @@ class VideoList(ListAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
 
+class VideoDisplay(ListAPIView):
+    queryset = Video.objects.filter(isDisplayVideo=True)
+    serializer_class = VideoSerializer
+
 class VideoDetail(RetrieveAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer

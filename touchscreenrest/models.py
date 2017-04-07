@@ -36,6 +36,9 @@ class Activity(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
 
 class Destination(models.Model):
     def __str__(self):
@@ -110,6 +113,7 @@ class Transportation(models.Model):
     image_logo.short_description = 'Transportation Logo'
     class Meta:
         verbose_name = 'Car Hire & Transport'
+        verbose_name_plural = 'Car Hire & Transport'
 
 class Retail(models.Model):
     def __str__(self):
@@ -225,6 +229,9 @@ class Accomodation(models.Model):
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Accomodation Logo'
+    class Meta:
+        verbose_name = "Accommodation"
+        verbose_name_plural = "Accommodation"
 
 
 class Map(models.Model):
@@ -378,6 +385,7 @@ class Video(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    isDisplayVideo = models.BooleanField(blank=False, default=False, verbose_name="Is display Video?", choices=BOOL_CHOICES)
     videoFile = models.FileField(upload_to='videos/', blank=False, null=False)
 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='videoActivity', blank=True, null=True)

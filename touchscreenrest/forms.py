@@ -8,3 +8,11 @@ class AdvertisementForm(forms.ModelForm):
             'inTopDeal': forms.RadioSelect,
             'highlighted': forms.RadioSelect,
         }
+
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Advertisement
+        exclude = ('',)
+        widgets = {
+            'isDisplayVideo': forms.RadioSelect,
+        }

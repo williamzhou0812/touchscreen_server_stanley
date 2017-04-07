@@ -12,7 +12,7 @@ class VideoSerializer(serializers.ModelSerializer):
     videoFile = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = Video
-        fields = ('id', 'title', 'videoFile')
+        fields = ('id', 'title', 'isDisplayVideo', 'videoFile')
 
 class AdvertisementSerializer(serializers.ModelSerializer):
     videoAdvertisement = VideoSerializer(many=True, read_only=True)
