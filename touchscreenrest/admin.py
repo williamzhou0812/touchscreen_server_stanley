@@ -453,7 +453,8 @@ class AdvertisementVideoInLine(admin.TabularInline):
 
 class AdvertisementAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Advertisement Information', {'fields': ['title', 'company', 'description']}),
+        ('Advertisement Information', {'fields': ['title', 'company', 'description', 'address', 'phone', 'email',
+                                                  'website']}),
         ('Other Settings', {'fields': ['inTopDeal', 'orderTopDeal', 'numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('Where to Show Advertisement', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period',
                                                     'event', 'restaurant', 'transportation', 'retail', 'mining',

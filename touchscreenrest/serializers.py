@@ -19,8 +19,9 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     imageAdvertisement = ImageSerializer(many=True, read_only=True)
     class Meta:
         model = Advertisement
-        fields = ('id', 'title', 'company', 'description', 'inTopDeal', 'numberOfShows', 'numberOfClicks',
-                  'orderTopDeal', 'highlighted', 'imageAdvertisement', 'videoAdvertisement')
+        fields = ('id', 'title', 'company', 'description', 'address', 'phone', 'email', 'website', 'inTopDeal',
+                  'numberOfShows', 'numberOfClicks', 'orderTopDeal', 'highlighted', 'imageAdvertisement',
+                  'videoAdvertisement')
 
 class MapSerializer(serializers.ModelSerializer):
     mapImage = serializers.ImageField(max_length=None, use_url=True)
