@@ -186,7 +186,7 @@ class EssentialService(models.Model):
     phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-    logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
+    logo = models.ImageField(upload_to='essential_services_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Essential Service order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='essentialServiceDestination',
