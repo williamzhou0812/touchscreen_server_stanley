@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^imagerestaurant/(?P<pk>[0-9]+)/$', views.ImageRestaurantDetail.as_view()),
     url(r'^imagetransportation/$', views.ImageTransportation.as_view()),
     url(r'^imagetransportation/(?P<pk>[0-9]+)/$', views.ImageTransportationDetail.as_view()),
+    url(r'^imageservicetype/$', views.ImageServiceType.as_view()),
+    url(r'^imageservicetype/(?P<pk>[0-9]+)/$', views.ImageServiceTypeDetail.as_view()),
     url(r'^imageretail/$', views.ImageRetail.as_view()),
     url(r'^imageretail/(?P<pk>[0-9]+)/$', views.ImageRetailDetail.as_view()),
     url(r'^imagemining/$', views.ImageMining.as_view()),
@@ -49,6 +51,8 @@ urlpatterns = [
     url(r'^videorestaurant/(?P<pk>[0-9]+)/$', views.VideoRestaurantDetail.as_view()),
     url(r'^videotransportation/$', views.VideoTransportation.as_view()),
     url(r'^videotransportation/(?P<pk>[0-9]+)/$', views.VideoTransportationDetail.as_view()),
+    url(r'^videoservicetype/$', views.VideoServiceType.as_view()),
+    url(r'^videoservicetype/(?P<pk>[0-9]+)/$', views.VideoServiceTypeDetail.as_view()),
     url(r'^videoretail/$', views.VideoRetail.as_view()),
     url(r'^videoretail/(?P<pk>[0-9]+)/$', views.VideoRetailDetail.as_view()),
     url(r'^videomining/$', views.ImageMining.as_view()),
@@ -97,6 +101,8 @@ urlpatterns = [
     url(r'^adsrestaurant/(?P<pk>[0-9]+)/$', views.AdvertisementRestaurantDetail.as_view()),
     url(r'^adstransportation/$', views.AdvertisementTransportation.as_view()),
     url(r'^adstransportation/(?P<pk>[0-9]+)/$', views.AdvertisementTransportationDetail.as_view()),
+    url(r'^adsservicetype/$', views.AdvertisementServiceType.as_view()),
+    url(r'^adsservicetype/(?P<pk>[0-9]+)/$', views.AdvertisementServiceTypeDetail.as_view()),
     url(r'^adsretail/$', views.AdvertisementRetail.as_view()),
     url(r'^adsretail/(?P<pk>[0-9]+)/$', views.AdvertisementRetailDetail.as_view()),
     url(r'^adsmining/$', views.AdvertisementMining.as_view()),
@@ -157,6 +163,14 @@ urlpatterns = [
     url(r'^accomodation/$', views.AccomodationList.as_view()),
     url(r'^accomodation/(?P<pk>[0-9]+)/$', views.AccomodationDetail.as_view()),
     url(r'^accomodationpost/(?P<pk>[0-9]+)/$', views.AccomodationPost.as_view()),
+
+    url(r'^servicetype/$', views.ServiceTypeCompleteList.as_view()),
+    url(r'^servicetype/(?P<pk>[0-9]+)/$', views.ServiceTypeDetail.as_view()),
+    url(r'^servicetypepost/(?P<pk>[0-9]+)/$', views.ServiceTypePost.as_view()),
+    url(r'^servicetypetransportation/$', views.ServiceTypeTransportationList.as_view()),
+    url(r'^servicetyperetail/$', views.ServiceTypeRetailList.as_view()),
+    url(r'^servicetypemining/$', views.ServiceTypeMiningList.as_view()),
+    url(r'^servicetypeessentialservice/$', views.ServiceTypeEssentialServiceList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

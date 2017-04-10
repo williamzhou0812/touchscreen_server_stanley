@@ -1,9 +1,12 @@
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
-    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
+    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
+    ServiceType
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
     TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
-    DestinationDetailedSerializer, ActivityDestinationSerializer
+    DestinationDetailedSerializer, ActivityDestinationSerializer, ServiceTypeCompleteSerializer,\
+    ServiceTypeTransportationSerializer, ServiceTypeRetailSerializer, ServiceTypeMiningSerializer,\
+    ServiceTypeEssentialServiceSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -138,6 +141,15 @@ class ImageDestinationDetail(ListAPIView):
         return Image.objects.filter(destination_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageServiceType(ListAPIView):
+    queryset = Image.objects.exclude(serviceType=None)
+    serializer_class = ImageSerializer
+
+class ImageServiceTypeDetail(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(serviceType_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
 
 class VideoList(ListAPIView):
     queryset = Video.objects.all()
@@ -257,6 +269,15 @@ class VideoDestination(ListAPIView):
 class VideoDestinationDetail(ListAPIView):
     def get_queryset(self):
         return Video.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = VideoSerializer
+
+class VideoServiceType(ListAPIView):
+    queryset = Video.objects.exclude(serviceType=None)
+    serializer_class = VideoSerializer
+
+class VideoServiceTypeDetail(ListAPIView):
+    def get_queryset(self):
+        return Video.objects.filter(serviceType_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
 
@@ -543,6 +564,16 @@ class AdvertisementActivityDestinationDetail(ListAPIView):
         return Advertisement.objects.filter(activityDestination_id=self.kwargs['pk'])
     serializer_class = AdvertisementSerializer
 
+class AdvertisementServiceType(ListAPIView):
+    queryset = Advertisement.objects.exclude(serviceType=None)
+    serializer_class = AdvertisementSerializer
+
+class AdvertisementServiceTypeDetail(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(serviceType_id=self.kwargs['pk'])
+    serializer_class = AdvertisementSerializer
+
+
 class ActivityList(ListAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
@@ -815,6 +846,45 @@ class ActivityDestinationPost(APIView):
     def post(self, request, pk, format=None):
         instance = self.get_object(pk)
         if not isinstance(instance, ActivityDestination):
+            return instance
+        instance.numberOfClicks += 1
+        instance.save()
+        return return_success()
+
+class ServiceTypeCompleteList(ListAPIView):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeCompleteSerializer
+
+class ServiceTypeDetail(RetrieveAPIView):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeCompleteSerializer
+
+class ServiceTypeTransportationList(ListAPIView):
+    queryset = ServiceType.objects.exclude(transportationServiceType=None)
+    serializer_class = ServiceTypeTransportationSerializer
+
+class ServiceTypeRetailList(ListAPIView):
+    queryset = ServiceType.objects.exclude(retailServiceType=None)
+    serializer_class = ServiceTypeRetailSerializer
+
+class ServiceTypeMiningList(ListAPIView):
+    queryset = ServiceType.objects.exclude(miningServiceType=None)
+    serializer_class = ServiceTypeMiningSerializer
+
+class ServiceTypeEssentialServiceList(ListAPIView):
+    queryset = ServiceType.objects.exclude(essentialServiceServiceType=None)
+    serializer_class = ServiceTypeEssentialServiceSerializer
+
+class ServiceTypePost(APIView):
+    def get_object(self, pk):
+        try:
+            return ServiceType.objects.get(pk=pk)
+        except ServiceType.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, ServiceType):
             return instance
         instance.numberOfClicks += 1
         instance.save()
