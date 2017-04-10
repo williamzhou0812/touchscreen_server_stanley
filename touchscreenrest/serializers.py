@@ -184,10 +184,10 @@ class ServiceTypeEssentialServiceSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    essentialserviceServiceType = EssentialServiceSerializer(many=True)
+    essentialServiceServiceType = EssentialServiceSerializer(many=True)
     class Meta:
         model = ServiceType
-        fields = ('id', 'title', 'numberOfClicks', 'essentialserviceServiceType', 'imageServiceType', 'videoServiceType',
+        fields = ('id', 'title', 'numberOfClicks', 'essentialServiceServiceType', 'imageServiceType', 'videoServiceType',
                   'advertisementServiceType')
 
 class ServiceTypeCompleteSerializer(serializers.ModelSerializer):
@@ -197,12 +197,12 @@ class ServiceTypeCompleteSerializer(serializers.ModelSerializer):
     transportationServiceType = TransportationSerializer(many=True)
     retailServiceType = RetailSerializer(many=True)
     miningServiceType = MiningSerializer(many=True)
-    essentialserviceServiceType = EssentialServiceSerializer(many=True)
+    essentialServiceServiceType = EssentialServiceSerializer(many=True)
     class Meta:
         model = ServiceType
         fields = (
         'id', 'title', 'numberOfClicks', 'transportationServiceType', 'retailServiceType', 'miningServiceType',
-        'essentialserviceServiceType', 'imageServiceType', 'videoServiceType', 'advertisementServiceType')
+        'essentialServiceServiceType', 'imageServiceType', 'videoServiceType', 'advertisementServiceType')
 
 class DestinationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
