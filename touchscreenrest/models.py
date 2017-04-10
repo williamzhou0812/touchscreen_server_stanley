@@ -93,6 +93,17 @@ class Restaurant(models.Model):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
 
+class ServiceType(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    class Meta:
+        verbose_name = "Services Subsection 2"
+        verbose_name_plural = "Services Subsection 2"
+
 class Transportation(models.Model):
     def __str__(self):
         return self.title
@@ -107,7 +118,10 @@ class Transportation(models.Model):
     logo = models.ImageField(upload_to='transportation_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Transportation order display")
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='transportationDestination')
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='transportationDestination',
+                                    blank=True, null=True)
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='transportationServiceType',
+                                    verbose_name='Services Subsection 2')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Transportation Logo'
@@ -129,7 +143,10 @@ class Retail(models.Model):
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Retail order display")
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='retailDestination')
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='retailDestination', blank=True,
+                                    null=True)
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='retailServiceType',
+                                    verbose_name='Services Subsection 2')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Retail Logo'
@@ -148,7 +165,10 @@ class Mining(models.Model):
     logo = models.ImageField(upload_to='mining_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Mining order display")
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='miningDestination')
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='miningDestination', blank=True,
+                                    null=True)
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='miningServiceType',
+                                    verbose_name='Services Subsection 2')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Mining Logo'
@@ -169,7 +189,10 @@ class EssentialService(models.Model):
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Essential Service order display")
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='essentialServiceDestination')
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='essentialServiceDestination',
+                                    blank=True, null=True)
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='essentialServiceServiceType',
+                                    verbose_name='Services Subsection 2')
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Essential Service Logo'
@@ -363,6 +386,12 @@ class Advertisement(models.Model):
         '''Checks whether this advertisement instance is an essential service advertisement'''
         return self.essentialservice is not None
 
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='advertisementServiceType',
+                                    blank=True, null=True, verbose_name='Services Subsection 2')
+    def is_service_type_advertisement(self):
+        '''Checks whether this advertisement instance is a service type advertisement'''
+        return self.serviceType is not None
+
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='advertisementDestination', blank=True, null=True)
     def is_destination_advertisement(self):
         '''Checks whether this advertisement instance is a destination advertisement'''
@@ -452,6 +481,12 @@ class Video(models.Model):
         '''Checks whether this video instance is an essential service video'''
         return self.essentialservice is not None
 
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='videoServiceType',
+                                    blank=True, null=True, verbose_name='Services Subsection 2')
+    def is_service_type_video(self):
+        '''Checks whether this video instance is a service type video'''
+        return self.serviceType is not None
+
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='videoDestination', blank=True, null=True)
     def is_destination_video(self):
         '''Checks whether this video instance is a destination video'''
@@ -536,6 +571,12 @@ class Image(models.Model):
     def is_essential_service_image(self):
         '''Checks whether this image instance is an essential service image'''
         return self.essentialservice is not None
+
+    serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='imageServiceType', blank=True,
+                                    null=True, verbose_name='Services Subsection 2')
+    def is_service_type_image(self):
+        '''Checks whether this image instance is a service type image'''
+        return self.serviceType is not None
 
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='imageDestination', blank=True, null=True)
     def is_destination_image(self):
