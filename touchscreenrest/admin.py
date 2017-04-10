@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from forms import AdvertisementForm, VideoForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
-    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video
+    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType
 
 IMAGE_SRC = '''<img src="%s" />'''
 VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video tag.</video>'''
@@ -798,3 +798,41 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
 admin.site.register(ActivityDestination, ActivityDestinationAdmin)
 ## End of Activity Destination Administration ##
 admin.site.unregister(Group)
+
+## Start of Service Type Administration ##
+class ServiceTypeImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination')
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class ServiceTypeVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo',
+               'activityDestination')
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class ServiceTypeAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Activity Information', {'fields': ['title']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
+    ]
+    inlines = [ServiceTypeImageInLine, ServiceTypeVideoInLine]
+    list_display = ('title', 'numberOfClicks')
+    list_filter = ['title']
+    search_fields = ['title']
+
+admin.site.register(ServiceType, ServiceTypeAdmin)
+## End of Service Type Administration ##

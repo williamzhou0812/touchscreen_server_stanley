@@ -121,7 +121,7 @@ class Transportation(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='transportationDestination',
                                     blank=True, null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='transportationServiceType',
-                                    verbose_name='Services Subsection 2')
+                                    verbose_name='Services Subsection 2', blank=True, null=True)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Transportation Logo'
@@ -146,7 +146,7 @@ class Retail(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='retailDestination', blank=True,
                                     null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='retailServiceType',
-                                    verbose_name='Services Subsection 2')
+                                    verbose_name='Services Subsection 2', blank=True, null=True)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Retail Logo'
@@ -168,7 +168,7 @@ class Mining(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='miningDestination', blank=True,
                                     null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='miningServiceType',
-                                    verbose_name='Services Subsection 2')
+                                    verbose_name='Services Subsection 2', blank=True, null=True)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Mining Logo'
@@ -192,7 +192,7 @@ class EssentialService(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='essentialServiceDestination',
                                     blank=True, null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='essentialServiceServiceType',
-                                    verbose_name='Services Subsection 2')
+                                    verbose_name='Services Subsection 2', blank=True, null=True)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Essential Service Logo'
