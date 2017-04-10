@@ -81,7 +81,8 @@ urlpatterns = [
 
     url(r'^advertisement/$', views.AdvertisementList.as_view()),
     url(r'^advertisement/(?P<pk>[0-9]+)/$', views.AdvertisementDetail.as_view()),
-    url(r'^advertisementpost/(?P<pk>[0-9]+)/$', views.AdvertisementPost.as_view()),
+    url(r'^advertisementpostclick/(?P<pk>[0-9]+)/$', views.AdvertisementPostClick.as_view()),
+    url(r'^advertisementpostshow/(?P<pk>[0-9]+)/$', views.AdvertisementPostShow.as_view()),
     url(r'^topdeal/$', views.AdvertisementTopDeal.as_view()),
     url(r'^featuredad/$', views.AdvertisementHighlighted.as_view()),
     url(r'^adstour/$', views.AdvertisementTour.as_view()),

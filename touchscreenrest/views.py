@@ -357,7 +357,37 @@ class AdvertisementDetail(RetrieveAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
 
-class AdvertisementPost(APIView):
+class AdvertisementPostClick(APIView):
+    def get_object(self, pk):
+        try:
+            return Advertisement.objects.get(pk=pk)
+        except Advertisement.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, Advertisement):
+            return instance
+        instance.numberOfClicks += 1
+        instance.save()
+        return return_success()
+
+class AdvertisementPostShow(APIView):
+    def get_object(self, pk):
+        try:
+            return Advertisement.objects.get(pk=pk)
+        except Advertisement.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, Advertisement):
+            return instance
+        instance.numberOfShows += 1
+        instance.save()
+        return return_success()
+
+class AdvertisementPostOld(APIView):
     def get_object(self, pk):
         try:
             return Advertisement.objects.get(pk=pk)
