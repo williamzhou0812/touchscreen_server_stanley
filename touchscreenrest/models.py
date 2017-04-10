@@ -110,9 +110,9 @@ class Transportation(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
+    description = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=300, blank=True, null=True)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='transportation_logos/', blank=True, null=True)
@@ -135,9 +135,9 @@ class Retail(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
+    description = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=300, blank=True, null=True)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
@@ -157,9 +157,9 @@ class Mining(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
+    description = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=300, blank=True, null=True)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='mining_logos/', blank=True, null=True)
@@ -181,9 +181,9 @@ class EssentialService(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
+    description = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=300, blank=True, null=True)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='retail_logos/', blank=True, null=True)
