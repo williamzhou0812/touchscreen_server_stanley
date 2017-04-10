@@ -126,6 +126,7 @@ urlpatterns = [
 
     url(r'^destination/$', views.DestinationList.as_view()),
     url(r'^destination/(?P<pk>[0-9]+)/$', views.DestinationDetail.as_view()),
+    url(r'^destinationaccomodation/$', views.DestinationAccomodationList.as_view()),
     url(r'^destinationpost/(?P<pk>[0-9]+)/$', views.DestinationPost.as_view()),
 
     url(r'^period/$', views.PeriodList.as_view()),

@@ -214,6 +214,16 @@ class DestinationSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
                   'advertisementDestination', 'mapDestination')
 
+class DestinationAccomodationSerializer(serializers.ModelSerializer):
+    videoDestination = VideoSerializer(many=True, read_only=True)
+    imageDestination = ImageSerializer(many=True, read_only=True)
+    advertisementDestination = AdvertisementSerializer(many=True)
+    accomodationDestination = AccomodationSerializer(many=True)
+    class Meta:
+        model = Destination
+        fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
+                  'advertisementDestination', 'accomodationDestination')
+
 class DestinationDetailedSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
     restaurantDestination = RestaurantSerializer(many=True)

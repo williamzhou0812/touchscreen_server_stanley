@@ -6,7 +6,7 @@ from touchscreenrest.serializers import ImageSerializer, VideoSerializer, Advert
     TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
     DestinationDetailedSerializer, ActivityDestinationSerializer, ServiceTypeCompleteSerializer,\
     ServiceTypeTransportationSerializer, ServiceTypeRetailSerializer, ServiceTypeMiningSerializer,\
-    ServiceTypeEssentialServiceSerializer
+    ServiceTypeEssentialServiceSerializer, DestinationAccomodationSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -600,6 +600,10 @@ class ActivityPost(APIView):
 class DestinationList(ListAPIView):
     queryset = Destination.objects.all()
     serializer_class = DestinationSerializer
+
+class DestinationAccomodationList(ListAPIView):
+    queryset = Destination.objects.all()
+    serializer_class = DestinationAccomodationSerializer
 
 class DestinationDetail(RetrieveAPIView):
     queryset = Destination.objects.all()
