@@ -205,6 +205,7 @@ class ActivityDestination(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activityDestinationActivity',
                                  blank=True, null=True)
@@ -217,9 +218,9 @@ class Tour(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
-    description = models.TextField()
-    address = models.CharField(max_length=300, blank=False)
-    phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
+    description = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=300, blank=True, null=True)
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='tour_logos/', blank=True, null=True)

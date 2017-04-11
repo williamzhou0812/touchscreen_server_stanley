@@ -48,7 +48,7 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
     tourActivityDestination = TourSerializer(many=True, read_only=True)
     class Meta:
         model = ActivityDestination
-        fields = ('id', 'title', 'numberOfClicks', 'tourActivityDestination', 'imageActivityDestination',
+        fields = ('id', 'title', 'description', 'numberOfClicks', 'tourActivityDestination', 'imageActivityDestination',
                   'videoActivityDestination', 'advertisementActivityDestination')
 
 class ActivitySerializer(serializers.ModelSerializer):
