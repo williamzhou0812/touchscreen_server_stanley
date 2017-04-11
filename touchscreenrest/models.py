@@ -209,6 +209,8 @@ class ActivityDestination(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activityDestinationActivity',
                                  blank=True, null=True)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name="activityDestinationDestination",
+                                    blank=True, null=True)
     class Meta:
         verbose_name = 'Destination for Activity'
 

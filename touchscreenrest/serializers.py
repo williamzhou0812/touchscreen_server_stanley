@@ -46,10 +46,12 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
     imageActivityDestination = ImageSerializer(many=True, read_only=True)
     videoActivityDestination = VideoSerializer(many=True, read_only=True)
     tourActivityDestination = TourSerializer(many=True, read_only=True)
+    activityTitle = serializers.CharField(read_only=True, source="activity")
+
     class Meta:
         model = ActivityDestination
-        fields = ('id', 'title', 'description', 'numberOfClicks', 'tourActivityDestination', 'imageActivityDestination',
-                  'videoActivityDestination', 'advertisementActivityDestination')
+        fields = ('id', 'title', 'description', 'activity', 'activityTitle', 'numberOfClicks', 'tourActivityDestination',
+                  'imageActivityDestination', 'videoActivityDestination', 'advertisementActivityDestination')
 
 class ActivitySerializer(serializers.ModelSerializer):
     advertisementActivity = AdvertisementSerializer(many=True)
@@ -233,8 +235,9 @@ class DestinationDetailedSerializer(serializers.ModelSerializer):
     advertisementDestination = AdvertisementSerializer(many=True)
     mapDestination = MapSerializer(many=True, read_only=True)
     tourDestination = TourSerializer(many=True, read_only=True)
+    activityDestinationDestination = ActivityDestinationSerializer(many=True, read_only=True)
     class Meta:
         model = Destination
         fields = ('id', 'title', 'description', 'numberOfClicks', 'eventDestination', 'accomodationDestination',
                   'restaurantDestination', 'videoDestination', 'imageDestination', 'advertisementDestination',
-                  'tourDestination', 'mapDestination')
+                  'tourDestination', 'mapDestination', 'activityDestinationDestination')

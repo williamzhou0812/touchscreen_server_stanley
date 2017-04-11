@@ -788,7 +788,7 @@ class ActivityDestinationAdvertisementInLine(admin.StackedInline):
 class ActivityDestinationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title', 'description']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
     ]
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
     list_display = ('title', 'numberOfClicks')
