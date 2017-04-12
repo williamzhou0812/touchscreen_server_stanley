@@ -46,6 +46,8 @@ class Destination(models.Model):
     def __unicode__(self):
         return self.title
     title = models.CharField(max_length=200, blank=False)
+    province = models.CharField(max_length=200, blank=False, default='')
+    airport = models.CharField(max_length=200, blank=False, default='', verbose_name="Closest Airport")
     description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
 
