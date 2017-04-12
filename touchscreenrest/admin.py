@@ -273,7 +273,8 @@ class EventAdvertisementInLine(admin.StackedInline):
 
 class EventAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Event Information', {'fields': ['title', 'description', 'fromEventDate', 'untilEventDate', 'destination', 'period']}),
+        ('Event Information', {'fields': ['title', 'description', 'location', 'phone', 'email', 'website',
+                                          'fromEventDate', 'untilEventDate', 'destination', 'period']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]

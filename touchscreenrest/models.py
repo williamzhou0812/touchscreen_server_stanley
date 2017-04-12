@@ -68,6 +68,10 @@ class Event(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField(default='')
+    location = models.CharField(max_length=200, blank=True, null=True, verbose_name="Event Location")
+    phone = models.CharField(max_length=16, validators=[validate_phone], blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
     fromEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now,
                                      verbose_name="From event date")
     untilEventDate = models.DateField(auto_now=False, auto_now_add=False, blank=False, default=datetime.now,
