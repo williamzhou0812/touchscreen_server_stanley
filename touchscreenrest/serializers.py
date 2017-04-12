@@ -214,8 +214,8 @@ class DestinationSerializer(serializers.ModelSerializer):
     mapDestination = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
-                  'advertisementDestination', 'mapDestination')
+        fields = ('id', 'title', 'description', 'province', 'airport', 'numberOfClicks', 'videoDestination',
+                  'imageDestination', 'advertisementDestination', 'mapDestination')
 
 class DestinationAccomodationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
