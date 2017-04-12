@@ -82,8 +82,8 @@ class EventSerializer(serializers.ModelSerializer):
     mapEvent = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Event
-        fields = ('id', 'title', 'description', 'period', 'fromEventDate', 'untilEventDate', 'numberOfClicks',
-                  'videoEvent', 'imageEvent', 'advertisementEvent', 'mapEvent')
+        fields = ('id', 'title', 'description', 'destination', 'period', 'fromEventDate', 'untilEventDate',
+                  'numberOfClicks', 'videoEvent', 'imageEvent', 'advertisementEvent', 'mapEvent')
 
 class PeriodSerializer(serializers.ModelSerializer):
     eventPeriod = EventSerializer(many=True)
