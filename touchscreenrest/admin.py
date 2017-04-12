@@ -4,6 +4,7 @@ from forms import AdvertisementForm, VideoForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType
+import nested_admin
 
 IMAGE_SRC = '''<img src="%s" />'''
 VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video tag.</video>'''
@@ -69,7 +70,7 @@ admin.site.register(Accomodation, AccomodationAdmin)
 ## End of Accomodation Administration ##
 
 ## Start of Activity Administration ##
-class ActivityImageInLine(admin.TabularInline):
+class ActivityImageInLine(nested_admin.NestedTabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
@@ -81,7 +82,7 @@ class ActivityImageInLine(admin.TabularInline):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
     render_image.short_description = 'Image preview'
 
-class ActivityVideoInLine(admin.TabularInline):
+class ActivityVideoInLine(nested_admin.NestedTabularInline):
     model = Video
     extra = 1
     fields = ('title', 'videoFile', 'render_video')
@@ -92,10 +93,6 @@ class ActivityVideoInLine(admin.TabularInline):
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
     render_video.short_description = 'Video preview'
-
-class ActivityDestinationInLine(admin.StackedInline):
-    model = ActivityDestination
-    extra = 1
 
 class ActivityTourInLine(admin.StackedInline):
     model = Tour
@@ -108,12 +105,48 @@ class ActivityAdvertisementInLine(admin.StackedInline):
                'destination', 'essentialservice', 'activityDestination', 'serviceType')
     form = AdvertisementForm
 
-class ActivityAdmin(admin.ModelAdmin):
+###START OF ACTIVITY DESTINATION INLINE###
+class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+    classes = ['collapse']
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class ActivityDestinationVideoInLine(nested_admin.NestedTabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+    classes = ['collapse']
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class ActivityDestinationTourInLine(nested_admin.NestedStackedInline):
+    model = Tour
+    extra = 1
+    classes = ['collapse']
+
+class ActivityDestinationInLine(nested_admin.NestedStackedInline):
+    model = ActivityDestination
+    inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
+    classes = ['collapse']
+    extra = 1
+
+class ActivityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, ActivityTourInLine]
+    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
@@ -751,52 +784,52 @@ admin.site.register(EssentialService, EssentialServiceAdmin)
 
 
 ## Start of Activity Destination Administration ##
-class ActivityDestinationImageInLine(admin.TabularInline):
-    model = Image
-    extra = 1
-    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
-
-    def render_image(self, obj):
-        return mark_safe(IMAGE_SRC % obj.imageFile.url)
-    render_image.short_description = 'Image preview'
-
-class ActivityDestinationVideoInLine(admin.TabularInline):
-    model = Video
-    extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
-    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
-
-    def render_video(self, obj):
-        return mark_safe(VIDEO_SRC % obj.videoFile.url)
-    render_video.short_description = 'Video preview'
-
-class ActivityDestinationTourInLine(admin.StackedInline):
-    model = Tour
-    extra = 1
-
-class ActivityDestinationAdvertisementInLine(admin.StackedInline):
-    model = Advertisement
-    extra = 1
-    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
-               'destination', 'activity', 'essentialservices', 'serviceType')
-    form = AdvertisementForm
-
-class ActivityDestinationAdmin(admin.ModelAdmin):
-    fieldsets = [
-        ('Activity Information', {'fields': ['title', 'description']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
-    ]
-    inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
-    list_display = ('title', 'numberOfClicks')
-    list_filter = ['title', 'activity']
-    search_fields = ['title', 'activity__title']
-
-admin.site.register(ActivityDestination, ActivityDestinationAdmin)
+# class ActivityDestinationImageInLine(admin.TabularInline):
+#     model = Image
+#     extra = 1
+#     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+#                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+#     fields = ('title', 'imageFile', 'render_image')
+#     readonly_fields = ('render_image',)
+#
+#     def render_image(self, obj):
+#         return mark_safe(IMAGE_SRC % obj.imageFile.url)
+#     render_image.short_description = 'Image preview'
+#
+# class ActivityDestinationVideoInLine(admin.TabularInline):
+#     model = Video
+#     extra = 1
+#     fields = ('title', 'videoFile', 'render_video')
+#     readonly_fields = ('render_video',)
+#     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+#                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+#
+#     def render_video(self, obj):
+#         return mark_safe(VIDEO_SRC % obj.videoFile.url)
+#     render_video.short_description = 'Video preview'
+#
+# class ActivityDestinationTourInLine(admin.StackedInline):
+#     model = Tour
+#     extra = 1
+#
+# class ActivityDestinationAdvertisementInLine(admin.StackedInline):
+#     model = Advertisement
+#     extra = 1
+#     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
+#                'destination', 'activity', 'essentialservices', 'serviceType')
+#     form = AdvertisementForm
+#
+# class ActivityDestinationAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         ('Activity Information', {'fields': ['title', 'description']}),
+#         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
+#     ]
+#     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
+#     list_display = ('title', 'numberOfClicks')
+#     list_filter = ['title', 'activity']
+#     search_fields = ['title', 'activity__title']
+#
+# admin.site.register(ActivityDestination, ActivityDestinationAdmin)
 ## End of Activity Destination Administration ##
 admin.site.unregister(Group)
 

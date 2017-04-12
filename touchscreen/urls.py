@@ -21,4 +21,5 @@ from django.conf import settings
 urlpatterns = [
     url(r'^', include('touchscreenrest.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^_nested_admin/', include('nested_admin.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -219,6 +219,7 @@ class ActivityDestination(models.Model):
                                     blank=True, null=True)
     class Meta:
         verbose_name = 'Destination for Activity'
+        verbose_name_plural = 'Destination for Activities'
 
 class Tour(models.Model):
     def __str__(self):
