@@ -156,6 +156,8 @@ class Retail(models.Model):
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Retail Logo'
+    class Meta:
+        verbose_name = 'Retail & Service'
 
 class Mining(models.Model):
     def __str__(self):
