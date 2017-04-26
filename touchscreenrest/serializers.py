@@ -58,10 +58,11 @@ class ActivitySerializer(serializers.ModelSerializer):
     imageActivity = ImageSerializer(many=True, read_only=True)
     videoActivity = ImageSerializer(many=True, read_only=True)
     activityDestinationActivity = ActivityDestinationSerializer(many=True, read_only=True)
+    tourActivity = TourSerializer(many=True, read_only=True)
     class Meta:
         model = Activity
         fields = ('id', 'title', 'numberOfClicks', 'advertisementActivity', 'imageActivity', 'videoActivity',
-                  'activityDestinationActivity')
+                  'activityDestinationActivity', 'tourActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
