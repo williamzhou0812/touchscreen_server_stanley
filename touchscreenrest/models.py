@@ -5,6 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 from django.utils.safestring import mark_safe
 import phonenumbers
+from django.db.models.signals import post_delete
+from django.dispatch.dispatcher import receiver
+
 
 # phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
@@ -99,6 +102,11 @@ class Restaurant(models.Model):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
 
+@receiver(post_delete, sender=Restaurant)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
+
 class ServiceType(models.Model):
     def __str__(self):
         return self.title
@@ -135,6 +143,11 @@ class Transportation(models.Model):
         verbose_name = 'Car Hire & Transport'
         verbose_name_plural = 'Car Hire & Transport'
 
+@receiver(post_delete, sender=Transportation)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
+
 class Retail(models.Model):
     def __str__(self):
         return self.title
@@ -158,6 +171,11 @@ class Retail(models.Model):
     image_logo.short_description = 'Retail Logo'
     class Meta:
         verbose_name = 'Retail & Service'
+
+@receiver(post_delete, sender=Retail)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
 
 class Mining(models.Model):
     def __str__(self):
@@ -183,6 +201,11 @@ class Mining(models.Model):
     class Meta:
         verbose_name = 'Mining & Resource'
 
+@receiver(post_delete, sender=Mining)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
+
 class EssentialService(models.Model):
     def __str__(self):
         return self.title
@@ -206,6 +229,12 @@ class EssentialService(models.Model):
     image_logo.short_description = 'Essential Service Logo'
     class Meta:
         verbose_name = 'Essential Service'
+
+@receiver(post_delete, sender=EssentialService)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
+
 
 class ActivityDestination(models.Model):
     def __str__(self):
@@ -246,6 +275,11 @@ class Tour(models.Model):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Tour Logo'
 
+@receiver(post_delete, sender=Tour)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
+
 class Accomodation(models.Model):
     def __str__(self):
         return self.title
@@ -268,6 +302,10 @@ class Accomodation(models.Model):
         verbose_name = "Accommodation"
         verbose_name_plural = "Accommodation"
 
+@receiver(post_delete, sender=Accomodation)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.logo.delete(False)
 
 class Map(models.Model):
     def __str__(self):
@@ -329,6 +367,11 @@ class Map(models.Model):
     def map_preview(self):
         return mark_safe('''<img src="%s" />''' % self.mapImage.url)
     map_preview.short_description = 'Map preview'
+
+@receiver(post_delete, sender=Map)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.mapImage.delete(False)
 
 class Advertisement(models.Model):
     def __str__(self):
@@ -516,6 +559,12 @@ class Video(models.Model):
         return mark_safe('''<video src="%s" controls>Your browser does not support the video tag.</video>''' % self.videoFile.url)
     video_preview.short_description = 'Video preview'
 
+@receiver(post_delete, sender=Video)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.videoFile.delete(False)
+
+
 class Image(models.Model):
     def __str__(self):
         return self.title
@@ -605,3 +654,8 @@ class Image(models.Model):
     def image_preview(self):
         return mark_safe('''<img src="%s" />''' % self.imageFile.url)
     image_preview.short_description = 'Image preview'
+
+@receiver(post_delete, sender=Image)
+def mymodel_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.imageFile.delete(False)
