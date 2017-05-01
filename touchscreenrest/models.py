@@ -94,6 +94,13 @@ class Restaurant(models.Model):
     phone = models.CharField(max_length=16, validators=[validate_phone], blank=False)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
+    cuisine = models.CharField(max_length=200, blank=True, null=True)
+    cards = models.CharField(max_length=200, blank=True, null=True, verbose_name="Cards accepted")
+    price = models.CharField(max_length=200, blank=True, null=True, verbose_name="Price Guide")
+    takeaway = models.BooleanField(blank=False, default=False, choices=BOOL_CHOICES)
+    wifi = models.BooleanField(blank=False, default=False, verbose_name="Wi-Fi", choices=BOOL_CHOICES)
+    parking = models.BooleanField(blank=False, default=False, verbose_name="Secure Parking", choices=BOOL_CHOICES)
+    courtesy = models.BooleanField(blank=False, default=False, verbose_name="Courtesy Parking", choices=BOOL_CHOICES)
     logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Restaurant order display")
@@ -101,6 +108,9 @@ class Restaurant(models.Model):
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
+    class Meta:
+        verbose_name = "Dining"
+        verbose_name_plural = "Dining"
 
 @receiver(post_delete, sender=Restaurant)
 def mymodel_delete(sender, instance, **kwargs):

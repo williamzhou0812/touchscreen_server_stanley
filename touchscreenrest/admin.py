@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from forms import AdvertisementForm, VideoForm
+from forms import AdvertisementForm, VideoForm, RestaurantForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType
@@ -374,10 +374,12 @@ class RestaurantAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Restaurant Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                                'image_logo']}),
+        ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'wifi', 'parking', 'courtesy', 'cards', 'price']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
+    form = RestaurantForm
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']

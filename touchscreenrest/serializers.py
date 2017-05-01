@@ -105,8 +105,9 @@ class RestaurantSerializer(serializers.ModelSerializer):
     advertisementRestaurant = AdvertisementSerializer(many=True)
     class Meta:
         model = Restaurant
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks',
-                  'order', 'mapRestaurant', 'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'cuisine', 'cards', 'price',
+                  'takeaway', 'wifi', 'parking', 'courtesy', 'logo', 'numberOfClicks', 'order', 'mapRestaurant',
+                  'videoRestaurant', 'imageRestaurant', 'advertisementRestaurant')
 
 class TransportationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
