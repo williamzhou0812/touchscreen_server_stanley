@@ -29,6 +29,8 @@ Utilising MySQL Database System
 
 * Install Django-Cors-Header (to enable cross-origin resource sharing) via Terminal: `pip install django-cors-headers`
 
+* Install django-nested-admin via Terminal: ```pip install django-nested-admin```
+
 * Clone the project via [SourceTree](https://www.sourcetreeapp.com/)
 
 * Configure MySQL (Database System)
