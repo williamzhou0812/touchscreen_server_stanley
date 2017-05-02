@@ -42,6 +42,12 @@ class ImageActivityDetail(ListAPIView):
         return Image.objects.filter(activity_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageActivityHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(activity_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
+    serializer_class = ImageSerializer
+
 class ImageActivityDestination(ListAPIView):
     queryset = Image.objects.exclude(activityDestination=None)
     serializer_class = ImageSerializer
@@ -69,6 +75,12 @@ class ImageAccomodationDetail(ListAPIView):
         return Image.objects.filter(accomodation_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageAccomodationHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(accomodation_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
+    serializer_class = ImageSerializer
+
 class ImagePeriod(ListAPIView):
     queryset = Image.objects.exclude(period=None)
     serializer_class = ImageSerializer
@@ -76,6 +88,12 @@ class ImagePeriod(ListAPIView):
 class ImagePeriodDetail(ListAPIView):
     def get_queryset(self):
         return Image.objects.filter(period_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImagePeriodHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(period_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
     serializer_class = ImageSerializer
 
 class ImageEvent(ListAPIView):
@@ -105,6 +123,12 @@ class ImageTransportationDetail(ListAPIView):
         return Image.objects.filter(transportation_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageTransportationHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(transportation_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
+    serializer_class = ImageSerializer
+
 class ImageRetail(ListAPIView):
     queryset = Image.objects.exclude(retail=None)
     serializer_class = ImageSerializer
@@ -112,6 +136,12 @@ class ImageRetail(ListAPIView):
 class ImageRetailDetail(ListAPIView):
     def get_queryset(self):
         return Image.objects.filter(retail_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageRetailHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(retail_id=True).\
+            filter(isHeaderImage=True).order_by('?')
     serializer_class = ImageSerializer
 
 class ImageMining(ListAPIView):
@@ -123,6 +153,12 @@ class ImageMiningDetail(ListAPIView):
         return Image.objects.filter(mining_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageMiningHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(mining_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
+    serializer_class = ImageSerializer
+
 class ImageEssentialService(ListAPIView):
     queryset = Image.objects.exclude(essentialservice=None)
     serializer_class = ImageSerializer
@@ -132,6 +168,12 @@ class ImageEssentialServiceDetail(ListAPIView):
         return Image.objects.filter(essentialservice_id=self.kwargs['pk'])
     serializer_class = ImageSerializer
 
+class ImageEssentialServiceHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(essentialservice_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
+    serializer_class = ImageSerializer
+
 class ImageDestination(ListAPIView):
     queryset = Image.objects.exclude(destination=None)
     serializer_class = ImageSerializer
@@ -139,6 +181,12 @@ class ImageDestination(ListAPIView):
 class ImageDestinationDetail(ListAPIView):
     def get_queryset(self):
         return Image.objects.filter(destination_id=self.kwargs['pk'])
+    serializer_class = ImageSerializer
+
+class ImageDestinationHeader(ListAPIView):
+    def get_queryset(self):
+        return Image.objects.filter(destination_id=self.kwargs['pk']).\
+            filter(isHeaderImage=True).order_by('?')
     serializer_class = ImageSerializer
 
 class ImageServiceType(ListAPIView):

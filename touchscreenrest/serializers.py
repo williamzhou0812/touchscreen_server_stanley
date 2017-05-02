@@ -7,7 +7,7 @@ class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
         model = Image
-        fields = ('id', 'title', 'imageFile')
+        fields = ('id', 'title', 'isHeaderImage', 'imageFile')
 
 class VideoSerializer(serializers.ModelSerializer):
     videoFile = serializers.FileField(max_length=None, use_url=True)

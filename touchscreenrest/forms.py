@@ -1,5 +1,5 @@
 from django import forms
-from models import Advertisement, Video, Restaurant
+from models import Advertisement, Video, Restaurant, Image
 class AdvertisementForm(forms.ModelForm):
     class Meta:
         model = Advertisement
@@ -26,4 +26,12 @@ class RestaurantForm (forms.ModelForm):
             'wifi': forms.RadioSelect,
             'parking': forms.RadioSelect,
             'courtesy': forms.RadioSelect,
+        }
+
+class ImageForm (forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = (''),
+        widgets = {
+            'isHeaderImage': forms.RadioSelect,
         }

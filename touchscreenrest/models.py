@@ -582,6 +582,8 @@ class Image(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     imageFile = models.ImageField(upload_to='images/', blank=False, null=False)
+    isHeaderImage = models.BooleanField(blank=False, default=False, verbose_name="Is Header Image?",
+                                         choices=BOOL_CHOICES)
 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='imageActivity', blank=True, null=True)
     def is_activity_image(self):
