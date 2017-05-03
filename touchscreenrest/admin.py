@@ -389,7 +389,8 @@ class RestaurantAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Restaurant Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                                'image_logo']}),
-        ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'wifi', 'parking', 'courtesy', 'cards', 'price']}),
+        ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
+                                         'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]

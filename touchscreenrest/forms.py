@@ -1,12 +1,13 @@
 from django import forms
+from django.forms import RadioSelect
 from models import Advertisement, Video, Restaurant, Image
 class AdvertisementForm(forms.ModelForm):
     class Meta:
         model = Advertisement
         exclude = ('',)
         widgets = {
-            'inTopDeal': forms.RadioSelect,
-            'highlighted': forms.RadioSelect,
+            'inTopDeal': RadioSelect,
+            'highlighted': RadioSelect,
         }
 
 class VideoForm(forms.ModelForm):
@@ -14,24 +15,22 @@ class VideoForm(forms.ModelForm):
         model = Video
         exclude = ('',)
         widgets = {
-            'isDisplayVideo': forms.RadioSelect,
+            'isDisplayVideo': RadioSelect,
         }
 
 class RestaurantForm (forms.ModelForm):
+    takeaway = forms.ChoiceField(choices=Restaurant.CHOICES, required=False, widget=RadioSelect(), label="Take-away")
+    wifi = forms.ChoiceField(choices=Restaurant.CHOICES, required=False, widget=RadioSelect(), label="Wi-Fi")
+    parking = forms.ChoiceField(choices=Restaurant.CHOICES, required=False, widget=RadioSelect(), label="Secure Parking")
+    courtesy = forms.ChoiceField(choices=Restaurant.CHOICES, required=False, widget=RadioSelect(), label="Courtesy Transport")
     class Meta:
         model = Restaurant
         exclude = (''),
-        widgets = {
-            'takeaway': forms.RadioSelect,
-            'wifi': forms.RadioSelect,
-            'parking': forms.RadioSelect,
-            'courtesy': forms.RadioSelect,
-        }
 
 class ImageForm (forms.ModelForm):
     class Meta:
         model = Image
         exclude = (''),
         widgets = {
-            'isHeaderImage': forms.RadioSelect,
+            'isHeaderImage': RadioSelect,
         }

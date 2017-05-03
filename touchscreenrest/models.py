@@ -88,6 +88,7 @@ class Restaurant(models.Model):
         return self.title
     def __unicode__(self):
         return self.title
+    CHOICES = (('Yes', 'Yes'), ('No', 'No'), ('Other', 'Other'))
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     address = models.CharField(max_length=300, blank=False)
@@ -97,10 +98,17 @@ class Restaurant(models.Model):
     cuisine = models.CharField(max_length=200, blank=True, null=True)
     cards = models.CharField(max_length=200, blank=True, null=True, verbose_name="Cards accepted")
     price = models.CharField(max_length=200, blank=True, null=True, verbose_name="Price Guide")
-    takeaway = models.BooleanField(blank=False, default=False, choices=BOOL_CHOICES)
-    wifi = models.BooleanField(blank=False, default=False, verbose_name="Wi-Fi", choices=BOOL_CHOICES)
-    parking = models.BooleanField(blank=False, default=False, verbose_name="Secure Parking", choices=BOOL_CHOICES)
-    courtesy = models.BooleanField(blank=False, default=False, verbose_name="Courtesy Parking", choices=BOOL_CHOICES)
+    takeaway = models.CharField(max_length=200, blank=True, null=True, default='')
+    takeawayOther = models.CharField(max_length=200, blank=True, null=True, verbose_name='Take-away Additional Info')
+    wifi = models.CharField(max_length=200, blank=True, null=True, verbose_name="Wi-Fi", default='')
+    wifiOther = models.CharField(max_length=200, blank=True, null=True, verbose_name='Wi-Fi Additional Info')
+    parking = models.CharField(max_length=200, blank=True, null=True, verbose_name="Secure Parking", default='')
+    parkingOther = models.CharField(max_length=200, blank=True, null=True,
+                                    verbose_name="Secure Parking Additional Info")
+    courtesy = models.CharField(max_length=200, blank=True, null=True, verbose_name="Courtesy Transport", default='')
+    courtesyOther = models.CharField(max_length=200, blank=True, null=True,
+                                     verbose_name="Courtesy Transport Additional Info")
+
     logo = models.ImageField(upload_to='restaurant_logos/', blank=True, null=True)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Restaurant order display")
