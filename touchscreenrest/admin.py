@@ -12,8 +12,7 @@ VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video 
 class AccomodationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
                'mining', 'essentialservice', 'destination', 'advertisement', 'serviceType')
@@ -25,8 +24,7 @@ class AccomodationImageInLine(admin.TabularInline):
 class AccomodationVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant',
                'transportation', 'retail', 'mining', 'essentialservice', 'destination', 'advertisement',
                'isDisplayVideo', 'serviceType')
@@ -38,8 +36,7 @@ class AccomodationVideoInLine(admin.TabularInline):
 class AccomodationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
                'destination')
     classes = ['collapse']
@@ -80,8 +77,7 @@ class ActivityImageInLine(nested_admin.NestedTabularInline):
     extra = 1
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -91,8 +87,7 @@ class ActivityImageInLine(nested_admin.NestedTabularInline):
 class ActivityVideoInLine(nested_admin.NestedTabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -118,8 +113,7 @@ class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -128,8 +122,7 @@ class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
 class ActivityDestinationVideoInLine(nested_admin.NestedTabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -167,8 +160,7 @@ class DestinationImageInLine(admin.TabularInline):
     extra = 1
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
                'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -179,8 +171,7 @@ class DestinationImageInLine(admin.TabularInline):
 class DestinationVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
                'mining', 'essentialservice','advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -191,8 +182,7 @@ class DestinationVideoInLine(admin.TabularInline):
 class DestinationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
                'accomodation')
     classes = ['collapse']
@@ -225,8 +215,7 @@ admin.site.register(Destination, DestinationAdmin)
 class PeriodImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice','advertisement', 'accomodation', 'serviceType')
     form = ImageForm
@@ -238,8 +227,7 @@ class PeriodImageInLine(admin.TabularInline):
 class PeriodVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -277,8 +265,7 @@ admin.site.register(Period, PeriodAdmin)
 class EventImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'period', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
     classes = ['collapse']
@@ -289,8 +276,7 @@ class EventImageInLine(admin.TabularInline):
 class EventVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'period', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -301,8 +287,7 @@ class EventVideoInLine(admin.TabularInline):
 class EventMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
@@ -344,8 +329,7 @@ admin.site.register(Event, EventAdmin)
 class RestaurantImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'transportation', 'retail', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
     classes = ['collapse']
@@ -356,8 +340,7 @@ class RestaurantImageInLine(admin.TabularInline):
 class RestaurantVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'transportation', 'retail', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -368,8 +351,7 @@ class RestaurantVideoInLine(admin.TabularInline):
 class RestaurantMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'event', 'transportation', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
@@ -411,8 +393,7 @@ admin.site.register(Restaurant, RestaurantAdmin)
 class TourImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
     classes = ['collapse']
@@ -423,8 +404,7 @@ class TourImageInLine(admin.TabularInline):
 class TourVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -435,8 +415,7 @@ class TourVideoInLine(admin.TabularInline):
 class TourMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event',
                'destination')
     classes = ['collapse']
@@ -470,12 +449,11 @@ admin.site.register(Tour, TourAdmin)
 ## Start of Map Administration ##
 class MapAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Map Information', {'fields': ['title', 'mapImage', 'map_preview']}),
+        ('Map Information', {'fields': ['title', 'mapImage']}),
         ('Where to Show Map', {'fields': ['tour', 'restaurant', 'transportation', 'retail', 'mining',
                                           'essentialservice', 'event', 'accomodation', 'destination']}
          ),
     ]
-    readonly_fields = ('map_preview',)
 admin.site.register(Map, MapAdmin)
 ## End of Map Administration ##
 
@@ -483,8 +461,7 @@ admin.site.register(Map, MapAdmin)
 class AdvertisementImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile')
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                'activity', 'activityDestination', 'tour', 'accomodation', 'serviceType')
     classes = ['collapse']
@@ -495,8 +472,7 @@ class AdvertisementImageInLine(admin.TabularInline):
 class AdvertisementVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                'activity', 'activityDestination', 'tour', 'accomodation', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -526,13 +502,12 @@ admin.site.register(Advertisement, AdvertisementAdmin)
 ## Start of Image Administration ##
 class ImageAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Image Information', {'fields': ['title', 'imageFile', 'image_preview', 'isHeaderImage']}),
+        ('Image Information', {'fields': ['title', 'imageFile', 'isHeaderImage']}),
         ('Where to Show Image', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                                             'destination', 'advertisement', 'serviceType']}
          ),
     ]
-    readonly_fields = ('image_preview',)
     form = ImageForm
 admin.site.register(Image, ImageAdmin)
 ## End of Image Administration ##
@@ -540,13 +515,12 @@ admin.site.register(Image, ImageAdmin)
 ## Start of Video Administration ##
 class VideoAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile', 'video_preview']}),
+        ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile']}),
         ('Where to Show Video', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                                             'destination','advertisement', 'serviceType']}
          ),
     ]
-    readonly_fields = ('video_preview',)
     form = VideoForm
 admin.site.register(Video, VideoAdmin)
 ## End of Event Administration ##
@@ -555,8 +529,7 @@ admin.site.register(Video, VideoAdmin)
 class TransportationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'retail', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
     form = ImageForm
@@ -568,8 +541,7 @@ class TransportationImageInLine(admin.TabularInline):
 class TransportationVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'retail', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -580,8 +552,7 @@ class TransportationVideoInLine(admin.TabularInline):
 class TransportationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
@@ -620,8 +591,7 @@ admin.site.register(Transportation, TransportationAdmin)
 class RetailImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
     form = ImageForm
@@ -633,8 +603,7 @@ class RetailImageInLine(admin.TabularInline):
 class RetailVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -645,8 +614,7 @@ class RetailVideoInLine(admin.TabularInline):
 class RetailMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
@@ -685,8 +653,7 @@ admin.site.register(Retail, RetailAdmin)
 class MiningImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
     form = ImageForm
@@ -698,8 +665,7 @@ class MiningImageInLine(admin.TabularInline):
 class MiningVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
                'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -710,8 +676,7 @@ class MiningVideoInLine(admin.TabularInline):
 class MiningMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice',
                'destination')
     classes = ['collapse']
@@ -750,8 +715,7 @@ admin.site.register(Mining, MiningAdmin)
 class EssentialServiceImageInLine(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ('title', 'imageFile', 'render_image', 'isHeaderImage')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
                'retail', 'accomodation', 'destination', 'advertisement', 'serviceType')
     form = ImageForm
@@ -763,8 +727,7 @@ class EssentialServiceImageInLine(admin.TabularInline):
 class EssentialServiceVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
                'retail', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
     classes = ['collapse']
@@ -775,8 +738,7 @@ class EssentialServiceVideoInLine(admin.TabularInline):
 class EssentialServiceMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'mapImage')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'destination')
     classes = ['collapse']
     def render_image(self, obj):
@@ -867,9 +829,9 @@ class ServiceTypeImageInLine(admin.TabularInline):
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination')
-    fields = ('title', 'imageFile', 'render_image')
-    readonly_fields = ('render_image',)
+    fields = ('title', 'imageFile', 'isHeaderImage')
     classes = ['collapse']
+    form = ImageForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
     render_image.short_description = 'Image preview'
@@ -877,8 +839,7 @@ class ServiceTypeImageInLine(admin.TabularInline):
 class ServiceTypeVideoInLine(admin.TabularInline):
     model = Video
     extra = 1
-    fields = ('title', 'videoFile', 'render_video')
-    readonly_fields = ('render_video',)
+    fields = ('title', 'videoFile')
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo',
                'activityDestination')
