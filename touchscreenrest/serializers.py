@@ -80,7 +80,7 @@ class AccomodationHeaderSerializer(serializers.ModelSerializer):
     imageAccomodation = ImageSerializer(many=True, read_only=True)
     class Meta:
         model = Accomodation
-        fields = ('id', 'title', 'destination', 'imageAccomodation')
+        fields = ('id', 'title', 'imageAccomodation')
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -236,6 +236,12 @@ class DestinationAccomodationSerializer(serializers.ModelSerializer):
         model = Destination
         fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
                   'advertisementDestination', 'accomodationDestination')
+
+class DestinationAccomodationHeaderSerializer(serializers.ModelSerializer):
+    accomodationDestination = AccomodationHeaderSerializer(many=True, read_only=True)
+    class Meta:
+        model = Destination
+        fields = ('id', 'title', 'accomodationDestination')
 
 class DestinationDetailedSerializer(serializers.ModelSerializer):
     eventDestination = EventSerializer(many=True)
