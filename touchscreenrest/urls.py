@@ -170,6 +170,7 @@ urlpatterns = [
     url(r'^tourpost/(?P<pk>[0-9]+)/$', views.TourPost.as_view()),
 
     url(r'^accomodation/$', views.AccomodationList.as_view()),
+    url(r'^accomodationheader/$', views.AccomodationHeaderList.as_view()),
     url(r'^accomodation/(?P<pk>[0-9]+)/$', views.AccomodationDetail.as_view()),
     url(r'^accomodationpost/(?P<pk>[0-9]+)/$', views.AccomodationPost.as_view()),
 

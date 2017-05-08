@@ -76,6 +76,13 @@ class AccomodationSerializer(serializers.ModelSerializer):
                   'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
                   'advertisementAccomodation', 'mapAccomodation')
 
+class AccomodationHeaderSerializer(serializers.ModelSerializer):
+    imageAccomodation = ImageSerializer(many=True, read_only=True)
+    class Meta:
+        model = Accomodation
+        fields = ('id', 'title', 'destination', 'imageAccomodation')
+
+
 class EventSerializer(serializers.ModelSerializer):
     videoEvent = VideoSerializer(many=True, read_only=True)
     imageEvent = ImageSerializer(many=True, read_only=True)
