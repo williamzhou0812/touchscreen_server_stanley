@@ -306,11 +306,11 @@ class EventAdvertisementInLine(admin.StackedInline):
 class EventAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Event Information', {'fields': ['title', 'description', 'location', 'phone', 'email', 'website',
-                                          'fromEventDate', 'untilEventDate', 'destination', 'period']}),
+                                          'eventDate', 'eventMonth', 'destination', 'period']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
-    list_display = ('title', 'fromEventDate', 'untilEventDate', 'destination', 'period')
+    list_display = ('title', 'destination', 'period')
     list_filter = ['title', 'destination', 'period']
     search_fields = ['title', 'destination__title', 'period__title']
 

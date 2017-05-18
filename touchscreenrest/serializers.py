@@ -91,7 +91,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('id', 'title', 'description', 'location', 'phone', 'email', 'website', 'destination', 'period',
-                  'fromEventDate', 'untilEventDate', 'numberOfClicks', 'videoEvent', 'imageEvent', 'advertisementEvent',
+                  'eventDate', 'eventMonth', 'numberOfClicks', 'videoEvent', 'imageEvent', 'advertisementEvent',
                   'mapEvent')
 
 class PeriodSerializer(serializers.ModelSerializer):

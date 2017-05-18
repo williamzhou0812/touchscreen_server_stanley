@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import RadioSelect
-from models import Advertisement, Video, Restaurant, Image
+from models import Advertisement, Video, Restaurant, Image, Event
 class AdvertisementForm(forms.ModelForm):
     class Meta:
         model = Advertisement
