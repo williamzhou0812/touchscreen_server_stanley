@@ -107,6 +107,38 @@ class ActivityAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
+###START OF ACTIVITY TOUR INLINE###
+class TourImageNestedInLine(nested_admin.NestedTabularInline):
+    model = Image
+    extra = 1
+    fields = ('title', 'imageFile')
+    exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+    classes = ['collapse']
+
+class TourVideoNestedInLine(nested_admin.NestedTabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile')
+    exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+    classes = ['collapse']
+
+class TourMapNestedInLine(nested_admin.NestedTabularInline):
+    model = Map
+    extra = 1
+    fields = ('title', 'mapImage')
+    exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event',
+               'destination')
+    classes = ['collapse']
+
+class TourInLine(nested_admin.NestedStackedInline):
+    model = Tour
+    inlines = [TourImageNestedInLine, TourVideoNestedInLine, TourMapNestedInLine]
+    classes = ['collapse']
+    extra = 1
+###END OF ACTIVITY TOUR INLINE###
+
 ###START OF ACTIVITY DESTINATION INLINE###
 class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
     model = Image
@@ -146,7 +178,7 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
-    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine]
+    inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, TourInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
