@@ -3,8 +3,14 @@
  */
 const SHOW_OTHER_FIELDS = "SPECIFY";
 $(function() {
-    $('.field-displayFrom').hide();
-    $('.field-displayTo').hide();
+    const value = $('#id_display').find(":selected").text();
+    if (value === SHOW_OTHER_FIELDS) {
+        $('.field-displayFrom').show();
+        $('.field-displayTo').show();
+    } else {
+        $('.field-displayFrom').hide();
+        $('.field-displayTo').hide();
+    }
     $('#id_display').change(function() {
         const value = $('#id_display').find(":selected").text();
         if (value === SHOW_OTHER_FIELDS) {

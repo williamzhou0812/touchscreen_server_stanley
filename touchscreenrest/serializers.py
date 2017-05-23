@@ -2,6 +2,8 @@ from rest_framework import serializers
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
     ServiceType
+from django.db.models import Q
+from datetime import date
 
 class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
@@ -45,8 +47,17 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
     advertisementActivityDestination = AdvertisementSerializer(many=True)
     imageActivityDestination = ImageSerializer(many=True, read_only=True)
     videoActivityDestination = VideoSerializer(many=True, read_only=True)
-    tourActivityDestination = TourSerializer(many=True, read_only=True)
+    tourActivityDestination = serializers.SerializerMethodField('get_tours')
     activityTitle = serializers.CharField(read_only=True, source="activity")
+
+    def get_tours(self, activity_destination):
+        queryset = Tour.objects.filter(
+            Q(activityDestination=activity_destination),
+            Q(display='INDEFINITE') | Q(display='SPECIFY') & Q(displayFrom__lte=date.today()) & Q(displayTo__gte=date.today())
+        )
+        serializer = TourSerializer(queryset, many=True)
+        return serializer.data
+
 
     class Meta:
         model = ActivityDestination
