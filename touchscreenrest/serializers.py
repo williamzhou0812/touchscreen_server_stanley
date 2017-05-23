@@ -68,12 +68,19 @@ class ActivitySerializer(serializers.ModelSerializer):
     advertisementActivity = AdvertisementSerializer(many=True)
     imageActivity = ImageSerializer(many=True, read_only=True)
     videoActivity = ImageSerializer(many=True, read_only=True)
-    activityDestinationActivity = ActivityDestinationSerializer(many=True, read_only=True)
-    tourActivity = TourSerializer(many=True, read_only=True)
+    activityDestinationActivity = serializers.SerializerMethodField('get_destinations')
+
+    def get_destinations(self, activity):
+        queryset = ActivityDestination.objects.filter(
+            Q(activity=activity),
+            Q(display='INDEFINITE') | Q(display='SPECIFY') & Q(displayFrom__lte=date.today()) & Q(displayTo__gte=date.today())
+        )
+        serializer = ActivityDestinationSerializer(queryset, many=True)
+        return serializer.data
     class Meta:
         model = Activity
         fields = ('id', 'title', 'numberOfClicks', 'advertisementActivity', 'imageActivity', 'videoActivity',
-                  'activityDestinationActivity', 'tourActivity')
+                  'activityDestinationActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
