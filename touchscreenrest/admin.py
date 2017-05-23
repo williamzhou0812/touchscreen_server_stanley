@@ -48,7 +48,7 @@ class AccomodationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -57,6 +57,7 @@ class AccomodationAdmin(admin.ModelAdmin):
         ('Accomodation Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                                  'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
     readonly_fields = ('image_logo',)
@@ -67,6 +68,8 @@ class AccomodationAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Accomodation, AccomodationAdmin)
 ## End of Accomodation Administration ##
@@ -103,7 +106,8 @@ class ActivityAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
-               'destination', 'essentialservice', 'activityDestination', 'serviceType')
+               'destination', 'essentialservice', 'activityDestination', 'serviceType', 'display', 'displayFrom',
+               'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -136,6 +140,7 @@ class TourInLine(nested_admin.NestedStackedInline):
     model = Tour
     inlines = [TourImageNestedInLine, TourVideoNestedInLine, TourMapNestedInLine]
     classes = ['collapse']
+    exclude = ('display', 'displayFrom', 'displayTo')
     extra = 1
 ###END OF ACTIVITY TOUR INLINE###
 
@@ -169,6 +174,7 @@ class ActivityDestinationTourInLine(nested_admin.NestedStackedInline):
 
 class ActivityDestinationInLine(nested_admin.NestedStackedInline):
     model = ActivityDestination
+    exclude = ('display', 'displayFrom', 'displayTo')
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
     classes = ['collapse']
     extra = 1
@@ -177,11 +183,14 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, TourInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Activity, ActivityAdmin)
 ## End of Activity Administration ##
@@ -226,7 +235,7 @@ class DestinationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'accomodation', 'activity', 'activityDestination', 'serviceType')
+               'accomodation', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     classes = ['collapse']
     form = AdvertisementForm
 
@@ -234,11 +243,14 @@ class DestinationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Destination Information', {'fields': ['title', 'province', 'airport', 'description']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Destination, DestinationAdmin)
 ## End of Destination Administration ##
@@ -271,7 +283,7 @@ class PeriodAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'accomodation', 'activity', 'activityDestination', 'serviceType')
+               'accomodation', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -284,11 +296,14 @@ class PeriodAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Period Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [PeriodImageInLine, PeriodVideoInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Period, PeriodAdmin)
 ## End of Period Administration ##
@@ -331,7 +346,7 @@ class EventAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'destination', 'period', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'accomodation', 'activity', 'activityDestination', 'serviceType')
+               'accomodation', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -340,6 +355,7 @@ class EventAdmin(admin.ModelAdmin):
         ('Event Information', {'fields': ['title', 'description', 'location', 'phone', 'email', 'website',
                                           'eventDate', 'eventMonth', 'destination', 'period']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
     list_display = ('title', 'destination', 'period')
@@ -353,6 +369,9 @@ class EventAdmin(admin.ModelAdmin):
     def get_period_title(self, obj):
         return obj.period.title
     get_period_title.short_description = "periodTitle"
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Event, EventAdmin)
 ## End of Event Administration ##
@@ -395,7 +414,7 @@ class RestaurantAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -406,6 +425,7 @@ class RestaurantAdmin(admin.ModelAdmin):
         ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
                                          'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
@@ -417,6 +437,9 @@ class RestaurantAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Restaurant, RestaurantAdmin)
 ## End of Restaurant Administration ##
@@ -459,7 +482,7 @@ class TourAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'accomodation', 'activity', 'activityDestination', 'serviceType')
+               'accomodation', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -468,12 +491,15 @@ class TourAdmin(admin.ModelAdmin):
         ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                          'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('title', 'address', 'phone', 'email', 'website', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
     search_fields = ['title', 'activity__title', 'activityDestination__title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Tour, TourAdmin)
 ## End of Tour Administration ##
@@ -521,12 +547,15 @@ class AdvertisementAdmin(admin.ModelAdmin):
                                                     'event', 'restaurant', 'transportation', 'retail', 'mining',
                                                     'essentialservice', 'destination', 'serviceType']}
          ),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
     list_display = ('title', 'company')
     list_filter = ['title', 'company']
     search_fields = ['title', 'company']
     form = AdvertisementForm
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Advertisement, AdvertisementAdmin)
 ## End of Advertisement Administration ##
@@ -596,7 +625,7 @@ class TransportationAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'retail', 'mining', 'essentialservice', 'accomodation',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -605,6 +634,7 @@ class TransportationAdmin(admin.ModelAdmin):
         ('Car Hire & Transportation Information', {'fields': ['title', 'description', 'address', 'phone', 'email',
                                                               'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
@@ -615,6 +645,9 @@ class TransportationAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Transportation, TransportationAdmin)
 ## End of Transportation Administration ##
@@ -658,7 +691,7 @@ class RetailAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice', 'accomodation',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -667,6 +700,7 @@ class RetailAdmin(admin.ModelAdmin):
         ('Retail Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                            'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
@@ -677,6 +711,9 @@ class RetailAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Retail, RetailAdmin)
 ## End of Retail Administration ##
@@ -720,7 +757,7 @@ class MiningAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice', 'accomodation',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -729,6 +766,7 @@ class MiningAdmin(admin.ModelAdmin):
         ('Mining Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
                                            'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
@@ -739,6 +777,9 @@ class MiningAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(Mining, MiningAdmin)
 ## End of Mining Administration ##
@@ -781,7 +822,7 @@ class EssentialServiceAdvertisementInLine(admin.StackedInline):
     model = Advertisement
     extra = 1
     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
-               'destination', 'activity', 'activityDestination', 'serviceType')
+               'destination', 'activity', 'activityDestination', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
     classes = ['collapse']
 
@@ -790,6 +831,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
         ('Essential Service Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website',
                                                       'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
@@ -801,57 +843,59 @@ class EssentialServiceAdmin(admin.ModelAdmin):
         return obj.destination.title
     get_title.short_description = "title"
 
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+
 admin.site.register(EssentialService, EssentialServiceAdmin)
 ## End of Essential Services Administration ##
 
 
 ## Start of Activity Destination Administration ##
-# class ActivityDestinationImageInLine(admin.TabularInline):
-#     model = Image
-#     extra = 1
-#     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-#                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
-#     fields = ('title', 'imageFile', 'render_image')
-#     readonly_fields = ('render_image',)
-#
-#     def render_image(self, obj):
-#         return mark_safe(IMAGE_SRC % obj.imageFile.url)
-#     render_image.short_description = 'Image preview'
-#
-# class ActivityDestinationVideoInLine(admin.TabularInline):
-#     model = Video
-#     extra = 1
-#     fields = ('title', 'videoFile', 'render_video')
-#     readonly_fields = ('render_video',)
-#     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-#                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
-#
-#     def render_video(self, obj):
-#         return mark_safe(VIDEO_SRC % obj.videoFile.url)
-#     render_video.short_description = 'Video preview'
-#
-# class ActivityDestinationTourInLine(admin.StackedInline):
-#     model = Tour
-#     extra = 1
-#
-# class ActivityDestinationAdvertisementInLine(admin.StackedInline):
-#     model = Advertisement
-#     extra = 1
-#     exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
-#                'destination', 'activity', 'essentialservices', 'serviceType')
-#     form = AdvertisementForm
-#
-# class ActivityDestinationAdmin(admin.ModelAdmin):
-#     fieldsets = [
-#         ('Activity Information', {'fields': ['title', 'description']}),
-#         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
-#     ]
-#     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
-#     list_display = ('title', 'numberOfClicks')
-#     list_filter = ['title', 'activity']
-#     search_fields = ['title', 'activity__title']
-#
-# admin.site.register(ActivityDestination, ActivityDestinationAdmin)
+class ActivityDestinationImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+    fields = ('title', 'imageFile', 'render_image')
+    readonly_fields = ('render_image',)
+
+    def render_image(self, obj):
+        return mark_safe(IMAGE_SRC % obj.imageFile.url)
+    render_image.short_description = 'Image preview'
+
+class ActivityDestinationVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile', 'render_video')
+    readonly_fields = ('render_video',)
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+
+    def render_video(self, obj):
+        return mark_safe(VIDEO_SRC % obj.videoFile.url)
+    render_video.short_description = 'Video preview'
+
+class ActivityDestinationAdvertisementInLine(admin.StackedInline):
+    model = Advertisement
+    extra = 1
+    exclude = ('tour', 'period', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'accomodation',
+               'destination', 'activity', 'essentialservices', 'serviceType', 'display', 'displayFrom', 'displayTo')
+    form = AdvertisementForm
+
+class ActivityDestinationAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Activity Information', {'fields': ['title', 'description']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+    ]
+    inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
+    list_display = ('title', 'numberOfClicks')
+    list_filter = ['title', 'activity']
+    search_fields = ['title', 'activity__title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+
+admin.site.register(ActivityDestination, ActivityDestinationAdmin)
 ## End of Activity Destination Administration ##
 admin.site.unregister(Group)
 
@@ -884,11 +928,14 @@ class ServiceTypeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [ServiceTypeImageInLine, ServiceTypeVideoInLine]
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
 admin.site.register(ServiceType, ServiceTypeAdmin)
 ## End of Service Type Administration ##

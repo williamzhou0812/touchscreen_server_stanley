@@ -11,6 +11,8 @@ from django.dispatch.dispatcher import receiver
 
 # phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+DISPLAY_CHOICES = (('NOT_DISPLAY', 'DO NOT DISPLAY'), ('INDEFINITE', 'INDEFINITE'), ('SPECIFY', 'SPECIFY'))
+DEFAULT_DISPLAY = 'INDEFINITE'
 
 def validate_phone(value):
     #Allow emergency numbers
@@ -39,6 +41,9 @@ class Activity(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         verbose_name = "Activity"
         verbose_name_plural = "Activities"
@@ -53,6 +58,9 @@ class Destination(models.Model):
     airport = models.CharField(max_length=200, blank=False, default='', verbose_name="Closest Airport")
     description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
 
 class Period(models.Model):
     def __str__(self):
@@ -61,6 +69,9 @@ class Period(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         ordering = ['pk']
 
@@ -83,6 +94,9 @@ class Event(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod', blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
 
 class Restaurant(models.Model):
     def __str__(self):
@@ -114,6 +128,9 @@ class Restaurant(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Restaurant order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='restaurantDestination')
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
@@ -133,6 +150,9 @@ class ServiceType(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         verbose_name = "Services Subsection 2"
         verbose_name_plural = "Services Subsection 2"
@@ -155,6 +175,9 @@ class Transportation(models.Model):
                                     blank=True, null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='transportationServiceType',
                                     verbose_name='Services Subsection 2', blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Transportation Logo'
@@ -185,6 +208,9 @@ class Retail(models.Model):
                                     null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='retailServiceType',
                                     verbose_name='Services Subsection 2', blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Retail Logo'
@@ -214,6 +240,9 @@ class Mining(models.Model):
                                     null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='miningServiceType',
                                     verbose_name='Services Subsection 2', blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Mining Logo'
@@ -243,6 +272,9 @@ class EssentialService(models.Model):
                                     blank=True, null=True)
     serviceType = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='essentialServiceServiceType',
                                     verbose_name='Services Subsection 2', blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Essential Service Logo'
@@ -267,6 +299,9 @@ class ActivityDestination(models.Model):
                                  blank=True, null=True)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name="activityDestinationDestination",
                                     blank=True, null=True)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         verbose_name = 'Destination for Activity'
         verbose_name_plural = 'Destination for Activities'
@@ -290,6 +325,9 @@ class Tour(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='tourDestination', blank=True,
                                     null=True)
     numberOfClicks = models.IntegerField(default=0)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Tour Logo'
@@ -314,6 +352,9 @@ class Accomodation(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Accomodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Accomodation Logo'
@@ -409,6 +450,9 @@ class Advertisement(models.Model):
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     orderTopDeal = models.IntegerField(blank=False, default=0, verbose_name="Top deal order display")
     highlighted = models.BooleanField(blank=False, default=False, verbose_name="In featured ads?", choices=BOOL_CHOICES)
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
