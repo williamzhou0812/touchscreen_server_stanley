@@ -13,6 +13,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND
 from unicodedata import numeric
+from django.db.models import Q
+from datetime import date
+
+DISPLAY_INDEFINITE = 'INDEFINITE'
+DISPLAY_SPECIFY = 'SPECIFY'
+DISPLAY_NONE = 'NOT_DISPLAY'
+DISPLAY_QUERY = Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today()) \
+                                                & Q(displayTo__gte=date.today())
 
 def return_success():
     final_response = {'status': 200, 'message': 'OK'}
@@ -420,7 +428,7 @@ class MapDestinationDetail(ListAPIView):
     serializer_class = MapSerializer
 
 class AdvertisementList(ListAPIView):
-    queryset = Advertisement.objects.all()
+    queryset = Advertisement.objects.filter(DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementDetail(RetrieveAPIView):
@@ -498,133 +506,133 @@ class AdvertisementPostOld(APIView):
                          }, HTTP_200_OK)
 
 class AdvertisementTopDeal(ListAPIView):
-    queryset = Advertisement.objects.filter(inTopDeal=True).order_by('orderTopDeal')
+    queryset = Advertisement.objects.filter(Q(inTopDeal=True), DISPLAY_QUERY).order_by('orderTopDeal')
     serializer_class = AdvertisementSerializer
 
 class AdvertisementHighlighted(ListAPIView):
-    queryset = Advertisement.objects.filter(highlighted=True)
+    queryset = Advertisement.objects.filter(Q(highlighted=True), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementTour(ListAPIView):
-    queryset = Advertisement.objects.exclude(tour=None)
+    queryset = Advertisement.objects.filter(Q(tour_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementTourDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(tour_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(tour_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementAccomodation(ListAPIView):
-    queryset = Advertisement.objects.exclude(accomodation=None)
+    queryset = Advertisement.objects.filter(Q(accomodation_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementAccomodationDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(accomodation_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(accomodation_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementPeriod(ListAPIView):
-    queryset = Advertisement.objects.exclude(period=None)
+    queryset = Advertisement.objects.filter(Q(period_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementPeriodDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(period_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(period_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementEvent(ListAPIView):
-    queryset = Advertisement.objects.exclude(event=None)
+    queryset = Advertisement.objects.filter(Q(event_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementEventDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(event_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(event_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementRestaurant(ListAPIView):
-    queryset = Advertisement.objects.exclude(restaurant=None)
+    queryset = Advertisement.objects.filter(Q(restaurant_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementRestaurantDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(restaurant_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(restaurant_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementTransportation(ListAPIView):
-    queryset = Advertisement.objects.exclude(transportation=None)
+    queryset = Advertisement.objects.filter(Q(transportation_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementTransportationDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(transportation_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(transportation_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementRetail(ListAPIView):
-    queryset = Advertisement.objects.exclude(retail=None)
+    queryset = Advertisement.objects.filter(Q(retail_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementRetailDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(retail_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(retail_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementMining(ListAPIView):
-    queryset = Advertisement.objects.exclude(mining=None)
+    queryset = Advertisement.objects.filter(Q(mining_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementMiningDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(mining_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(mining_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementEssentialService(ListAPIView):
-    queryset = Advertisement.objects.exclude(essentialservice=None)
+    queryset = Advertisement.objects.filter(Q(essentialservice_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementEssentialServiceDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(essentialservice_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(essentialservice_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementDestination(ListAPIView):
-    queryset = Advertisement.objects.exclude(destination=None)
+    queryset = Advertisement.objects.filter(Q(destination_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementDestinationDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(destination_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(destination_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementActivity(ListAPIView):
-    queryset = Advertisement.objects.exclude(activity=None)
+    queryset = Advertisement.objects.filter(Q(activity_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementActivityDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(activity_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(activity_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementActivityDestination(ListAPIView):
-    queryset = Advertisement.objects.exclude(activityDestination=None)
+    queryset = Advertisement.objects.filter(Q(activityDestination_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementActivityDestinationDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(activityDestination_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(activityDestination_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementServiceType(ListAPIView):
-    queryset = Advertisement.objects.exclude(serviceType=None)
+    queryset = Advertisement.objects.filter(Q(serviceType_id__isnull=False), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 class AdvertisementServiceTypeDetail(ListAPIView):
     def get_queryset(self):
-        return Advertisement.objects.filter(serviceType_id=self.kwargs['pk'])
+        return Advertisement.objects.filter(Q(serviceType_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
 
 class ActivityList(ListAPIView):
-    queryset = Activity.objects.all()
+    queryset = Activity.objects.filter(DISPLAY_QUERY)
     serializer_class = ActivitySerializer
 
 class ActivityDetail(RetrieveAPIView):
@@ -647,15 +655,18 @@ class ActivityPost(APIView):
         return return_success()
 
 class DestinationList(ListAPIView):
-    queryset = Destination.objects.all()
+    queryset = Destination.objects.filter(DISPLAY_QUERY)
     serializer_class = DestinationSerializer
 
 class DestinationAccomodationList(ListAPIView):
-    queryset = Destination.objects.all()
+    queryset = Destination.objects.filter(DISPLAY_QUERY)
     serializer_class = DestinationAccomodationSerializer
 
 class DestinationAccomodationHeaderList(ListAPIView):
-    queryset = Destination.objects.all()
+    queryset = Destination.objects.filter(
+        Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+        & Q(displayTo__gte=date.today())
+    )
     serializer_class = DestinationAccomodationHeaderSerializer
 
 class DestinationDetail(RetrieveAPIView):
@@ -678,7 +689,7 @@ class DestinationPost(APIView):
         return return_success()
 
 class PeriodList(ListAPIView):
-    queryset = Period.objects.all()
+    queryset = Period.objects.filter(DISPLAY_QUERY)
     serializer_class = PeriodSerializer
 
 class PeriodDetail(RetrieveAPIView):
@@ -701,7 +712,7 @@ class PeriodPost(APIView):
         return return_success()
 
 class EventList(ListAPIView):
-    queryset = Event.objects.all()
+    queryset = Event.objects.filter(DISPLAY_QUERY)
     serializer_class = EventSerializer
 
 class EventDetail(RetrieveAPIView):
@@ -724,7 +735,7 @@ class EventPost(APIView):
         return return_success()
 
 class RestaurantList(ListAPIView):
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.filter(DISPLAY_QUERY)
     serializer_class = RestaurantSerializer
 
 class RestaurantDetail(RetrieveAPIView):
@@ -747,7 +758,7 @@ class RestaurantPost(APIView):
         return return_success()
 
 class TransportationList(ListAPIView):
-    queryset = Transportation.objects.all()
+    queryset = Transportation.objects.filter(DISPLAY_QUERY)
     serializer_class = TransportationSerializer
 
 class TransportationDetail(RetrieveAPIView):
@@ -770,7 +781,7 @@ class TransportationPost(APIView):
         return return_success()
 
 class RetailList(ListAPIView):
-    queryset = Retail.objects.all()
+    queryset = Retail.objects.filter(DISPLAY_QUERY)
     serializer_class = RetailSerializer
 
 class RetailDetail(RetrieveAPIView):
@@ -793,7 +804,7 @@ class RetailPost(APIView):
         return return_success()
 
 class MiningList(ListAPIView):
-    queryset = Mining.objects.all()
+    queryset = Mining.objects.filter(DISPLAY_QUERY)
     serializer_class = MiningSerializer
 
 class MiningDetail(RetrieveAPIView):
@@ -816,7 +827,7 @@ class MiningPost(APIView):
         return return_success()
 
 class EssentialServiceList(ListAPIView):
-    queryset = EssentialService.objects.all()
+    queryset = EssentialService.objects.filter(DISPLAY_QUERY)
     serializer_class = EssentialServiceSerializer
 
 class EssentialServiceDetail(RetrieveAPIView):
@@ -840,7 +851,7 @@ class EssentialServicePost(APIView):
         return return_success()
 
 class TourList(ListAPIView):
-    queryset = Tour.objects.all()
+    queryset = Tour.objects.filter(DISPLAY_QUERY)
     serializer_class = TourSerializer
 
 class TourDetail(RetrieveAPIView):
@@ -863,11 +874,11 @@ class TourPost(APIView):
         return return_success()
 
 class AccomodationList(ListAPIView):
-    queryset = Accomodation.objects.all()
+    queryset = Accomodation.objects.filter(DISPLAY_QUERY)
     serializer_class = AccomodationSerializer
 
 class AccomodationHeaderList(ListAPIView):
-    queryset = Accomodation.objects.all()
+    queryset = Accomodation.objects.filter(DISPLAY_QUERY)
     serializer_class = AccomodationHeaderSerializer
 
 class AccomodationDetail(RetrieveAPIView):
@@ -890,7 +901,7 @@ class AccomodationPost(APIView):
         return return_success()
 
 class ActivityDestinationList(ListAPIView):
-    queryset = ActivityDestination.objects.all()
+    queryset = ActivityDestination.objects.filter(DISPLAY_QUERY)
     serializer_class = ActivityDestinationSerializer
 
 class ActivityDestinationDetail(RetrieveAPIView):
@@ -913,7 +924,7 @@ class ActivityDestinationPost(APIView):
         return return_success()
 
 class ServiceTypeCompleteList(ListAPIView):
-    queryset = ServiceType.objects.all()
+    queryset = ServiceType.objects.filter(DISPLAY_QUERY)
     serializer_class = ServiceTypeCompleteSerializer
 
 class ServiceTypeDetail(RetrieveAPIView):
@@ -921,19 +932,19 @@ class ServiceTypeDetail(RetrieveAPIView):
     serializer_class = ServiceTypeCompleteSerializer
 
 class ServiceTypeTransportationList(ListAPIView):
-    queryset = ServiceType.objects.exclude(transportationServiceType=None)
+    queryset = ServiceType.objects.exclude(transportationServiceType=None).filter(DISPLAY_QUERY)
     serializer_class = ServiceTypeTransportationSerializer
 
 class ServiceTypeRetailList(ListAPIView):
-    queryset = ServiceType.objects.exclude(retailServiceType=None)
+    queryset = ServiceType.objects.exclude(retailServiceType=None).filter(DISPLAY_QUERY)
     serializer_class = ServiceTypeRetailSerializer
 
 class ServiceTypeMiningList(ListAPIView):
-    queryset = ServiceType.objects.exclude(miningServiceType=None)
+    queryset = ServiceType.objects.exclude(miningServiceType=None).filter(DISPLAY_QUERY)
     serializer_class = ServiceTypeMiningSerializer
 
 class ServiceTypeEssentialServiceList(ListAPIView):
-    queryset = ServiceType.objects.exclude(essentialServiceServiceType=None)
+    queryset = ServiceType.objects.exclude(essentialServiceServiceType=None).filter(DISPLAY_QUERY)
     serializer_class = ServiceTypeEssentialServiceSerializer
 
 class ServiceTypePost(APIView):
