@@ -5,6 +5,9 @@ from touchscreenrest.models import Activity, ActivityDestination, Destination, P
 from django.db.models import Q
 from datetime import date
 
+DISPLAY_INDEFINITE = 'INDEFINITE'
+DISPLAY_SPECIFY = 'SPECIFY'
+
 class ImageSerializer(serializers.ModelSerializer):
     imageFile = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
@@ -53,9 +56,10 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
     def get_tours(self, activity_destination):
         queryset = Tour.objects.filter(
             Q(activityDestination=activity_destination),
-            Q(display='INDEFINITE') | Q(display='SPECIFY') & Q(displayFrom__lte=date.today()) & Q(displayTo__gte=date.today())
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
         )
-        serializer = TourSerializer(queryset, many=True)
+        serializer = TourSerializer(queryset, many=True, context=self.context)
         return serializer.data
 
 
@@ -73,9 +77,10 @@ class ActivitySerializer(serializers.ModelSerializer):
     def get_destinations(self, activity):
         queryset = ActivityDestination.objects.filter(
             Q(activity=activity),
-            Q(display='INDEFINITE') | Q(display='SPECIFY') & Q(displayFrom__lte=date.today()) & Q(displayTo__gte=date.today())
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
         )
-        serializer = ActivityDestinationSerializer(queryset, many=True)
+        serializer = ActivityDestinationSerializer(queryset, many=True, context=self.context)
         return serializer.data
     class Meta:
         model = Activity
@@ -113,7 +118,7 @@ class EventSerializer(serializers.ModelSerializer):
                   'mapEvent')
 
 class PeriodSerializer(serializers.ModelSerializer):
-    eventPeriod = EventSerializer(many=True)
+    eventPeriod = serializers.SerializerMethodField('get_events')
     videoPeriod = VideoSerializer(many=True, read_only=True)
     imagePeriod = ImageSerializer(many=True, read_only=True)
     advertisementPeriod = AdvertisementSerializer(many=True)
@@ -121,6 +126,14 @@ class PeriodSerializer(serializers.ModelSerializer):
         model = Period
         fields = ('id', 'title', 'numberOfClicks', 'eventPeriod', 'videoPeriod', 'imagePeriod',
                   'advertisementPeriod')
+    def get_events(self, period):
+        queryset = Event.objects.filter(
+            Q(period=period),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = EventSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class RestaurantSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -185,55 +198,122 @@ class ServiceTypeTransportationSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    transportationServiceType = TransportationSerializer(many=True)
+    transportationServiceType = serializers.SerializerMethodField('get_transportation')
     class Meta:
         model = ServiceType
         fields = ('id', 'title', 'numberOfClicks', 'transportationServiceType', 'imageServiceType', 'videoServiceType',
                   'advertisementServiceType')
+    def get_transportation(self, st):
+        queryset = Transportation.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = TransportationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class ServiceTypeRetailSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    retailServiceType = RetailSerializer(many=True)
+    retailServiceType = serializers.SerializerMethodField('get_retail')
     class Meta:
         model = ServiceType
         fields = ('id', 'title', 'numberOfClicks', 'retailServiceType', 'imageServiceType', 'videoServiceType',
                   'advertisementServiceType')
+    def get_retail(self, st):
+        queryset = Retail.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = RetailSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class ServiceTypeMiningSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    miningServiceType = MiningSerializer(many=True)
+    miningServiceType = serializers.SerializerMethodField('get_mining')
     class Meta:
         model = ServiceType
         fields = ('id', 'title', 'numberOfClicks', 'miningServiceType', 'imageServiceType', 'videoServiceType',
                   'advertisementServiceType')
+    def get_mining(self, st):
+        queryset = Mining.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = MiningSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class ServiceTypeEssentialServiceSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    essentialServiceServiceType = EssentialServiceSerializer(many=True)
+    essentialServiceServiceType = serializers.SerializerMethodField('get_essential')
     class Meta:
         model = ServiceType
         fields = ('id', 'title', 'numberOfClicks', 'essentialServiceServiceType', 'imageServiceType', 'videoServiceType',
                   'advertisementServiceType')
+    def get_essential(self, st):
+        queryset = EssentialService.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = EssentialServiceSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class ServiceTypeCompleteSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
     imageServiceType = ImageSerializer(many=True, read_only=True)
     advertisementServiceType = AdvertisementSerializer(many=True)
-    transportationServiceType = TransportationSerializer(many=True)
-    retailServiceType = RetailSerializer(many=True)
-    miningServiceType = MiningSerializer(many=True)
-    essentialServiceServiceType = EssentialServiceSerializer(many=True)
+    transportationServiceType = serializers.SerializerMethodField('get_transportation')
+    retailServiceType = serializers.SerializerMethodField('get_retail')
+    miningServiceType = serializers.SerializerMethodField('get_mining')
+    essentialServiceServiceType = serializers.SerializerMethodField('get_essential')
     class Meta:
         model = ServiceType
         fields = (
         'id', 'title', 'numberOfClicks', 'transportationServiceType', 'retailServiceType', 'miningServiceType',
         'essentialServiceServiceType', 'imageServiceType', 'videoServiceType', 'advertisementServiceType')
+    def get_transportation(self, st):
+        queryset = Transportation.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = TransportationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_retail(self, st):
+        queryset = Retail.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = RetailSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_mining(self, st):
+        queryset = Mining.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = MiningSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_essential(self, st):
+        queryset = EssentialService.objects.filter(
+            Q(serviceType=st),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = EssentialServiceSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class DestinationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
@@ -249,30 +329,80 @@ class DestinationAccomodationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
     imageDestination = ImageSerializer(many=True, read_only=True)
     advertisementDestination = AdvertisementSerializer(many=True)
-    accomodationDestination = AccomodationSerializer(many=True)
+    accomodationDestination = serializers.SerializerMethodField('get_accommodation')
     class Meta:
         model = Destination
         fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
                   'advertisementDestination', 'accomodationDestination')
+    def get_accommodation(self, destination):
+        queryset = Accomodation.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = AccomodationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class DestinationAccomodationHeaderSerializer(serializers.ModelSerializer):
-    accomodationDestination = AccomodationHeaderSerializer(many=True, read_only=True)
+    accomodationDestination = serializers.SerializerMethodField('get_accommodation')
     class Meta:
         model = Destination
         fields = ('id', 'title', 'accomodationDestination')
+    def get_accommodation(self, destination):
+        queryset = Accomodation.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = AccomodationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
 
 class DestinationDetailedSerializer(serializers.ModelSerializer):
-    eventDestination = EventSerializer(many=True)
-    restaurantDestination = RestaurantSerializer(many=True)
-    accomodationDestination = AccomodationSerializer(many=True)
+    eventDestination = serializers.SerializerMethodField('get_events')
+    restaurantDestination = serializers.SerializerMethodField('get_restaurants')
+    accomodationDestination = serializers.SerializerMethodField('get_accommodation')
     videoDestination = VideoSerializer(many=True, read_only=True)
     imageDestination = ImageSerializer(many=True, read_only=True)
     advertisementDestination = AdvertisementSerializer(many=True)
     mapDestination = MapSerializer(many=True, read_only=True)
-    tourDestination = TourSerializer(many=True, read_only=True)
-    activityDestinationDestination = ActivityDestinationSerializer(many=True, read_only=True)
+    activityDestinationDestination = serializers.SerializerMethodField('get_destination_activity')
     class Meta:
         model = Destination
         fields = ('id', 'title', 'province', 'airport', 'description', 'numberOfClicks', 'eventDestination',
                   'accomodationDestination', 'restaurantDestination', 'videoDestination', 'imageDestination',
-                  'advertisementDestination', 'tourDestination', 'mapDestination', 'activityDestinationDestination')
+                  'advertisementDestination', 'mapDestination', 'activityDestinationDestination')
+    def get_events(self, destination):
+        queryset = Event.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = EventSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_restaurants(self, destination):
+        queryset = Restaurant.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = RestaurantSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_accommodation(self, destination):
+        queryset = Accomodation.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = AccomodationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
+
+    def get_destination_activity(self, destination):
+        queryset = ActivityDestination.objects.filter(
+            Q(destination=destination),
+            Q(display=DISPLAY_INDEFINITE) | Q(display=DISPLAY_SPECIFY) & Q(displayFrom__lte=date.today())
+            & Q(displayTo__gte=date.today())
+        )
+        serializer = ActivityDestinationSerializer(queryset, many=True, context=self.context)
+        return serializer.data
