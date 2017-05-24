@@ -54,10 +54,11 @@ class AccomodationAdvertisementInLine(admin.StackedInline):
 
 class AccomodationAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Accomodation Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
-                                                 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+        ('Accommodation Title', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Accommodation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo','image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
     readonly_fields = ('image_logo',)
@@ -182,8 +183,8 @@ class ActivityDestinationInLine(nested_admin.NestedStackedInline):
 class ActivityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
-        ('Other Settings', {'fields': ['numberOfClicks']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, TourInLine]
     list_display = ('title', 'numberOfClicks')
@@ -241,9 +242,10 @@ class DestinationAdvertisementInLine(admin.StackedInline):
 
 class DestinationAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Destination Information', {'fields': ['title', 'province', 'airport', 'description']}),
-        ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Destination Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Destination Detail', {'fields': ['province', 'airport', 'description']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine]
     list_display = ('title', 'numberOfClicks')
@@ -295,8 +297,8 @@ class PeriodEventInLine(admin.StackedInline):
 class PeriodAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Period Information', {'fields': ['title']}),
-        ('Other Settings', {'fields': ['numberOfClicks']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [PeriodImageInLine, PeriodVideoInLine]
     list_display = ('title', 'numberOfClicks')
@@ -352,10 +354,11 @@ class EventAdvertisementInLine(admin.StackedInline):
 
 class EventAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Event Information', {'fields': ['title', 'description', 'location', 'phone', 'email', 'website',
-                                          'eventDate', 'eventMonth', 'destination', 'period']}),
-        ('Other Settings', {'fields': ['numberOfClicks']}),
+        ('Event Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Event Detail', {'fields': ['description', 'location', 'phone', 'email', 'website', 'eventDate', 'eventMonth',
+                                     'destination', 'period']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
     list_display = ('title', 'destination', 'period')
@@ -420,12 +423,12 @@ class RestaurantAdvertisementInLine(admin.StackedInline):
 
 class RestaurantAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Restaurant Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
-                                               'image_logo']}),
+        ('Restaurant Information', {'fields': ['title',]}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Restaurant Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
                                          'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
-        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
@@ -488,10 +491,10 @@ class TourAdvertisementInLine(admin.StackedInline):
 
 class TourAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Tour Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
-                                         'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
+        ('Tour Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Tour Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine]
     readonly_fields = ('image_logo',)
@@ -540,14 +543,14 @@ class AdvertisementVideoInLine(admin.TabularInline):
 
 class AdvertisementAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Advertisement Information', {'fields': ['title', 'company', 'description', 'address', 'phone', 'email',
-                                                  'website']}),
+        ('Advertisement Information', {'fields': ['title',]}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
         ('Other Settings', {'fields': ['inTopDeal', 'orderTopDeal', 'numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('Where to Show Advertisement', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period',
                                                     'event', 'restaurant', 'transportation', 'retail', 'mining',
                                                     'essentialservice', 'destination', 'serviceType']}
          ),
-        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
     list_display = ('title', 'company')
@@ -631,10 +634,11 @@ class TransportationAdvertisementInLine(admin.StackedInline):
 
 class TransportationAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Car Hire & Transportation Information', {'fields': ['title', 'description', 'address', 'phone', 'email',
-                                                              'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Car Hire & Transportation Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Car Hire & Transportation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo',
+                                                         'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
@@ -697,10 +701,10 @@ class RetailAdvertisementInLine(admin.StackedInline):
 
 class RetailAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Retail Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
-                                           'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Retail Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Retail Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
@@ -763,10 +767,10 @@ class MiningAdvertisementInLine(admin.StackedInline):
 
 class MiningAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Mining Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website', 'logo',
-                                           'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Mining Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Mining Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
@@ -828,10 +832,11 @@ class EssentialServiceAdvertisementInLine(admin.StackedInline):
 
 class EssentialServiceAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Essential Service Information', {'fields': ['title', 'description', 'address', 'phone', 'email', 'website',
-                                                      'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Essential Service Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Essential Service Detail', {'fields': [ 'description', 'address', 'phone', 'email', 'website', 'logo',
+                                                  'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
@@ -885,8 +890,8 @@ class ActivityDestinationAdvertisementInLine(admin.StackedInline):
 class ActivityDestinationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title', 'description']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
     ]
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
     list_display = ('title', 'numberOfClicks')
@@ -927,8 +932,8 @@ class ServiceTypeVideoInLine(admin.TabularInline):
 class ServiceTypeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
-        ('Other Settings', {'fields': ['numberOfClicks']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ServiceTypeImageInLine, ServiceTypeVideoInLine]
     list_display = ('title', 'numberOfClicks')
