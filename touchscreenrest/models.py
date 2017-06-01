@@ -41,12 +41,14 @@ class Activity(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Activity order display")
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         verbose_name = "Activity"
         verbose_name_plural = "Activities"
+        ordering = ['order', 'pk']
 
 class Destination(models.Model):
     def __str__(self):
@@ -58,9 +60,12 @@ class Destination(models.Model):
     airport = models.CharField(max_length=200, blank=False, default='', verbose_name="Closest Airport")
     description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Destination order display")
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    class Meta:
+        ordering = ['order', 'pk']
 
 class Period(models.Model):
     def __str__(self):
@@ -69,11 +74,12 @@ class Period(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Period order display")
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
-        ordering = ['pk']
+        ordering = ['order', 'pk']
 
 class Event(models.Model):
     def __str__(self):
@@ -92,11 +98,14 @@ class Event(models.Model):
     eventDate = models.PositiveIntegerField(blank=True, null=True, verbose_name='Date of event')
     eventMonth = models.CharField(max_length=10, blank=True, null=True, verbose_name='Month of event', choices=MONTH_CHOICES)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Events order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='eventDestination')
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='eventPeriod', blank=True, null=True)
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    class Meta:
+        ordering = ['order', 'pk']
 
 class Restaurant(models.Model):
     def __str__(self):
@@ -137,6 +146,7 @@ class Restaurant(models.Model):
     class Meta:
         verbose_name = "Dining"
         verbose_name_plural = "Dining"
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=Restaurant)
 def mymodel_delete(sender, instance, **kwargs):
@@ -150,12 +160,14 @@ class ServiceType(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Services Subsection 2 order display")
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     class Meta:
         verbose_name = "Services Subsection 2"
         verbose_name_plural = "Services Subsection 2"
+        ordering = ['order', 'pk']
 
 class Transportation(models.Model):
     def __str__(self):
@@ -184,6 +196,7 @@ class Transportation(models.Model):
     class Meta:
         verbose_name = 'Car Hire & Transport'
         verbose_name_plural = 'Car Hire & Transport'
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=Transportation)
 def mymodel_delete(sender, instance, **kwargs):
@@ -216,6 +229,7 @@ class Retail(models.Model):
     image_logo.short_description = 'Retail Logo'
     class Meta:
         verbose_name = 'Retail & Service'
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=Retail)
 def mymodel_delete(sender, instance, **kwargs):
@@ -248,6 +262,7 @@ class Mining(models.Model):
     image_logo.short_description = 'Mining Logo'
     class Meta:
         verbose_name = 'Mining & Resource'
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=Mining)
 def mymodel_delete(sender, instance, **kwargs):
@@ -280,6 +295,7 @@ class EssentialService(models.Model):
     image_logo.short_description = 'Essential Service Logo'
     class Meta:
         verbose_name = 'Essential Service'
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=EssentialService)
 def mymodel_delete(sender, instance, **kwargs):
@@ -295,6 +311,7 @@ class ActivityDestination(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField()
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Destination for Activity order display")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activityDestinationActivity',
                                  blank=True, null=True)
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name="activityDestinationDestination",
@@ -305,6 +322,7 @@ class ActivityDestination(models.Model):
     class Meta:
         verbose_name = 'Destination for Activity'
         verbose_name_plural = 'Destination for Activities'
+        ordering = ['order', 'pk']
 
 class Tour(models.Model):
     def __str__(self):
@@ -325,9 +343,13 @@ class Tour(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='tourDestination', blank=True,
                                     null=True)
     numberOfClicks = models.IntegerField(default=0)
+    order = models.IntegerField(blank=False, default=0, verbose_name="Tour order display")
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    class Meta:
+        ordering = ['order', 'pk']
+
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Tour Logo'
@@ -361,6 +383,7 @@ class Accomodation(models.Model):
     class Meta:
         verbose_name = "Accommodation"
         verbose_name_plural = "Accommodation"
+        ordering = ['order', 'pk']
 
 @receiver(post_delete, sender=Accomodation)
 def mymodel_delete(sender, instance, **kwargs):
@@ -423,6 +446,9 @@ class Map(models.Model):
     def is_destination_map(self):
         '''Checks whether this map instance is a destination map'''
         return self.accomodation is not None
+
+    class Meta:
+        ordering = ['pk']
 
     def map_preview(self):
         return mark_safe('''<img src="%s" />''' % self.mapImage.url)
@@ -618,6 +644,9 @@ class Video(models.Model):
         '''Checks whether this video instance is an advertisement video'''
         return self.advertisement is not None
 
+    class Meta:
+        ordering = ['pk']
+
     def video_preview(self):
         return mark_safe('''<video src="%s" controls>Your browser does not support the video tag.</video>''' % self.videoFile.url)
     video_preview.short_description = 'Video preview'
@@ -715,6 +744,9 @@ class Image(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', blank=True, null=True)
     def is_advertisement_image(self):
         return self.advertisement is not None
+
+    class Meta:
+        ordering = ['pk']
 
     def image_preview(self):
         return mark_safe('''<img src="%s" />''' % self.imageFile.url)

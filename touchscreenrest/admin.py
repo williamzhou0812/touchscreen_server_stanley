@@ -63,6 +63,7 @@ class AccomodationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Accommodation Title', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Accommodation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo','image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
 
@@ -192,6 +193,7 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, TourInLine]
@@ -253,6 +255,7 @@ class DestinationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Destination Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Destination Detail', {'fields': ['province', 'airport', 'description']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
@@ -308,6 +311,7 @@ class PeriodAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Period Information', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [PeriodImageInLine, PeriodVideoInLine]
@@ -367,6 +371,7 @@ class EventAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Event Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Event Detail', {'fields': ['description', 'location', 'phone', 'email', 'website', 'eventDate', 'eventMonth',
                                      'destination', 'period']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
@@ -437,6 +442,7 @@ class RestaurantAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Restaurant Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Restaurant Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
                                          'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
@@ -506,6 +512,7 @@ class TourAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Tour Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Tour Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
     ]
@@ -651,6 +658,7 @@ class TransportationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Car Hire & Transportation Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Car Hire & Transportation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo',
                                                          'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
@@ -719,6 +727,7 @@ class RetailAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Retail Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Retail Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
@@ -786,6 +795,7 @@ class MiningAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Mining Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Mining Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
     ]
@@ -852,6 +862,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Essential Service Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Essential Service Detail', {'fields': [ 'description', 'address', 'phone', 'email', 'website', 'logo',
                                                   'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
@@ -910,6 +921,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title', 'description']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
     ]
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
@@ -953,6 +965,7 @@ class ServiceTypeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ServiceTypeImageInLine, ServiceTypeVideoInLine]
