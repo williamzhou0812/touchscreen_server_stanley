@@ -8,6 +8,13 @@ import nested_admin
 
 IMAGE_SRC = '''<img src="%s" />'''
 VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video tag.</video>'''
+
+## Start of Custom Actions ##
+def reset_number_of_clicks(modeladmin, request, queryset):
+    queryset.update(numberOfClicks=0)
+reset_number_of_clicks.short_description = "Reset number of clicks back to zero"
+### End of Custom Actions ###
+
 ## Start of Accomodation Administration ##
 class AccomodationImageInLine(admin.TabularInline):
     model = Image
@@ -65,6 +72,7 @@ class AccomodationAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -190,6 +198,7 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -251,6 +260,7 @@ class DestinationAdmin(admin.ModelAdmin):
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -304,6 +314,7 @@ class PeriodAdmin(admin.ModelAdmin):
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -364,6 +375,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'destination', 'period')
     list_filter = ['title', 'destination', 'period']
     search_fields = ['title', 'destination__title', 'period__title']
+    actions = [reset_number_of_clicks]
 
     def get_destination_title(self, obj):
         return obj.destination.title
@@ -436,6 +448,7 @@ class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -501,6 +514,7 @@ class TourAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'phone', 'email', 'website', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
     search_fields = ['title', 'activity__title', 'activityDestination__title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -556,6 +570,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ('title', 'company')
     list_filter = ['title', 'company']
     search_fields = ['title', 'company']
+    actions = [reset_number_of_clicks]
     form = AdvertisementForm
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -645,6 +660,7 @@ class TransportationAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -711,6 +727,7 @@ class RetailAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -777,6 +794,7 @@ class MiningAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -843,6 +861,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
     list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
+    actions = [reset_number_of_clicks]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -897,6 +916,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title', 'activity']
     search_fields = ['title', 'activity__title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -939,6 +959,7 @@ class ServiceTypeAdmin(admin.ModelAdmin):
     list_display = ('title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
+    actions = [reset_number_of_clicks]
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
