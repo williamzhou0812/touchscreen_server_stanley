@@ -130,7 +130,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 STATIC_URL = '/static/'
 MEDIA_URL = '/'
 MEDIA_ROOT = '/projects/touchscreen/'
