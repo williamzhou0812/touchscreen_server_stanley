@@ -70,14 +70,18 @@ class AccomodationAdmin(admin.ModelAdmin):
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
-
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(AccomodationAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -197,10 +201,15 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ActivityImageInLine, ActivityVideoInLine, ActivityDestinationInLine, TourInLine]
-    list_display = ('title', 'numberOfClicks')
+    list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(ActivityAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -260,10 +269,15 @@ class DestinationAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine]
-    list_display = ('title', 'numberOfClicks')
+    list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(DestinationAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -315,10 +329,15 @@ class PeriodAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [PeriodImageInLine, PeriodVideoInLine]
-    list_display = ('title', 'numberOfClicks')
+    list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(PeriodAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -377,7 +396,7 @@ class EventAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
-    list_display = ('title', 'destination', 'period')
+    list_display = ('order', 'title', 'destination', 'period', 'numberOfClicks')
     list_filter = ['title', 'destination', 'period']
     search_fields = ['title', 'destination__title', 'period__title']
     actions = [reset_number_of_clicks]
@@ -389,6 +408,10 @@ class EventAdmin(admin.ModelAdmin):
     def get_period_title(self, obj):
         return obj.period.title
     get_period_title.short_description = "periodTitle"
+
+    def __init__(self, *args, **kwargs):
+        super(EventAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -451,7 +474,7 @@ class RestaurantAdmin(admin.ModelAdmin):
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
     form = RestaurantForm
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
@@ -459,6 +482,10 @@ class RestaurantAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(RestaurantAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -518,10 +545,15 @@ class TourAdmin(admin.ModelAdmin):
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'phone', 'email', 'website', 'activity', 'numberOfClicks')
+    list_display = ('order', 'title', 'phone', 'email', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
     search_fields = ['title', 'activity__title', 'activityDestination__title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(TourAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -665,7 +697,7 @@ class TransportationAdmin(admin.ModelAdmin):
     ]
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
@@ -673,6 +705,10 @@ class TransportationAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(TransportationAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -733,7 +769,7 @@ class RetailAdmin(admin.ModelAdmin):
     ]
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
@@ -741,6 +777,10 @@ class RetailAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(RetailAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -801,7 +841,7 @@ class MiningAdmin(admin.ModelAdmin):
     ]
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'address', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
@@ -809,6 +849,10 @@ class MiningAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(MiningAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -869,7 +913,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
     ]
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
-    list_display = ('title', 'address', 'destination', 'phone', 'email', 'website')
+    list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
     actions = [reset_number_of_clicks]
@@ -877,6 +921,10 @@ class EssentialServiceAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
+
+    def __init__(self, *args, **kwargs):
+        super(EssentialServiceAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -925,10 +973,15 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
     ]
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
-    list_display = ('title', 'numberOfClicks')
+    list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title', 'activity']
     search_fields = ['title', 'activity__title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(ActivityDestinationAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
@@ -969,10 +1022,15 @@ class ServiceTypeAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [ServiceTypeImageInLine, ServiceTypeVideoInLine]
-    list_display = ('title', 'numberOfClicks')
+    list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
     actions = [reset_number_of_clicks]
+
+    def __init__(self, *args, **kwargs):
+        super(ServiceTypeAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
 
