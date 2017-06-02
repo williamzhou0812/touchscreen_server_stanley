@@ -371,6 +371,7 @@ class Accomodation(models.Model):
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
+    rating = models.FloatField(blank=False, default=0)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
     order = models.IntegerField(blank=False, default=0, verbose_name="Accomodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')

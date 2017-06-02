@@ -89,7 +89,7 @@ class AccomodationSerializer(serializers.ModelSerializer):
     mapAccomodation = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Accomodation
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'rating',
                   'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
                   'advertisementAccomodation', 'mapAccomodation')
 

@@ -64,8 +64,9 @@ class AccomodationAdmin(admin.ModelAdmin):
         ('Accommodation Title', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Accommodation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo','image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+        ('Accommodation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo','image_logo',
+                                             'rating']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'destination']}),
 
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
