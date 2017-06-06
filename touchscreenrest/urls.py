@@ -123,6 +123,7 @@ urlpatterns = [
     url(r'^adsactivity/(?P<pk>[0-9]+)/$', views.AdvertisementActivityDetail.as_view()),
     url(r'^adsactivitydestination/$', views.AdvertisementActivityDestination.as_view()),
     url(r'^adsactivitydestination/(?P<pk>[0-9]+)/$', views.AdvertisementActivityDestinationDetail.as_view()),
+    url(r'^adsvideo/$', views.AdvertisementWithVideos.as_view()),
 
     url(r'^activity/$', views.ActivityList.as_view()),
     url(r'^activity/(?P<pk>[0-9]+)/$', views.ActivityDetail.as_view()),

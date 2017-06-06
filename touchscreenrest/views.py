@@ -630,6 +630,11 @@ class AdvertisementServiceTypeDetail(ListAPIView):
         return Advertisement.objects.filter(Q(serviceType_id=self.kwargs['pk']), DISPLAY_QUERY)
     serializer_class = AdvertisementSerializer
 
+class AdvertisementWithVideos(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.exclude(videoAdvertisement=None).filter(videoAdvertisement__isDisplayVideo=False)
+    serializer_class = AdvertisementSerializer
+
 
 class ActivityList(ListAPIView):
     queryset = Activity.objects.filter(DISPLAY_QUERY)
