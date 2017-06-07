@@ -602,11 +602,10 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
         ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('First Level Ad', {'fields': ['firstLevelAd']}),
-        ('Where to Show Advertisement - LEVEL 1', {'fields': ['activity', 'accomodation', 'period',
-                                                              'restaurant', 'destination', 'serviceType']}
-         ),
-        ('Where to Show Advertisement - LEVEL 2', {'fields': ['activityDestination', 'event']}
-         ),
+        ('Where to Show Advertisement', {'fields': ['activityDestination', 'accomodation', 'event', 'restaurant',
+                                                    'destination', 'essentialservice', 'transportation', 'retail',
+                                                    'mining']}
+         )
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
     list_display = ('title', 'company')

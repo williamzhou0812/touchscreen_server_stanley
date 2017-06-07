@@ -93,37 +93,63 @@ urlpatterns = [
 
     url(r'^advertisement/$', views.AdvertisementList.as_view()),
     url(r'^advertisement/(?P<pk>[0-9]+)/$', views.AdvertisementDetail.as_view()),
+
     url(r'^advertisementpostclick/(?P<pk>[0-9]+)/$', views.AdvertisementPostClick.as_view()),
     url(r'^advertisementpostshow/(?P<pk>[0-9]+)/$', views.AdvertisementPostShow.as_view()),
+
     url(r'^topdeal/$', views.AdvertisementTopDeal.as_view()),
     url(r'^featuredad/$', views.AdvertisementHighlighted.as_view()),
+
     url(r'^adstour/$', views.AdvertisementTour.as_view()),
     url(r'^adstour/(?P<pk>[0-9]+)/$', views.AdvertisementTourDetail.as_view()),
+
     url(r'^adsaccomodation/$', views.AdvertisementAccomodation.as_view()),
+    url(r'^adsaccomodationfirst/$', views.AdvertisementAccomodationFirstOnly.as_view()),
     url(r'^adsaccomodation/(?P<pk>[0-9]+)/$', views.AdvertisementAccomodationDetail.as_view()),
+
     url(r'^adsperiod/$', views.AdvertisementPeriod.as_view()),
     url(r'^adsperiod/(?P<pk>[0-9]+)/$', views.AdvertisementPeriodDetail.as_view()),
+
     url(r'^adsevent/$', views.AdvertisementEvent.as_view()),
+    url(r'^adseventfirst/$', views.AdvertisementEventFirstOnly.as_view()),
     url(r'^adsevent/(?P<pk>[0-9]+)/$', views.AdvertisementEventDetail.as_view()),
+
     url(r'^adsrestaurant/$', views.AdvertisementRestaurant.as_view()),
+    url(r'^adsrestaurantfirst/$', views.AdvertisementRestaurantFirstOnly.as_view()),
     url(r'^adsrestaurant/(?P<pk>[0-9]+)/$', views.AdvertisementRestaurantDetail.as_view()),
+
     url(r'^adstransportation/$', views.AdvertisementTransportation.as_view()),
+    url(r'^adstransportationfirst/$', views.AdvertisementTransportationFirstOnly.as_view()),
     url(r'^adstransportation/(?P<pk>[0-9]+)/$', views.AdvertisementTransportationDetail.as_view()),
+
     url(r'^adsservicetype/$', views.AdvertisementServiceType.as_view()),
     url(r'^adsservicetype/(?P<pk>[0-9]+)/$', views.AdvertisementServiceTypeDetail.as_view()),
+
     url(r'^adsretail/$', views.AdvertisementRetail.as_view()),
+    url(r'^adsretailfirst/$', views.AdvertisementRetailFirstOnly.as_view()),
     url(r'^adsretail/(?P<pk>[0-9]+)/$', views.AdvertisementRetailDetail.as_view()),
+
     url(r'^adsmining/$', views.AdvertisementMining.as_view()),
+    url(r'^adsminingfirst/$', views.AdvertisementMiningFirstOnly.as_view()),
     url(r'^adsmining/(?P<pk>[0-9]+)/$', views.AdvertisementMiningDetail.as_view()),
+
     url(r'^adsessential/$', views.AdvertisementEssentialService.as_view()),
+    url(r'^adsessentialfirst/$', views.AdvertisementEssentialServiceFirstOnly.as_view()),
     url(r'^adsessential/(?P<pk>[0-9]+)/$', views.AdvertisementEssentialServiceDetail.as_view()),
+
     url(r'^adsdestination/$', views.AdvertisementDestination.as_view()),
+    url(r'^adsdestinationfirst/$', views.AdvertisementDestinationFirstOnly.as_view()),
     url(r'^adsdestination/(?P<pk>[0-9]+)/$', views.AdvertisementDestinationDetail.as_view()),
+
     url(r'^adsactivity/$', views.AdvertisementActivity.as_view()),
     url(r'^adsactivity/(?P<pk>[0-9]+)/$', views.AdvertisementActivityDetail.as_view()),
+
     url(r'^adsactivitydestination/$', views.AdvertisementActivityDestination.as_view()),
+    url(r'^adsactivitydestinationfirst/$', views.AdvertisementActivityDestinationFirstOnly.as_view()),
     url(r'^adsactivitydestination/(?P<pk>[0-9]+)/$', views.AdvertisementActivityDestinationDetail.as_view()),
+
     url(r'^adsvideo/$', views.AdvertisementWithVideos.as_view()),
+    url(r'^adsservicesfirst/$', views.AdvertisementServicesFirstOnly.as_view()),
 
     url(r'^activity/$', views.ActivityList.as_view()),
     url(r'^activity/(?P<pk>[0-9]+)/$', views.ActivityDetail.as_view()),
