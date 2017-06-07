@@ -1079,7 +1079,7 @@ class AirportContactInLine(admin.TabularInline):
 
 class AirportAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Airport Information', {'fields': ['title', 'header', 'description']}),
+        ('Airport Information', {'fields': ['title', 'header', 'description', 'logo']}),
     ]
     inlines = [AirportContactInLine, AirportImageInLine, AirportVideoInLine]
     list_display = ('id', 'title')

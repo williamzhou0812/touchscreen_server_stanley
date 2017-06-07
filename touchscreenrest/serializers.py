@@ -342,6 +342,8 @@ class AirportSerializer(serializers.ModelSerializer):
     videoAirport = VideoSerializer(many=True, read_only=True)
     imageAirport = ImageSerializer(many=True, read_only=True)
     airportAirportContact = AirportContactSerializer(many=True, read_only=True)
+    logo = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
         model = Airport
-        fields = ('id', 'title', 'header', 'description', 'airportAirportContact', 'imageAirport', 'videoAirport')
+        fields = ('id', 'title', 'header', 'description', 'logo', 'airportAirportContact', 'imageAirport',
+                  'videoAirport')

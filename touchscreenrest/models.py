@@ -567,6 +567,7 @@ class Airport(models.Model):
     title = models.CharField(max_length=200, blank=False)
     header = models.TextField()
     description = models.TextField()
+    logo = models.ImageField(upload_to='airport_logos/', blank=True, null=True)
 
 class AirportContact(models.Model):
     def __str__(self):
