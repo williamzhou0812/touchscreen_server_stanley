@@ -3,7 +3,8 @@ from django.contrib.auth.models import Group
 from forms import AdvertisementForm, VideoForm, RestaurantForm, ImageForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
-    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType
+    Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
+    Airport, AirportContact
 import nested_admin
 
 IMAGE_SRC = '''<img src="%s" />'''
@@ -22,7 +23,7 @@ class AccomodationImageInLine(admin.TabularInline):
     fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'mining', 'essentialservice', 'destination', 'advertisement', 'serviceType')
+               'mining', 'essentialservice', 'destination', 'advertisement', 'serviceType', 'airport')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -34,7 +35,7 @@ class AccomodationVideoInLine(admin.TabularInline):
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant',
                'transportation', 'retail', 'mining', 'essentialservice', 'destination', 'advertisement',
-               'isDisplayVideo', 'serviceType')
+               'isDisplayVideo', 'serviceType', 'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -94,7 +95,7 @@ class ActivityImageInLine(nested_admin.NestedTabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     classes = ['collapse']
@@ -107,7 +108,8 @@ class ActivityVideoInLine(nested_admin.NestedTabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -132,7 +134,7 @@ class TourImageNestedInLine(nested_admin.NestedTabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     classes = ['collapse']
 
 class TourVideoNestedInLine(nested_admin.NestedTabularInline):
@@ -140,7 +142,8 @@ class TourVideoNestedInLine(nested_admin.NestedTabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
 
 class TourMapNestedInLine(nested_admin.NestedTabularInline):
@@ -164,7 +167,7 @@ class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     fields = ('title', 'imageFile')
     classes = ['collapse']
     def render_image(self, obj):
@@ -176,7 +179,8 @@ class ActivityDestinationVideoInLine(nested_admin.NestedTabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -222,7 +226,7 @@ class DestinationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     classes = ['collapse']
@@ -236,7 +240,7 @@ class DestinationVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'mining', 'essentialservice','advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'mining', 'essentialservice','advertisement', 'accomodation', 'isDisplayVideo', 'serviceType', 'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -291,7 +295,7 @@ class PeriodImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice','advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice','advertisement', 'accomodation', 'serviceType', 'airport')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -303,7 +307,8 @@ class PeriodVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -351,7 +356,7 @@ class EventImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'period', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -362,7 +367,8 @@ class EventVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'period', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -426,7 +432,7 @@ class RestaurantImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'transportation', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -437,7 +443,8 @@ class RestaurantVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'transportation', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -500,7 +507,7 @@ class TourImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -511,7 +518,8 @@ class TourVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -578,7 +586,7 @@ class AdvertisementImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'activity', 'activityDestination', 'tour', 'accomodation', 'serviceType')
+               'activity', 'activityDestination', 'tour', 'accomodation', 'serviceType', 'airport')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -589,7 +597,7 @@ class AdvertisementVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'activity', 'activityDestination', 'tour', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'activity', 'activityDestination', 'tour', 'accomodation', 'isDisplayVideo', 'serviceType', 'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -626,7 +634,7 @@ class ImageAdmin(admin.ModelAdmin):
         ('Image Information', {'fields': ['title', 'imageFile', 'isHeaderImage']}),
         ('Where to Show Image', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-                                            'destination', 'advertisement', 'serviceType']}
+                                            'destination', 'advertisement', 'serviceType', 'airport']}
          ),
     ]
     form = ImageForm
@@ -639,7 +647,7 @@ class VideoAdmin(admin.ModelAdmin):
         ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile']}),
         ('Where to Show Video', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-                                            'destination','advertisement', 'serviceType']}
+                                            'destination','advertisement', 'serviceType', 'airport']}
          ),
     ]
     form = VideoForm
@@ -652,7 +660,7 @@ class TransportationImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -664,7 +672,8 @@ class TransportationVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -725,7 +734,7 @@ class RetailImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -737,7 +746,8 @@ class RetailVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -797,7 +807,7 @@ class MiningImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -809,7 +819,8 @@ class MiningVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType',
+               'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -869,7 +880,7 @@ class EssentialServiceImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'retail', 'accomodation', 'destination', 'advertisement', 'serviceType')
+               'retail', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -881,7 +892,7 @@ class EssentialServiceVideoInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'videoFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'retail', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType')
+               'retail', 'accomodation', 'destination', 'advertisement', 'isDisplayVideo', 'serviceType', 'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -941,7 +952,7 @@ class ActivityDestinationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
 
@@ -955,7 +966,8 @@ class ActivityDestinationVideoInLine(admin.TabularInline):
     fields = ('title', 'videoFile', 'render_video')
     readonly_fields = ('render_video',)
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo', 'serviceType',
+               'airport')
 
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -997,7 +1009,7 @@ class ServiceTypeImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination', 'airport')
     fields = ('title', 'imageFile', 'isHeaderImage')
     classes = ['collapse']
     form = ImageForm
@@ -1011,7 +1023,7 @@ class ServiceTypeVideoInLine(admin.TabularInline):
     fields = ('title', 'videoFile')
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo',
-               'activityDestination')
+               'activityDestination', 'airport')
     classes = ['collapse']
     def render_video(self, obj):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
@@ -1039,3 +1051,42 @@ class ServiceTypeAdmin(admin.ModelAdmin):
 
 admin.site.register(ServiceType, ServiceTypeAdmin)
 ## End of Service Type Administration ##
+
+## Start of Airport Administration ##
+class AirportImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination',
+               'serviceType')
+    fields = ('title', 'imageFile', 'isHeaderImage')
+    classes = ['collapse']
+    form = ImageForm
+
+class AirportVideoInLine(admin.TabularInline):
+    model = Video
+    extra = 1
+    fields = ('title', 'videoFile')
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'isDisplayVideo',
+               'activityDestination', 'serviceType')
+    classes = ['collapse']
+
+class AirportContactInLine(admin.TabularInline):
+    model = AirportContact
+    extra = 1
+    clases = ['collapse']
+
+class AirportAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Airport Information', {'fields': ['title', 'header', 'description']}),
+    ]
+    inlines = [AirportContactInLine, AirportImageInLine, AirportVideoInLine]
+    list_display = ('id', 'title')
+
+    def __init__(self, *args, **kwargs):
+        super(AirportAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
+admin.site.register(Airport, AirportAdmin)
+## End of Airport Administration ##

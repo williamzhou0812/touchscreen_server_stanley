@@ -1,13 +1,13 @@
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
-    ServiceType
+    ServiceType, Airport
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
     TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
     DestinationDetailedSerializer, ActivityDestinationSerializer, ServiceTypeCompleteSerializer,\
     ServiceTypeTransportationSerializer, ServiceTypeRetailSerializer, ServiceTypeMiningSerializer,\
     ServiceTypeEssentialServiceSerializer, DestinationAccomodationSerializer, AccomodationHeaderSerializer,\
-    DestinationAccomodationHeaderSerializer
+    DestinationAccomodationHeaderSerializer, AirportSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -1013,3 +1013,7 @@ class ServiceTypePost(APIView):
         instance.numberOfClicks += 1
         instance.save()
         return return_success()
+
+class AirportDetail(RetrieveAPIView):
+    queryset = Airport.objects.all()
+    serializer_class = AirportSerializer

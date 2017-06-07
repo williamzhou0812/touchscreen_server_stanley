@@ -209,6 +209,8 @@ urlpatterns = [
     url(r'^servicetyperetail/$', views.ServiceTypeRetailList.as_view()),
     url(r'^servicetypemining/$', views.ServiceTypeMiningList.as_view()),
     url(r'^servicetypeessentialservice/$', views.ServiceTypeEssentialServiceList.as_view()),
+
+    url(r'^airport/(?P<pk>[0-9]+)/$', views.AirportDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

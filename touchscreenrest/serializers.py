@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
-    ServiceType
+    ServiceType, Airport, AirportContact
 from django.db.models import Q
 from datetime import date
 
@@ -332,3 +332,16 @@ class DestinationDetailedSerializer(serializers.ModelSerializer):
         queryset = ActivityDestination.objects.filter(Q(destination=destination), DISPLAY_QUERY)
         serializer = ActivityDestinationSerializer(queryset, many=True, context=self.context)
         return serializer.data
+
+class AirportContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AirportContact
+        fields = ('id', 'title', 'phone', 'fax', 'email')
+
+class AirportSerializer(serializers.ModelSerializer):
+    videoAirport = VideoSerializer(many=True, read_only=True)
+    imageAirport = ImageSerializer(many=True, read_only=True)
+    airportAirportContact = AirportContactSerializer(many=True, read_only=True)
+    class Meta:
+        model = Airport
+        fields = ('id', 'title', 'header', 'description', 'airportAirportContact', 'imageAirport', 'videoAirport')

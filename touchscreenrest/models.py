@@ -559,6 +559,27 @@ class Advertisement(models.Model):
     class Meta:
         ordering = ['order', 'pk']
 
+class Airport(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    header = models.TextField()
+    description = models.TextField()
+
+class AirportContact(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    phone = models.CharField(max_length=16, blank=True, null=True)
+    fax = models.CharField(max_length=16, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='airportAirportContact', blank=True,
+                                null=True)
+
 class Video(models.Model):
     def __str__(self):
         return self.title
@@ -646,6 +667,11 @@ class Video(models.Model):
     def is_advertisement_video(self):
         '''Checks whether this video instance is an advertisement video'''
         return self.advertisement is not None
+
+    airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='videoAirport', blank=True, null=True)
+    def is_airport_video(self):
+        '''Checks whether this video instance is an airport video'''
+        return self.airport is not None
 
     class Meta:
         ordering = ['pk']
@@ -747,6 +773,11 @@ class Image(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='imageAdvertisement', blank=True, null=True)
     def is_advertisement_image(self):
         return self.advertisement is not None
+
+    airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='imageAirport', blank=True, null=True)
+    def is_airport_image(self):
+        '''Checks whether this image instance is an airport image'''
+        return self.airport is not None
 
     class Meta:
         ordering = ['pk']
