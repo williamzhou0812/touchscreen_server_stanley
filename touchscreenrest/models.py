@@ -373,7 +373,7 @@ class Accomodation(models.Model):
     logo = models.ImageField(upload_to='accomodation_logos/', blank=True, null=True)
     rating = models.FloatField(blank=False, default=0)
     numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
-    order = models.IntegerField(blank=False, default=0, verbose_name="Accomodation order display")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Accommodation order display")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='accomodationDestination')
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
@@ -481,6 +481,7 @@ class Advertisement(models.Model):
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     firstLevelAd = models.BooleanField(blank=False, default=False, verbose_name="Is Level One Ad?", choices=BOOL_CHOICES)
+    order = models.IntegerField(blank=False, default=0, verbose_name="Advertisement order display")
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
@@ -555,8 +556,8 @@ class Advertisement(models.Model):
         '''Checks whether this advertisement instance is an activity destination image'''
         return self.activityDestination is not None
 
-    ### Service Model still undefined / unclear ###
-    # service = models.ForeignKey(Service, models.CASCADE, related_name='videoService', null=True)
+    class Meta:
+        ordering = ['order', 'pk']
 
 class Video(models.Model):
     def __str__(self):

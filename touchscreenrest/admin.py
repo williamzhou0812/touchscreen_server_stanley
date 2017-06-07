@@ -599,6 +599,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Advertisement Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
         ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
         ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('First Level Ad', {'fields': ['firstLevelAd']}),
