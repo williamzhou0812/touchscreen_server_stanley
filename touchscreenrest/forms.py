@@ -8,6 +8,7 @@ class AdvertisementForm(forms.ModelForm):
         widgets = {
             'inTopDeal': RadioSelect,
             'highlighted': RadioSelect,
+            'firstLevelAd': RadioSelect
         }
 
 class VideoForm(forms.ModelForm):

@@ -600,10 +600,12 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Advertisement Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
-        ('Other Settings', {'fields': ['inTopDeal', 'orderTopDeal', 'numberOfShows', 'numberOfClicks', 'highlighted']}),
-        ('Where to Show Advertisement', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period',
-                                                    'event', 'restaurant', 'transportation', 'retail', 'mining',
-                                                    'essentialservice', 'destination', 'serviceType']}
+        ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
+        ('First Level Ad', {'fields': ['firstLevelAd']}),
+        ('Where to Show Advertisement - LEVEL 1', {'fields': ['activity', 'accomodation', 'period',
+                                                              'restaurant', 'destination', 'serviceType']}
+         ),
+        ('Where to Show Advertisement - LEVEL 2', {'fields': ['activityDestination', 'event']}
          ),
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]

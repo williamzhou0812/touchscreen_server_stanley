@@ -480,6 +480,7 @@ class Advertisement(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    firstLevelAd = models.BooleanField(blank=False, default=False, verbose_name="Is Level One Ad?", choices=BOOL_CHOICES)
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):
