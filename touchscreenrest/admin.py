@@ -614,7 +614,8 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Where to Show Advertisement', {'fields': ['activityDestination', 'accomodation', 'event', 'restaurant',
                                                     'destination', 'essentialservice', 'transportation', 'retail',
                                                     'mining']}
-         )
+         ),
+        ('Where to Redirect Advertisement (in Touchscreen SPA)', {'fields': ['redirectTo']})
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
     list_display = ('title', 'company')

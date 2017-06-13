@@ -482,6 +482,7 @@ class Advertisement(models.Model):
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
     firstLevelAd = models.BooleanField(blank=False, default=False, verbose_name="Is Level One Ad?", choices=BOOL_CHOICES)
     order = models.IntegerField(blank=False, default=0, verbose_name="Advertisement order display")
+    redirectTo = models.CharField(max_length=200, blank=True, null=True, verbose_name="Redirect advertisement to")
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='advertisementTour', blank=True, null=True)
     def is_tour_advertisement(self):

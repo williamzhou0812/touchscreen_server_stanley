@@ -29,7 +29,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         model = Advertisement
         fields = ('id', 'title', 'company', 'description', 'address', 'phone', 'email', 'website', 'inTopDeal',
                   'numberOfShows', 'numberOfClicks', 'orderTopDeal', 'highlighted', 'imageAdvertisement',
-                  'videoAdvertisement', 'firstLevelAd', 'order')
+                  'videoAdvertisement', 'firstLevelAd', 'order', 'redirectTo')
 
 class MapSerializer(serializers.ModelSerializer):
     mapImage = serializers.ImageField(max_length=None, use_url=True)
