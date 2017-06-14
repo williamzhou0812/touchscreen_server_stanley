@@ -65,8 +65,9 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
                   'imageActivityDestination', 'videoActivityDestination')
 
 class ActivityDestinationSerializerSimple(serializers.ModelSerializer):
-    model = ActivityDestination
-    fields = ('id', 'title', 'onlyShowSpecificAds')
+    class Meta:
+        model = ActivityDestination
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class ActivitySerializer(serializers.ModelSerializer):
     # advertisementActivity = AdvertisementSerializer(many=True)
@@ -203,8 +204,9 @@ class EssentialServiceSerializer(serializers.ModelSerializer):
                   'mapEssentialService', 'videoEssentialService', 'imageEssentialService')
 
 class EssentialServiceSerializerSimple(serializers.ModelSerializer):
-    model = EssentialService
-    fields = ('id', 'title', 'onlyShowSpecificAds')
+    class Meta:
+        model = EssentialService
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class ServiceTypeTransportationSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)
