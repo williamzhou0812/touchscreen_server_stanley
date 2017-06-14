@@ -619,7 +619,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Where to Redirect Advertisement (in Touchscreen SPA)', {'fields': ['redirectTo']})
     ]
     inlines = [AdvertisementImageInLine, AdvertisementVideoInLine]
-    list_display = ('title', 'company')
+    list_display = ('title', 'company', 'numberOfShows', 'numberOfClicks')
     list_filter = ['title', 'company']
     search_fields = ['title', 'company']
     actions = [reset_number_of_clicks]
