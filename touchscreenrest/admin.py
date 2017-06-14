@@ -15,6 +15,10 @@ VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video 
 def reset_number_of_clicks(modeladmin, request, queryset):
     queryset.update(numberOfClicks=0)
 reset_number_of_clicks.short_description = "Reset number of clicks back to zero"
+
+def reset_number_of_shows(modeladmin, request, queryset):
+    queryset.update(numberOfShows=0)
+reset_number_of_clicks.short_description = "Reset number of shows back to zero"
 ### End of Custom Actions ###
 
 ## Start of Accomodation Administration ##
@@ -622,7 +626,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ('title', 'company', 'numberOfShows', 'numberOfClicks')
     list_filter = ['title', 'company']
     search_fields = ['title', 'company']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_shows ,reset_number_of_clicks]
     form = AdvertisementForm
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
