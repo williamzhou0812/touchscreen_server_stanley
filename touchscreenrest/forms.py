@@ -42,7 +42,7 @@ class ImageForm (forms.ModelForm):
 class TransportationForm (forms.ModelForm):
     class Meta:
         model = Transportation
-        exclude = ('')
+        exclude = (''),
         widgets = {
             'onlyShowSpecificAds': RadioSelect
         }
@@ -50,7 +50,7 @@ class TransportationForm (forms.ModelForm):
 class RetailForm (forms.ModelForm):
     class Meta:
         model = Retail
-        exclude = ('')
+        exclude = (''),
         widgets = {
             'onlyShowSpecificAds': RadioSelect
         }
@@ -58,7 +58,7 @@ class RetailForm (forms.ModelForm):
 class MiningForm (forms.ModelForm):
     class Meta:
         model = Mining
-        exclude = ('')
+        exclude = (''),
         widgets = {
             'onlyShowSpecificAds': RadioSelect
         }
@@ -66,7 +66,7 @@ class MiningForm (forms.ModelForm):
 class EssentialServiceForm (forms.ModelForm):
     class Meta:
         model = EssentialService
-        exclude = ('')
+        exclude = (''),
         widgets = {
             'onlyShowSpecificAds': RadioSelect
         }
@@ -74,7 +74,7 @@ class EssentialServiceForm (forms.ModelForm):
 class ActivityDestinationForm (forms.ModelForm):
     class Meta:
         model = ActivityDestination
-        exclude = ('')
+        exclude = (''),
         widgets = {
             'onlyShowSpecificAds': RadioSelect
         }
