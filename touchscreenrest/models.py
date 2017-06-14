@@ -140,6 +140,8 @@ class Restaurant(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Restaurant Logo'
@@ -190,6 +192,8 @@ class Transportation(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Transportation Logo'
@@ -224,6 +228,8 @@ class Retail(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Retail Logo'
@@ -257,6 +263,8 @@ class Mining(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Mining Logo'
@@ -290,6 +298,8 @@ class EssentialService(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     def image_logo(self):
         return mark_safe('''<img src="%s" />''' % self.logo.url)
     image_logo.short_description = 'Essential Service Logo'
@@ -319,6 +329,8 @@ class ActivityDestination(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    onlyShowSpecificAds = models.BooleanField(blank=False, default=False,
+                                              verbose_name="Only show Specific Advertisements?", choices=BOOL_CHOICES)
     class Meta:
         verbose_name = 'Destination for Activity'
         verbose_name_plural = 'Destination for Activities'

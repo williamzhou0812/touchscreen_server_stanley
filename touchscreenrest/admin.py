@@ -477,7 +477,7 @@ class RestaurantAdmin(admin.ModelAdmin):
         ('Restaurant Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
                                          'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'order', 'destination']}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
@@ -610,7 +610,6 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Order Settings', {'fields': ['order']}),
         ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
         ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
-        ('First Level Ad', {'fields': ['firstLevelAd']}),
         ('Where to Show Advertisement', {'fields': ['activityDestination', 'accomodation', 'event', 'restaurant',
                                                     'destination', 'essentialservice', 'transportation', 'retail',
                                                     'mining']}
@@ -706,7 +705,7 @@ class TransportationAdmin(admin.ModelAdmin):
         ('Order Settings', {'fields': ['order']}),
         ('Car Hire & Transportation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo',
                                                          'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
@@ -779,7 +778,7 @@ class RetailAdmin(admin.ModelAdmin):
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
         ('Retail Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
@@ -852,7 +851,7 @@ class MiningAdmin(admin.ModelAdmin):
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
         ('Mining Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
@@ -924,7 +923,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
         ('Order Settings', {'fields': ['order']}),
         ('Essential Service Detail', {'fields': [ 'description', 'address', 'phone', 'email', 'website', 'logo',
                                                   'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'order', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
@@ -986,7 +985,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
         ('Activity Information', {'fields': ['title', 'description']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'destination']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'activity', 'destination']}),
     ]
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
     list_display = ('order', 'title', 'numberOfClicks')
