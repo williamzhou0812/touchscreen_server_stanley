@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from forms import AdvertisementForm, VideoForm, RestaurantForm, ImageForm
+from forms import AdvertisementForm, VideoForm, RestaurantForm, ImageForm, ActivityDestinationForm, EssentialServiceForm, \
+    MiningForm, TransportationForm, RetailForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
@@ -196,6 +197,7 @@ class ActivityDestinationInLine(nested_admin.NestedStackedInline):
     exclude = ('display', 'displayFrom', 'displayTo')
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine, ActivityDestinationTourInLine]
     classes = ['collapse']
+    form = ActivityDestinationForm
     extra = 1
 
 class ActivityAdmin(nested_admin.NestedModelAdmin):
@@ -707,6 +709,7 @@ class TransportationAdmin(admin.ModelAdmin):
                                                          'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
+    form = TransportationForm
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
@@ -780,6 +783,7 @@ class RetailAdmin(admin.ModelAdmin):
         ('Retail Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
+    form = RetailForm
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
@@ -853,6 +857,7 @@ class MiningAdmin(admin.ModelAdmin):
         ('Mining Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
+    form = MiningForm
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('order', 'title', 'address', 'destination', 'phone', 'email', 'numberOfClicks')
@@ -925,6 +930,7 @@ class EssentialServiceAdmin(admin.ModelAdmin):
                                                   'image_logo']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
     ]
+    form = EssentialServiceForm
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
     readonly_fields = ('image_logo',)
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
@@ -987,6 +993,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
         ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'activity', 'destination']}),
     ]
+    form = ActivityDestinationForm
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title', 'activity']

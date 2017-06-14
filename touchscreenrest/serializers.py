@@ -62,7 +62,11 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivityDestination
         fields = ('id', 'title', 'description', 'activity', 'activityTitle', 'numberOfClicks', 'tourActivityDestination',
-                  'imageActivityDestination', 'videoActivityDestination', 'onlyShowSpecificAds')
+                  'imageActivityDestination', 'videoActivityDestination')
+
+class ActivityDestinationSerializerSimple(serializers.ModelSerializer):
+    model = ActivityDestination
+    fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class ActivitySerializer(serializers.ModelSerializer):
     # advertisementActivity = AdvertisementSerializer(many=True)
@@ -132,7 +136,12 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'cuisine', 'cards', 'price',
                   'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking', 'parkingOther', 'courtesy',
                   'courtesyOther', 'logo', 'numberOfClicks', 'order', 'mapRestaurant', 'videoRestaurant',
-                  'imageRestaurant', 'onlyShowSpecificAds')
+                  'imageRestaurant')
+
+class RestaurantSerializerSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class TransportationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -143,7 +152,12 @@ class TransportationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transportation
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks',
-                  'order', 'mapTransportation', 'videoTransportation', 'imageTransportation', 'onlyShowSpecificAds')
+                  'order', 'mapTransportation', 'videoTransportation', 'imageTransportation')
+
+class TransportationSerializerSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Transportation
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class RetailSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -154,7 +168,12 @@ class RetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Retail
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
-                  'mapRetail', 'videoRetail', 'imageRetail', 'onlyShowSpecificAds')
+                  'mapRetail', 'videoRetail', 'imageRetail')
+
+class RetailSerializerSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Retail
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class MiningSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -165,7 +184,12 @@ class MiningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mining
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
-                  'mapMining', 'videoMining', 'imageMining', 'onlyShowSpecificAds')
+                  'mapMining', 'videoMining', 'imageMining')
+
+class MiningSerializerSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Mining
+        fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class EssentialServiceSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -176,7 +200,11 @@ class EssentialServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = EssentialService
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
-                  'mapEssentialService', 'videoEssentialService', 'imageEssentialService', 'onlyShowSpecificAds')
+                  'mapEssentialService', 'videoEssentialService', 'imageEssentialService')
+
+class EssentialServiceSerializerSimple(serializers.ModelSerializer):
+    model = EssentialService
+    fields = ('id', 'title', 'onlyShowSpecificAds')
 
 class ServiceTypeTransportationSerializer(serializers.ModelSerializer):
     videoServiceType = VideoSerializer(many=True, read_only=True)

@@ -7,7 +7,8 @@ from touchscreenrest.serializers import ImageSerializer, VideoSerializer, Advert
     DestinationDetailedSerializer, ActivityDestinationSerializer, ServiceTypeCompleteSerializer,\
     ServiceTypeTransportationSerializer, ServiceTypeRetailSerializer, ServiceTypeMiningSerializer,\
     ServiceTypeEssentialServiceSerializer, DestinationAccomodationSerializer, AccomodationHeaderSerializer,\
-    DestinationAccomodationHeaderSerializer, AirportSerializer
+    DestinationAccomodationHeaderSerializer, AirportSerializer, RestaurantSerializerSimple, RetailSerializerSimple, \
+    TransportationSerializerSimple, MiningSerializerSimple, EssentialServiceSerializerSimple, ActivityDestinationSerializerSimple
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -794,6 +795,10 @@ class RestaurantDetail(RetrieveAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
+class RestaurantSimpleDetail(RetrieveAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializerSimple
+
 class RestaurantPost(APIView):
     def get_object(self, pk):
         try:
@@ -816,6 +821,10 @@ class TransportationList(ListAPIView):
 class TransportationDetail(RetrieveAPIView):
     queryset = Transportation.objects.all()
     serializer_class = TransportationSerializer
+
+class TransportationSimpleDetail(RetrieveAPIView):
+    queryset = Transportation.objects.all()
+    serializer_class = TransportationSerializerSimple
 
 class TransportationPost(APIView):
     def get_object(self, pk):
@@ -840,6 +849,10 @@ class RetailDetail(RetrieveAPIView):
     queryset = Retail.objects.all()
     serializer_class = RetailSerializer
 
+class RetailSimpleDetail(RetrieveAPIView):
+    queryset = Retail.objects.all()
+    serializer_class = RetailSerializerSimple
+
 class RetailPost(APIView):
     def get_object(self, pk):
         try:
@@ -863,6 +876,10 @@ class MiningDetail(RetrieveAPIView):
     queryset = Mining.objects.all()
     serializer_class = MiningSerializer
 
+class MiningSimpleDetail(RetrieveAPIView):
+    queryset = Mining.objects.all()
+    serializer_class = MiningSerializerSimple
+
 class MiningPost(APIView):
     def get_object(self, pk):
         try:
@@ -885,6 +902,10 @@ class EssentialServiceList(ListAPIView):
 class EssentialServiceDetail(RetrieveAPIView):
     queryset = EssentialService.objects.all()
     serializer_class = EssentialServiceSerializer
+
+class EssentialServiceSimpleDetail(RetrieveAPIView):
+    queryset = EssentialService.objects.all()
+    serializer_class = EssentialServiceSerializerSimple
 
 class EssentialServicePost(APIView):
     def get_object(self, pk):
@@ -959,6 +980,10 @@ class ActivityDestinationList(ListAPIView):
 class ActivityDestinationDetail(RetrieveAPIView):
     queryset = ActivityDestination.objects.all()
     serializer_class = ActivityDestinationSerializer
+
+class ActivityDestinationSimpleDetail(RetrieveAPIView):
+    queryset = ActivityDestination.objects.all()
+    serializer_class = ActivityDestinationSerializerSimple
 
 class ActivityDestinationPost(APIView):
     def get_object(self, pk):

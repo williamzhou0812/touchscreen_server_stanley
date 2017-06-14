@@ -157,6 +157,7 @@ urlpatterns = [
 
     url(r'^activitydestination/$', views.ActivityDestinationList.as_view()),
     url(r'^activitydestination/(?P<pk>[0-9]+)/$', views.ActivityDestinationDetail.as_view()),
+    url(r'^activitydestinationsimple/(?P<pk>[0-9]+)/$', views.ActivityDestinationSimpleDetail.as_view()),
     url(r'^activitydestinationpost/(?P<pk>[0-9]+)/$', views.ActivityDestinationPost.as_view()),
 
     url(r'^destination/$', views.DestinationList.as_view()),
@@ -175,22 +176,27 @@ urlpatterns = [
 
     url(r'^restaurant/$', views.RestaurantList.as_view()),
     url(r'^restaurant/(?P<pk>[0-9]+)/$', views.RestaurantDetail.as_view()),
+    url(r'^restaurantsimple/(?P<pk>[0-9]+)/$', views.RestaurantSimpleDetail.as_view()),
     url(r'^restaurantpost/(?P<pk>[0-9]+)/$', views.RestaurantPost.as_view()),
 
     url(r'^transportation/$', views.TransportationList.as_view()),
     url(r'^transportation/(?P<pk>[0-9]+)/$', views.TransportationDetail.as_view()),
+    url(r'^transportationsimple/(?P<pk>[0-9]+)/$', views.TransportationSimpleDetail.as_view()),
     url(r'^transportationpost/(?P<pk>[0-9]+)/$', views.TransportationPost.as_view()),
 
     url(r'^retail/$', views.RetailList.as_view()),
     url(r'^retail/(?P<pk>[0-9]+)/$', views.RetailDetail.as_view()),
+    url(r'^retailsimple/(?P<pk>[0-9]+)/$', views.RetailSimpleDetail.as_view()),
     url(r'^retailpost/(?P<pk>[0-9]+)/$', views.RetailPost.as_view()),
 
     url(r'^mining/$', views.MiningList.as_view()),
     url(r'^mining/(?P<pk>[0-9]+)/$', views.MiningDetail.as_view()),
+    url(r'^miningsimple/(?P<pk>[0-9]+)/$', views.MiningSimpleDetail.as_view()),
     url(r'^miningpost/(?P<pk>[0-9]+)/$', views.MiningPost.as_view()),
 
     url(r'^essential/$', views.EssentialServiceList.as_view()),
     url(r'^essential/(?P<pk>[0-9]+)/$', views.EssentialServiceDetail.as_view()),
+    url(r'^essentialsimple/(?P<pk>[0-9]+)/$', views.EssentialServiceSimpleDetail.as_view()),
     url(r'^essentialpost/(?P<pk>[0-9]+)/$', views.EssentialServicePost.as_view()),
 
     url(r'^tour/$', views.TourList.as_view()),

@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import RadioSelect
-from models import Advertisement, Video, Restaurant, Image, Event
+from models import Advertisement, Video, Restaurant, Image, Transportation, Retail, Mining, EssentialService, \
+    ActivityDestination
 class AdvertisementForm(forms.ModelForm):
     class Meta:
         model = Advertisement
@@ -8,7 +9,6 @@ class AdvertisementForm(forms.ModelForm):
         widgets = {
             'inTopDeal': RadioSelect,
             'highlighted': RadioSelect,
-            'firstLevelAd': RadioSelect
         }
 
 class VideoForm(forms.ModelForm):
@@ -27,6 +27,9 @@ class RestaurantForm (forms.ModelForm):
     class Meta:
         model = Restaurant
         exclude = (''),
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect,
+        }
 
 class ImageForm (forms.ModelForm):
     class Meta:
@@ -34,4 +37,44 @@ class ImageForm (forms.ModelForm):
         exclude = (''),
         widgets = {
             'isHeaderImage': RadioSelect,
+        }
+
+class TransportationForm (forms.ModelForm):
+    class Meta:
+        model = Transportation
+        exclude = ('')
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect
+        }
+
+class RetailForm (forms.ModelForm):
+    class Meta:
+        model = Retail
+        exclude = ('')
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect
+        }
+
+class MiningForm (forms.ModelForm):
+    class Meta:
+        model = Mining
+        exclude = ('')
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect
+        }
+
+class EssentialServiceForm (forms.ModelForm):
+    class Meta:
+        model = EssentialService
+        exclude = ('')
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect
+        }
+
+class ActivityDestinationForm (forms.ModelForm):
+    class Meta:
+        model = ActivityDestination
+        exclude = ('')
+        widgets = {
+            'onlyShowSpecificAds': RadioSelect
         }
