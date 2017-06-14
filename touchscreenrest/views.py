@@ -684,6 +684,15 @@ class AdvertisementServicesFirstOnly(ListAPIView):
         )
     serializer_class = AdvertisementSerializer
 
+class AdvertisementServices(ListAPIView):
+    def get_queryset(self):
+        return Advertisement.objects.filter(
+            Q(essentialservice_id__isnull=False) | Q(transportation_id__isnull=False) | Q(mining_id__isnull=False)
+            | Q(retail_id__isnull=False), DISPLAY_QUERY
+        )
+    serializer_class = AdvertisementSerializer
+    
+
 class ActivityList(ListAPIView):
     queryset = Activity.objects.filter(DISPLAY_QUERY)
     serializer_class = ActivitySerializer
