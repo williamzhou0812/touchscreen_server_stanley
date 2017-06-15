@@ -339,6 +339,20 @@ class VideoServiceTypeDetail(ListAPIView):
         return Video.objects.filter(serviceType_id=self.kwargs['pk'])
     serializer_class = VideoSerializer
 
+class VideoPostShow(APIView):
+    def get_object(self, pk):
+        try:
+            return Video.objects.get(pk=pk)
+        except Video.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, Video):
+            return instance
+        instance.numberOfShows += 1
+        instance.save()
+        return return_success()
 
 class MapList(ListAPIView):
     queryset = Map.objects.all()

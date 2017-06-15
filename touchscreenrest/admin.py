@@ -704,13 +704,24 @@ admin.site.register(Image, ImageAdmin)
 ## Start of Video Administration ##
 class VideoAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile']}),
+        ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile', 'numberOfShows']}),
         ('Where to Show Video', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                                             'destination','advertisement', 'serviceType', 'airport']}
          ),
     ]
     form = VideoForm
+    actions = [reset_number_of_shows,
+               export_as_csv_action("Export selected videos as CSV", fields=['id', 'title', 'isDisplayVideo',
+                                                                             'numberOfShows'])
+               ]
+    list_display = ('id', 'title', 'isDisplayVideo', 'numberOfShows')
+    list_filter = ['title']
+    search_fields = ['title']
+
+    def __init__(self, *args, **kwargs):
+        super(VideoAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
 admin.site.register(Video, VideoAdmin)
 ## End of Event Administration ##
 

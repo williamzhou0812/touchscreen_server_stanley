@@ -69,6 +69,7 @@ urlpatterns = [
     url(r'^videoessential/(?P<pk>[0-9]+)/$', views.VideoEssentialServiceDetail.as_view()),
     url(r'^videodestination/$', views.VideoDestination.as_view()),
     url(r'^videodestination/(?P<pk>[0-9]+)/$', views.VideoDestinationDetail.as_view()),
+    url(r'^videopostshow/(?P<pk>[0-9]+)/$', views.VideoPostShow.as_view()),
 
     url(r'^map/$', views.MapList.as_view()),
     url(r'^map/(?P<pk>[0-9]+)/$', views.MapDetail.as_view()),

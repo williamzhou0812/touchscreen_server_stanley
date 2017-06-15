@@ -602,6 +602,7 @@ class Video(models.Model):
     title = models.CharField(max_length=200, blank=False)
     isDisplayVideo = models.BooleanField(blank=False, default=False, verbose_name="Is display Video?", choices=BOOL_CHOICES)
     videoFile = models.FileField(upload_to='videos/', blank=False, null=False)
+    numberOfShows = models.IntegerField(default=0, verbose_name="Number of shows")
 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='videoActivity', blank=True, null=True)
     def is_activity_video(self):
