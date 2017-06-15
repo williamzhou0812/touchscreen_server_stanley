@@ -7,6 +7,9 @@ from touchscreenrest.models import Activity, ActivityDestination, Destination, P
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
     Airport, AirportContact
 import nested_admin
+import csv
+from django.http import HttpResponse
+
 
 IMAGE_SRC = '''<img src="%s" />'''
 VIDEO_SRC = '''<video src="%s" controls>Your browser does not support the video tag.</video>'''
@@ -19,6 +22,41 @@ reset_number_of_clicks.short_description = "Reset number of clicks back to zero"
 def reset_number_of_shows(modeladmin, request, queryset):
     queryset.update(numberOfShows=0)
 reset_number_of_clicks.short_description = "Reset number of shows back to zero"
+
+def export_as_csv_action(description="Export selected objects as CSV file",
+                         fields=None, exclude=None, header=True):
+    """
+    This function returns an export csv action
+    'fields' and 'exclude' work like in django ModelForm
+    'header' is whether or not to output the column names as the first row
+    """
+    def export_as_csv(modeladmin, request, queryset):
+        """
+        Generic csv export admin action.
+        based on http://djangosnippets.org/snippets/1697/
+        """
+        opts = modeladmin.model._meta
+        field_names = set([field.name for field in opts.fields])
+        if fields:
+            fieldset = set(fields)
+            field_names = field_names & fieldset
+        elif exclude:
+            excludeset = set(exclude)
+            field_names = field_names - excludeset
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % unicode(opts).replace('.', '_')
+
+        writer = csv.writer(response)
+        if header:
+            writer = csv.DictWriter(response,fields)
+            writer.writeheader()
+        for obj in queryset:
+            writer.writerow(dict(zip(fields,[unicode(getattr(obj, field)).encode("utf-8","replace") for field in fields])))
+        return response
+    export_as_csv.short_description = description
+    return export_as_csv
+
 ### End of Custom Actions ###
 
 ## Start of Accomodation Administration ##
@@ -80,7 +118,10 @@ class AccomodationAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks,
+               export_as_csv_action("Export selected accommodations as CSV", fields=['id', 'title', 'destination',
+                                                                                     'phone', 'email', 'numberOfClicks'
+                                                                                     ])]
     def get_title(self, obj):
         return obj.destination.title
     get_title.short_description = "title"
@@ -215,7 +256,8 @@ class ActivityAdmin(nested_admin.NestedModelAdmin):
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected activities as CSV",
+                                                            fields=['id', 'title', 'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(ActivityAdmin, self).__init__(*args, **kwargs)
@@ -283,7 +325,9 @@ class DestinationAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected destinations as CSV",
+                                                            fields=['id', 'title', 'province', 'airport',
+                                                                    'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(DestinationAdmin, self).__init__(*args, **kwargs)
@@ -344,7 +388,8 @@ class PeriodAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected periods as CSV",
+                                                            fields=['id', 'title', 'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(PeriodAdmin, self).__init__(*args, **kwargs)
@@ -412,7 +457,9 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'period', 'numberOfClicks')
     list_filter = ['title', 'destination', 'period']
     search_fields = ['title', 'destination__title', 'period__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected events as CSV",
+                                                            fields=['id', 'title', 'period', 'destination',
+                                                                    'numberOfClicks'])]
 
     def get_destination_title(self, obj):
         return obj.destination.title
@@ -491,7 +538,9 @@ class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected restaurants as CSV",
+                                                            fields=['id', 'title', 'destination', 'phone', 'email',
+                                                                    'numberOfClicks'])]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -563,7 +612,9 @@ class TourAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'phone', 'email', 'activity', 'numberOfClicks')
     list_filter = ['title', 'activity', 'activityDestination']
     search_fields = ['title', 'activity__title', 'activityDestination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected tours as CSV",
+                                                            fields=['id', 'title', 'phone', 'email', 'activity',
+                                                                    'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(TourAdmin, self).__init__(*args, **kwargs)
@@ -626,7 +677,10 @@ class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ('title', 'company', 'numberOfShows', 'numberOfClicks')
     list_filter = ['title', 'company']
     search_fields = ['title', 'company']
-    actions = [reset_number_of_shows ,reset_number_of_clicks]
+    actions = [reset_number_of_shows ,reset_number_of_clicks,
+               export_as_csv_action("Export selected advertisements as CSV", fields=['id', 'title', 'company',
+                                                                                     'numberOfShows', 'numberOfClicks'])
+               ]
     form = AdvertisementForm
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
@@ -719,7 +773,9 @@ class TransportationAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected car hire & transportation services as CSV",
+                                                            fields=['id', 'title', 'destination', 'phone', 'email',
+                                                                    'numberOfClicks'])]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -793,7 +849,9 @@ class RetailAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected retail services as CSV",
+                                                            fields=['id', 'title', 'destination', 'phone', 'email',
+                                                                    'numberOfClicks'])]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -867,7 +925,9 @@ class MiningAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'address', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected mining & resource services as CSV",
+                                                            fields=['id', 'title', 'destination', 'phone', 'email',
+                                                                    'numberOfClicks'])]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -940,7 +1000,9 @@ class EssentialServiceAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'destination', 'phone', 'email', 'numberOfClicks')
     list_filter = ['title', 'destination']
     search_fields = ['title', 'address', 'destination__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected essential services as CSV",
+                                                            fields=['id', 'title', 'destination', 'phone', 'email',
+                                                                    'numberOfClicks'])]
 
     def get_title(self, obj):
         return obj.destination.title
@@ -1002,7 +1064,8 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title', 'activity']
     search_fields = ['title', 'activity__title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected destinations for activities as CSV",
+                                                            fields=['id', 'title', 'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(ActivityDestinationAdmin, self).__init__(*args, **kwargs)
@@ -1051,7 +1114,8 @@ class ServiceTypeAdmin(admin.ModelAdmin):
     list_display = ('order', 'title', 'numberOfClicks')
     list_filter = ['title']
     search_fields = ['title']
-    actions = [reset_number_of_clicks]
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected Service Types as CSV",
+                                                            fields=['id', 'title', 'numberOfClicks'])]
 
     def __init__(self, *args, **kwargs):
         super(ServiceTypeAdmin, self).__init__(*args, **kwargs)
