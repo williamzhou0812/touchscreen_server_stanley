@@ -28,7 +28,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = ('id', 'title', 'company', 'description', 'address', 'phone', 'email', 'website', 'inTopDeal',
-                  'numberOfShows', 'numberOfClicks', 'orderTopDeal', 'highlighted', 'imageAdvertisement',
+                  'orderTopDeal', 'highlighted', 'imageAdvertisement',
                   'videoAdvertisement', 'order', 'redirectTo')
 
 class MapSerializer(serializers.ModelSerializer):
@@ -45,7 +45,7 @@ class TourSerializer(serializers.ModelSerializer):
     mapTour = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Tour
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks', 'videoTour', 'imageTour',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'videoTour', 'imageTour',
                   'mapTour')
 
 class ActivityDestinationSerializer(serializers.ModelSerializer):
@@ -61,7 +61,7 @@ class ActivityDestinationSerializer(serializers.ModelSerializer):
         return serializer.data
     class Meta:
         model = ActivityDestination
-        fields = ('id', 'title', 'description', 'activity', 'activityTitle', 'numberOfClicks', 'tourActivityDestination',
+        fields = ('id', 'title', 'description', 'activity', 'activityTitle', 'tourActivityDestination',
                   'imageActivityDestination', 'videoActivityDestination')
 
 class ActivityDestinationSerializerSimple(serializers.ModelSerializer):
@@ -81,8 +81,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         return serializer.data
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'numberOfClicks', 'imageActivity', 'videoActivity',
-                  'activityDestinationActivity')
+        fields = ('id', 'title', 'imageActivity', 'videoActivity', 'activityDestinationActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
@@ -93,8 +92,7 @@ class AccomodationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Accomodation
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'rating',
-                  'numberOfClicks', 'order', 'videoAccomodation', 'imageAccomodation',
-                  'mapAccomodation')
+                  'order', 'videoAccomodation', 'imageAccomodation', 'mapAccomodation')
 
 class AccomodationHeaderSerializer(serializers.ModelSerializer):
     imageAccomodation = ImageSerializer(many=True, read_only=True)
@@ -111,7 +109,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('id', 'title', 'description', 'location', 'phone', 'email', 'website', 'destination', 'period',
-                  'eventDate', 'eventMonth', 'numberOfClicks', 'videoEvent', 'imageEvent', 'mapEvent')
+                  'eventDate', 'eventMonth', 'videoEvent', 'imageEvent', 'mapEvent')
 
 class PeriodSerializer(serializers.ModelSerializer):
     eventPeriod = serializers.SerializerMethodField('get_events')
@@ -120,7 +118,7 @@ class PeriodSerializer(serializers.ModelSerializer):
     # advertisementPeriod = AdvertisementSerializer(many=True)
     class Meta:
         model = Period
-        fields = ('id', 'title', 'numberOfClicks', 'eventPeriod', 'videoPeriod', 'imagePeriod')
+        fields = ('id', 'title', 'eventPeriod', 'videoPeriod', 'imagePeriod')
     def get_events(self, period):
         queryset = Event.objects.filter(Q(period=period), DISPLAY_QUERY)
         serializer = EventSerializer(queryset, many=True, context=self.context)
@@ -136,7 +134,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'cuisine', 'cards', 'price',
                   'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking', 'parkingOther', 'courtesy',
-                  'courtesyOther', 'logo', 'numberOfClicks', 'order', 'mapRestaurant', 'videoRestaurant',
+                  'courtesyOther', 'logo', 'order', 'mapRestaurant', 'videoRestaurant',
                   'imageRestaurant')
 
 class RestaurantSerializerSimple(serializers.ModelSerializer):
@@ -152,8 +150,8 @@ class TransportationSerializer(serializers.ModelSerializer):
     # advertisementTransportation = AdvertisementSerializer(many=True)
     class Meta:
         model = Transportation
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks',
-                  'order', 'mapTransportation', 'videoTransportation', 'imageTransportation')
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'order',
+                  'mapTransportation', 'videoTransportation', 'imageTransportation')
 
 class TransportationSerializerSimple(serializers.ModelSerializer):
     class Meta:
@@ -168,8 +166,8 @@ class RetailSerializer(serializers.ModelSerializer):
     # advertisementRetail = AdvertisementSerializer(many=True)
     class Meta:
         model = Retail
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
-                  'mapRetail', 'videoRetail', 'imageRetail')
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'order', 'mapRetail',
+                  'videoRetail', 'imageRetail')
 
 class RetailSerializerSimple(serializers.ModelSerializer):
     class Meta:
@@ -184,8 +182,8 @@ class MiningSerializer(serializers.ModelSerializer):
     # advertisementMining = AdvertisementSerializer(many=True)
     class Meta:
         model = Mining
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
-                  'mapMining', 'videoMining', 'imageMining')
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'order', 'mapMining',
+                  'videoMining', 'imageMining')
 
 class MiningSerializerSimple(serializers.ModelSerializer):
     class Meta:
@@ -200,7 +198,7 @@ class EssentialServiceSerializer(serializers.ModelSerializer):
     # advertisementEssentialService = AdvertisementSerializer(many=True)
     class Meta:
         model = EssentialService
-        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'numberOfClicks','order',
+        fields = ('id', 'title', 'description', 'address', 'phone', 'email', 'website', 'logo', 'order',
                   'mapEssentialService', 'videoEssentialService', 'imageEssentialService')
 
 class EssentialServiceSerializerSimple(serializers.ModelSerializer):
@@ -213,9 +211,10 @@ class ServiceTypeTransportationSerializer(serializers.ModelSerializer):
     imageServiceType = ImageSerializer(many=True, read_only=True)
     # advertisementServiceType = AdvertisementSerializer(many=True)
     transportationServiceType = serializers.SerializerMethodField('get_transportation')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = ServiceType
-        fields = ('id', 'title', 'numberOfClicks', 'transportationServiceType', 'imageServiceType', 'videoServiceType')
+        fields = ('id', 'title', 'icon', 'transportationServiceType', 'imageServiceType', 'videoServiceType')
     def get_transportation(self, st):
         queryset = Transportation.objects.filter(Q(serviceType=st), DISPLAY_QUERY)
         serializer = TransportationSerializer(queryset, many=True, context=self.context)
@@ -226,9 +225,10 @@ class ServiceTypeRetailSerializer(serializers.ModelSerializer):
     imageServiceType = ImageSerializer(many=True, read_only=True)
     # advertisementServiceType = AdvertisementSerializer(many=True)
     retailServiceType = serializers.SerializerMethodField('get_retail')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = ServiceType
-        fields = ('id', 'title', 'numberOfClicks', 'retailServiceType', 'imageServiceType', 'videoServiceType')
+        fields = ('id', 'title', 'icon', 'retailServiceType', 'imageServiceType', 'videoServiceType')
     def get_retail(self, st):
         queryset = Retail.objects.filter(Q(serviceType=st), DISPLAY_QUERY)
         serializer = RetailSerializer(queryset, many=True, context=self.context)
@@ -239,9 +239,10 @@ class ServiceTypeMiningSerializer(serializers.ModelSerializer):
     imageServiceType = ImageSerializer(many=True, read_only=True)
     # advertisementServiceType = AdvertisementSerializer(many=True)
     miningServiceType = serializers.SerializerMethodField('get_mining')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = ServiceType
-        fields = ('id', 'title', 'numberOfClicks', 'miningServiceType', 'imageServiceType', 'videoServiceType')
+        fields = ('id', 'title', 'icon', 'miningServiceType', 'imageServiceType', 'videoServiceType')
     def get_mining(self, st):
         queryset = Mining.objects.filter(Q(serviceType=st), DISPLAY_QUERY)
         serializer = MiningSerializer(queryset, many=True, context=self.context)
@@ -252,9 +253,10 @@ class ServiceTypeEssentialServiceSerializer(serializers.ModelSerializer):
     imageServiceType = ImageSerializer(many=True, read_only=True)
     # advertisementServiceType = AdvertisementSerializer(many=True)
     essentialServiceServiceType = serializers.SerializerMethodField('get_essential')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = ServiceType
-        fields = ('id', 'title', 'numberOfClicks', 'essentialServiceServiceType', 'imageServiceType', 'videoServiceType')
+        fields = ('id', 'title', 'icon', 'essentialServiceServiceType', 'imageServiceType', 'videoServiceType')
     def get_essential(self, st):
         queryset = EssentialService.objects.filter(Q(serviceType=st), DISPLAY_QUERY)
         serializer = EssentialServiceSerializer(queryset, many=True, context=self.context)
@@ -268,10 +270,11 @@ class ServiceTypeCompleteSerializer(serializers.ModelSerializer):
     retailServiceType = serializers.SerializerMethodField('get_retail')
     miningServiceType = serializers.SerializerMethodField('get_mining')
     essentialServiceServiceType = serializers.SerializerMethodField('get_essential')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = ServiceType
         fields = (
-        'id', 'title', 'numberOfClicks', 'transportationServiceType', 'retailServiceType', 'miningServiceType',
+        'id', 'title', 'icon', 'transportationServiceType', 'retailServiceType', 'miningServiceType',
         'essentialServiceServiceType', 'imageServiceType', 'videoServiceType')
     def get_transportation(self, st):
         queryset = Transportation.objects.filter(Q(serviceType=st), DISPLAY_QUERY)
@@ -300,8 +303,8 @@ class DestinationSerializer(serializers.ModelSerializer):
     mapDestination = MapSerializer(many=True, read_only=True)
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'description', 'province', 'airport', 'numberOfClicks', 'videoDestination',
-                  'imageDestination', 'mapDestination')
+        fields = ('id', 'title', 'description', 'province', 'airport', 'videoDestination', 'imageDestination',
+                  'mapDestination')
 
 class DestinationAccomodationSerializer(serializers.ModelSerializer):
     videoDestination = VideoSerializer(many=True, read_only=True)
@@ -310,8 +313,7 @@ class DestinationAccomodationSerializer(serializers.ModelSerializer):
     accomodationDestination = serializers.SerializerMethodField('get_accommodation')
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'description', 'numberOfClicks', 'videoDestination', 'imageDestination',
-                  'accomodationDestination')
+        fields = ('id', 'title', 'description', 'videoDestination', 'imageDestination', 'accomodationDestination')
     def get_accommodation(self, destination):
         queryset = Accomodation.objects.filter(Q(destination=destination), DISPLAY_QUERY)
         serializer = AccomodationSerializer(queryset, many=True, context=self.context)
@@ -338,9 +340,9 @@ class DestinationDetailedSerializer(serializers.ModelSerializer):
     activityDestinationDestination = serializers.SerializerMethodField('get_destination_activity')
     class Meta:
         model = Destination
-        fields = ('id', 'title', 'province', 'airport', 'description', 'numberOfClicks', 'eventDestination',
-                  'accomodationDestination', 'restaurantDestination', 'videoDestination', 'imageDestination',
-                  'mapDestination', 'activityDestinationDestination')
+        fields = ('id', 'title', 'province', 'airport', 'description', 'eventDestination', 'accomodationDestination', \
+                  'restaurantDestination', 'videoDestination', 'imageDestination', 'mapDestination',
+                  'activityDestinationDestination')
     def get_events(self, destination):
         queryset = Event.objects.filter(Q(destination=destination), DISPLAY_QUERY)
         serializer = EventSerializer(queryset, many=True, context=self.context)

@@ -166,6 +166,7 @@ class ServiceType(models.Model):
     display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
     displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
     displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    icon = models.FileField(upload_to='service_type_icons/', blank=True, null=True)
     class Meta:
         verbose_name = "Services Subsection 2"
         verbose_name_plural = "Services Subsection 2"

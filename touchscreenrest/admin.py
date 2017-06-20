@@ -1147,7 +1147,7 @@ class ServiceTypeVideoInLine(admin.TabularInline):
 
 class ServiceTypeAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Activity Information', {'fields': ['title']}),
+        ('Service Subsection 2 Title', {'fields': ['title', 'icon']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
