@@ -35,7 +35,7 @@ class MapSerializer(serializers.ModelSerializer):
     mapImage = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
         model = Map
-        fields = ('id', 'title', 'mapImage')
+        fields = ('id', 'title', 'mapImage', 'mapType')
 
 class TourSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)

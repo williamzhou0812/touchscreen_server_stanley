@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import RadioSelect
 from models import Advertisement, Video, Restaurant, Image, Transportation, Retail, Mining, EssentialService, \
-    ActivityDestination
+    ActivityDestination, Map
 class AdvertisementForm(forms.ModelForm):
     class Meta:
         model = Advertisement
@@ -37,6 +37,14 @@ class ImageForm (forms.ModelForm):
         exclude = (''),
         widgets = {
             'isHeaderImage': RadioSelect,
+        }
+
+class MapForm (forms.ModelForm):
+    class Meta:
+        model = Map
+        exclude = (''),
+        widgets = {
+            'mapType': RadioSelect,
         }
 
 class TransportationForm (forms.ModelForm):

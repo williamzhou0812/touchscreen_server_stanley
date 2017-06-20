@@ -408,8 +408,11 @@ class Map(models.Model):
         return self.title
     def __unicode__(self):
         return self.title
+    MAP_CHOICES = (('CITY', 'CITY MAP'), ('COUNTRY', 'COUNTRY MAP'))
+    DEFAULT_MAP_CHOICE = 'COUNTRY'
     title = models.CharField(max_length=200, blank=False)
     mapImage = models.ImageField(upload_to='maps/')
+    mapType = models.CharField(max_length=7, default=DEFAULT_MAP_CHOICE, choices=MAP_CHOICES, verbose_name="Map Type")
     
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='mapTour', blank=True, null=True)
     def is_tour_map(self):
@@ -479,7 +482,7 @@ class Advertisement(models.Model):
         return self.title
     title = models.CharField(max_length=200, blank=False)
     company = models.CharField(max_length=200, blank=False, default='')
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=300, blank=True, null=True)
     phone = models.CharField(max_length=16, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
@@ -581,6 +584,10 @@ class Airport(models.Model):
     header = models.TextField()
     description = models.TextField()
     logo = models.ImageField(upload_to='airport_logos/', blank=True, null=True)
+
+    def image_logo(self):
+        return mark_safe('''<img src="%s" />''' % self.logo.url)
+    image_logo.short_description = 'Airport Logo'
 
 class AirportContact(models.Model):
     def __str__(self):

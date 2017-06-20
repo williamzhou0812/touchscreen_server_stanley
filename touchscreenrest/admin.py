@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from forms import AdvertisementForm, VideoForm, RestaurantForm, ImageForm, ActivityDestinationForm, EssentialServiceForm, \
-    MiningForm, TransportationForm, RetailForm
+    MiningForm, TransportationForm, RetailForm, MapForm
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
@@ -87,10 +87,11 @@ class AccomodationVideoInLine(admin.TabularInline):
 class AccomodationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -108,9 +109,9 @@ class AccomodationAdmin(admin.ModelAdmin):
         ('Accommodation Title', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Accommodation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo','image_logo',
+        ('Accommodation Detail', {'fields': ['description', ('address', 'phone', 'email'), 'website', 'logo','image_logo',
                                              'rating']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'destination']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'destination'),]}),
 
     ]
     inlines = [AccomodationImageInLine, AccomodationVideoInLine, AccomodationMapInLine]
@@ -132,6 +133,9 @@ class AccomodationAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Accomodation, AccomodationAdmin)
 ## End of Accomodation Administration ##
@@ -297,10 +301,11 @@ class DestinationVideoInLine(admin.TabularInline):
 class DestinationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'event',
                'accomodation')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -318,7 +323,7 @@ class DestinationAdmin(admin.ModelAdmin):
         ('Destination Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Destination Detail', {'fields': ['province', 'airport', 'description']}),
+        ('Destination Detail', {'fields': [('province', 'airport'), 'description']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [DestinationImageInLine, DestinationVideoInLine, DestinationMapInLine]
@@ -428,10 +433,11 @@ class EventVideoInLine(admin.TabularInline):
 class EventMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -449,8 +455,8 @@ class EventAdmin(admin.ModelAdmin):
         ('Event Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Event Detail', {'fields': ['description', 'location', 'phone', 'email', 'website', 'eventDate', 'eventMonth',
-                                     'destination', 'period']}),
+        ('Event Detail', {'fields': ['description', ('location', 'phone', 'email'), 'website',
+                                     'eventDate', 'eventMonth', ('destination', 'period')]}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
     ]
     inlines = [EventImageInLine, EventVideoInLine, EventMapInLine]
@@ -506,10 +512,11 @@ class RestaurantVideoInLine(admin.TabularInline):
 class RestaurantMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'event', 'transportation', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -527,10 +534,10 @@ class RestaurantAdmin(admin.ModelAdmin):
         ('Restaurant Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Restaurant Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Restaurant Guide', {'fields': ['cuisine', 'takeaway', 'takeawayOther', 'wifi', 'wifiOther', 'parking',
-                                         'parkingOther', 'courtesy', 'courtesyOther', 'cards', 'price']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'order', 'destination']}),
+        ('Restaurant Detail', {'fields': ['description', ('address', 'phone', 'email'), 'website', 'logo', 'image_logo']}),
+        ('Restaurant Guide', {'fields': ['cuisine', ('takeaway', 'takeawayOther'), ('wifi', 'wifiOther'), ('parking',
+                                         'parkingOther'), ('courtesy', 'courtesyOther'), ('cards', 'price')]}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('order', 'destination')]}),
     ]
     inlines = [RestaurantImageInLine, RestaurantVideoInLine, RestaurantMapInLine]
     readonly_fields = ('image_logo',)
@@ -552,6 +559,9 @@ class RestaurantAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Restaurant, RestaurantAdmin)
 ## End of Restaurant Administration ##
@@ -583,10 +593,11 @@ class TourVideoInLine(admin.TabularInline):
 class TourMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('restaurant', 'transportation', 'retail', 'mining', 'essentialservice', 'accomodation', 'event',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -604,8 +615,8 @@ class TourAdmin(admin.ModelAdmin):
         ('Tour Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Tour Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'activity', 'activityDestination', 'destination']}),
+        ('Tour Detail', {'fields': ['description', ('address', 'phone', 'email'), 'website', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': ['numberOfClicks', 'activity', ('activityDestination', 'destination')]}),
     ]
     inlines = [TourImageInLine, TourVideoInLine, TourMapInLine]
     readonly_fields = ('image_logo',)
@@ -621,7 +632,10 @@ class TourAdmin(admin.ModelAdmin):
         self.list_display_links = ('title',)
 
     class Media:
-        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js')
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Tour, TourAdmin)
 ## End of Tour Administration ##
@@ -629,11 +643,12 @@ admin.site.register(Tour, TourAdmin)
 ## Start of Map Administration ##
 class MapAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Map Information', {'fields': ['title', 'mapImage']}),
+        ('Map Information', {'fields': ['title', 'mapImage', 'mapType']}),
         ('Where to Show Map', {'fields': ['tour', 'restaurant', 'transportation', 'retail', 'mining',
                                           'essentialservice', 'event', 'accomodation', 'destination']}
          ),
     ]
+    form = MapForm
 admin.site.register(Map, MapAdmin)
 ## End of Map Administration ##
 
@@ -665,7 +680,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Advertisement Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Advertisement Detail', {'fields': ['company', 'description', 'address', 'phone', 'email', 'website']}),
+        ('Advertisement Detail', {'fields': ['company', 'description', ('address', 'phone', 'email'), 'website']}),
         ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('Where to Show Advertisement', {'fields': ['activityDestination', 'accomodation', 'event', 'restaurant',
                                                     'destination', 'essentialservice', 'transportation', 'retail',
@@ -753,10 +768,11 @@ class TransportationVideoInLine(admin.TabularInline):
 class TransportationMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'retail', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -774,9 +790,9 @@ class TransportationAdmin(admin.ModelAdmin):
         ('Car Hire & Transportation Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Car Hire & Transportation Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo',
+        ('Car Hire & Transportation Detail', {'fields': ['description', ('address', 'phone', 'email'), 'website', 'logo',
                                                          'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('destination', 'serviceType')]}),
     ]
     form = TransportationForm
     inlines = [TransportationImageInLine, TransportationVideoInLine, TransportationMapInLine]
@@ -798,6 +814,9 @@ class TransportationAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Transportation, TransportationAdmin)
 ## End of Transportation Administration ##
@@ -830,10 +849,11 @@ class RetailVideoInLine(admin.TabularInline):
 class RetailMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'essentialservice',
                'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -851,8 +871,8 @@ class RetailAdmin(admin.ModelAdmin):
         ('Retail Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Retail Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
+        ('Retail Detail', {'fields': ['description', ('address', 'phone', 'email', 'website'), 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('destination', 'serviceType')]}),
     ]
     form = RetailForm
     inlines = [RetailImageInLine, RetailVideoInLine, RetailMapInLine]
@@ -874,6 +894,9 @@ class RetailAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Retail, RetailAdmin)
 ## End of Retail Administration ##
@@ -906,9 +929,10 @@ class MiningVideoInLine(admin.TabularInline):
 class MiningMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'retail', 'essentialservice',
                'destination')
+    form = MapForm
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
@@ -927,8 +951,8 @@ class MiningAdmin(admin.ModelAdmin):
         ('Mining Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Mining Detail', {'fields': ['description', 'address', 'phone', 'email', 'website', 'logo', 'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
+        ('Mining Detail', {'fields': ['description', ('address', 'phone', 'email'), 'website', 'logo', 'image_logo']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('destination', 'serviceType')]}),
     ]
     form = MiningForm
     inlines = [MiningImageInLine, MiningVideoInLine, MiningMapInLine]
@@ -950,6 +974,9 @@ class MiningAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Mining, MiningAdmin)
 ## End of Mining Administration ##
@@ -981,9 +1008,10 @@ class EssentialServiceVideoInLine(admin.TabularInline):
 class EssentialServiceMapInLine(admin.TabularInline):
     model = Map
     extra = 1
-    fields = ('title', 'mapImage')
+    fields = ('title', 'mapImage', 'mapType')
     exclude = ('tour', 'accomodation', 'event', 'restaurant', 'transportation', 'mining', 'retail', 'destination')
     classes = ['collapse']
+    form = MapForm
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.mapImage.url)
     render_image.short_description = 'Map preview'
@@ -1001,9 +1029,9 @@ class EssentialServiceAdmin(admin.ModelAdmin):
         ('Essential Service Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Essential Service Detail', {'fields': [ 'description', 'address', 'phone', 'email', 'website', 'logo',
+        ('Essential Service Detail', {'fields': [ 'description', ('address', 'phone', 'email'), 'website', 'logo',
                                                   'image_logo']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'destination', 'serviceType']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('destination', 'serviceType')]}),
     ]
     form = EssentialServiceForm
     inlines = [EssentialServiceImageInLine, EssentialServiceVideoInLine, EssentialServiceMapInLine]
@@ -1025,6 +1053,9 @@ class EssentialServiceAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(EssentialService, EssentialServiceAdmin)
 ## End of Essential Services Administration ##
@@ -1068,7 +1099,7 @@ class ActivityDestinationAdmin(admin.ModelAdmin):
         ('Activity Information', {'fields': ['title', 'description']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
-        ('Other Settings', {'fields': ['numberOfClicks', 'onlyShowSpecificAds', 'activity', 'destination']}),
+        ('Other Settings', {'fields': [('numberOfClicks', 'onlyShowSpecificAds'), ('activity', 'destination')]}),
     ]
     form = ActivityDestinationForm
     inlines = [ActivityDestinationImageInLine, ActivityDestinationVideoInLine]
@@ -1165,14 +1196,20 @@ class AirportContactInLine(admin.TabularInline):
 
 class AirportAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Airport Information', {'fields': ['title', 'header', 'description', 'logo']}),
+        ('Airport Information', {'fields': ['title', 'header', 'description', 'logo', 'image_logo']}),
     ]
     inlines = [AirportContactInLine, AirportImageInLine, AirportVideoInLine]
+    readonly_fields = ('image_logo',)
     list_display = ('id', 'title')
 
     def __init__(self, *args, **kwargs):
         super(AirportAdmin, self).__init__(*args, **kwargs)
         self.list_display_links = ('title',)
+
+    class Media:
+        css = {
+            'all': ('admin-style.css',)
+        }
 
 admin.site.register(Airport, AirportAdmin)
 ## End of Airport Administration ##
