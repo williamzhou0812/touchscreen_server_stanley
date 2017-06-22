@@ -286,7 +286,7 @@ class EssentialService(models.Model):
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=300, blank=True, null=True)
-    phone = models.CharField(max_length=16, blank=True, null=True)
+    phone = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='essential_services_logos/', blank=True, null=True)
