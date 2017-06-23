@@ -74,6 +74,7 @@ class ActivitySerializer(serializers.ModelSerializer):
     imageActivity = ImageSerializer(many=True, read_only=True)
     videoActivity = ImageSerializer(many=True, read_only=True)
     activityDestinationActivity = serializers.SerializerMethodField('get_destinations')
+    icon = serializers.FileField(max_length=None, use_url=True)
 
     def get_destinations(self, activity):
         queryset = ActivityDestination.objects.filter(Q(activity=activity), DISPLAY_QUERY)
@@ -81,7 +82,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         return serializer.data
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'imageActivity', 'videoActivity', 'activityDestinationActivity')
+        fields = ('id', 'title', 'icon', 'imageActivity', 'videoActivity', 'activityDestinationActivity')
 
 class AccomodationSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)

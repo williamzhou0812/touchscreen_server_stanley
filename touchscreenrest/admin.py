@@ -251,7 +251,7 @@ class ActivityDestinationInLine(nested_admin.NestedStackedInline):
 
 class ActivityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
-        ('Activity Information', {'fields': ['title']}),
+        ('Activity Information', {'fields': ['title', 'icon']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
         ('Other Settings', {'fields': ['numberOfClicks']}),
