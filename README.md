@@ -77,3 +77,13 @@ to allow multiple device access via LAN/WLAN
 ###Sample admin account (can be changed later)
 * username = root
 * password = root1234
+
+###Automate MySQL Backup Instructions
+* Download [AutoMySQLbackup from Sourceforge](https://sourceforge.net/p/automysqlbackup/)
+* Open the install.sh script in your favorite text editor and search for md5sum --check, replace with md5 -r (OS X does not have md5sum installed by default)
+* Follow instructions on the AutoMySQLBackup README
+* Run `sudo ./install.sh` in the Terminal 
+* [Reference](http://soarhevn.blogspot.com.au/2014/10/using-automysqlbackup-on-os-x-1010.html)
+* Configure the configuration file (`myserver.conf`)
+* To run the backup: `sudo /usr/local/bin/automysqlbackup /etc/automysqlbackup/myserver.conf`
+* TO-DO: Figure out how to automate backup 
