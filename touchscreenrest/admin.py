@@ -1240,7 +1240,7 @@ class TriviaImageInLine(admin.TabularInline):
 
 class TriviaAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Trivia Title', {'fields': ['title']}),
+        ('Trivia Title', {'fields': ['title', 'numberOfClicks']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
         ('Order Settings', {'fields': ['order']}),
     ]
