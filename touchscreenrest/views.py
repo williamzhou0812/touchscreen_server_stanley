@@ -1073,3 +1073,18 @@ class AirportDetail(RetrieveAPIView):
 class TriviaList(ListAPIView):
     queryset = Trivia.objects.filter(DISPLAY_QUERY)
     serializer_class = TriviaSerializer
+
+class TriviaPost(APIView):
+    def get_object(self, pk):
+        try:
+            return Trivia.objects.get(pk=pk)
+        except Trivia.DoesNotExist:
+            return return_not_found()
+
+    def post(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        if not isinstance(instance, Trivia):
+            return instance
+        instance.numberOfClicks += 1
+        instance.save()
+        return return_success()

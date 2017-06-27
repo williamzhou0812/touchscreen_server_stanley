@@ -221,6 +221,7 @@ urlpatterns = [
 
     url(r'^airport/(?P<pk>[0-9]+)/$', views.AirportDetail.as_view()),
     url(r'^trivia/$', views.TriviaList.as_view()),
+    url(r'^triviapost/(?P<pk>[0-9]+)/$', views.TriviaPost.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
