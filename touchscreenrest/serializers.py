@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
-    ServiceType, Airport, AirportContact
+    ServiceType, Airport, AirportContact, Trivia, Section
 from django.db.models import Q
 from datetime import date
 
@@ -27,9 +27,8 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     imageAdvertisement = ImageSerializer(many=True, read_only=True)
     class Meta:
         model = Advertisement
-        fields = ('id', 'title', 'company', 'description', 'address', 'phone', 'email', 'website', 'inTopDeal',
-                  'orderTopDeal', 'highlighted', 'imageAdvertisement',
-                  'videoAdvertisement', 'order', 'redirectTo')
+        fields = ('id', 'title', 'company', 'description', 'address', 'phone', 'email', 'website', 'highlighted',
+                  'imageAdvertisement', 'videoAdvertisement', 'order', 'redirectTo')
 
 class MapSerializer(serializers.ModelSerializer):
     mapImage = serializers.ImageField(max_length=None, use_url=True)
@@ -378,3 +377,21 @@ class AirportSerializer(serializers.ModelSerializer):
         model = Airport
         fields = ('id', 'title', 'header', 'description', 'logo', 'airportAirportContact', 'imageAirport',
                   'videoAirport')
+
+class SectionSerializer(serializers.ModelSerializer):
+    imageSection = ImageSerializer(many=True, read_only=True)
+    class Meta:
+        model = Section
+        fields = ('id', 'title', 'text', 'imageSection', 'order')
+
+class TriviaSerializer(serializers.ModelSerializer):
+    imageTrivia = ImageSerializer(many=True, read_only=True)
+    sectionTrivia = serializers.SerializerMethodField('get_sections')
+    class Meta:
+        model = Trivia
+        fields = ('id', 'title', 'order', 'imageTrivia', 'sectionTrivia')
+
+    def get_sections(self, trivia):
+        queryset = Section.objects.filter(Q(trivia=trivia), DISPLAY_QUERY)
+        serializer = SectionSerializer(queryset, many=True, context=self.context)
+        return serializer.data

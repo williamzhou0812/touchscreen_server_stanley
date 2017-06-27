@@ -405,6 +405,36 @@ def mymodel_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.logo.delete(False)
 
+class Trivia(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    order = models.IntegerField(blank=False, default=0, verbose_name="Trivia order display")
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    class Meta:
+        ordering = ['order', 'pk']
+
+class Section(models.Model):
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title
+    title = models.CharField(max_length=200, blank=False)
+    text = models.TextField(default="")
+    order = models.IntegerField(blank=False, default=0, verbose_name="Section order display")
+    numberOfClicks = models.IntegerField(default=0, verbose_name="Number of clicks")
+    display = models.CharField(max_length=11, default=DEFAULT_DISPLAY, choices=DISPLAY_CHOICES)
+    displayFrom = models.DateField(blank=True, null=True, verbose_name="Start display from")
+    displayTo = models.DateField(blank=True, null=True, verbose_name="Stop display from")
+    trivia = models.ForeignKey(Trivia, on_delete=models.CASCADE, related_name='sectionTrivia', blank=True, null=True)
+    class Meta:
+        ordering = ['order', 'pk']
+
 class Map(models.Model):
     def __str__(self):
         return self.title
@@ -571,8 +601,13 @@ class Advertisement(models.Model):
                                             related_name='advertisementActivityDestination', blank=True, null=True,
                                             verbose_name='Destination for Activity')
     def is_activity_destination_advertisement(self):
-        '''Checks whether this advertisement instance is an activity destination image'''
+        '''Checks whether this advertisement instance is an activity destination advertisement'''
         return self.activityDestination is not None
+
+    trivia = models.ForeignKey(Trivia, on_delete=models.CASCADE, related_name='triviaAdvertisement', blank=True, null=True)
+    def is_trivia_advertisement(self):
+        '''Checks whether this advertisement instance is a trivia advertisement'''
+        return self.trivia is not None
 
     class Meta:
         ordering = ['order', 'pk']
@@ -802,6 +837,16 @@ class Image(models.Model):
     def is_airport_image(self):
         '''Checks whether this image instance is an airport image'''
         return self.airport is not None
+
+    trivia = models.ForeignKey(Trivia, on_delete=models.CASCADE, related_name='imageTrivia', blank=True, null=True)
+    def is_trivia_image(self):
+        '''Checks whether this image instance is a trivia image'''
+        return self.trivia is not None
+
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='imageSection', blank=True, null=True)
+    def is_section_image(self):
+        '''Checks whether this image isntance is a section image'''
+        return self.section is not None
 
     class Meta:
         ordering = ['pk']

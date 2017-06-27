@@ -152,6 +152,7 @@ urlpatterns = [
     url(r'^adsvideo/$', views.AdvertisementWithVideos.as_view()),
     url(r'^adsservicesfirst/$', views.AdvertisementServicesFirstOnly.as_view()),
     url(r'^adsservices/$', views.AdvertisementServices.as_view()),
+    url(r'^adstrivia/$', views.AdvertisementTrivia.as_view()),
 
     url(r'^activity/$', views.ActivityList.as_view()),
     url(r'^activity/(?P<pk>[0-9]+)/$', views.ActivityDetail.as_view()),
@@ -219,6 +220,7 @@ urlpatterns = [
     url(r'^servicetypeessentialservice/$', views.ServiceTypeEssentialServiceList.as_view()),
 
     url(r'^airport/(?P<pk>[0-9]+)/$', views.AirportDetail.as_view()),
+    url(r'^trivia/$', views.TriviaList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

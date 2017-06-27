@@ -1,6 +1,6 @@
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video,\
-    ServiceType, Airport
+    ServiceType, Airport, Trivia
 from touchscreenrest.serializers import ImageSerializer, VideoSerializer, AdvertisementSerializer, MapSerializer,\
     ActivitySerializer, AccomodationSerializer, TourSerializer, EventSerializer, PeriodSerializer, RestaurantSerializer,\
     TransportationSerializer, RetailSerializer, MiningSerializer, EssentialServiceSerializer, DestinationSerializer,\
@@ -8,7 +8,8 @@ from touchscreenrest.serializers import ImageSerializer, VideoSerializer, Advert
     ServiceTypeTransportationSerializer, ServiceTypeRetailSerializer, ServiceTypeMiningSerializer,\
     ServiceTypeEssentialServiceSerializer, DestinationAccomodationSerializer, AccomodationHeaderSerializer,\
     DestinationAccomodationHeaderSerializer, AirportSerializer, RestaurantSerializerSimple, RetailSerializerSimple, \
-    TransportationSerializerSimple, MiningSerializerSimple, EssentialServiceSerializerSimple, ActivityDestinationSerializerSimple
+    TransportationSerializerSimple, MiningSerializerSimple, EssentialServiceSerializerSimple, \
+    ActivityDestinationSerializerSimple, TriviaSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -705,7 +706,10 @@ class AdvertisementServices(ListAPIView):
             | Q(retail_id__isnull=False), DISPLAY_QUERY
         )
     serializer_class = AdvertisementSerializer
-    
+
+class AdvertisementTrivia(ListAPIView):
+    queryset = Advertisement.objects.filter(Q(trivia_id__isnull=False), DISPLAY_QUERY)
+    serializer_class = AdvertisementSerializer
 
 class ActivityList(ListAPIView):
     queryset = Activity.objects.filter(DISPLAY_QUERY)
@@ -1065,3 +1069,7 @@ class ServiceTypePost(APIView):
 class AirportDetail(RetrieveAPIView):
     queryset = Airport.objects.all()
     serializer_class = AirportSerializer
+
+class TriviaList(ListAPIView):
+    queryset = Trivia.objects.filter(DISPLAY_QUERY)
+    serializer_class = TriviaSerializer

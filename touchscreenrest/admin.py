@@ -5,7 +5,7 @@ from forms import AdvertisementForm, VideoForm, RestaurantForm, ImageForm, Activ
 from django.utils.safestring import mark_safe
 from touchscreenrest.models import Activity, ActivityDestination, Destination, Period, Event, Restaurant,\
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
-    Airport, AirportContact
+    Airport, AirportContact, Trivia, Section
 import nested_admin
 import csv
 from django.http import HttpResponse
@@ -66,7 +66,8 @@ class AccomodationImageInLine(admin.TabularInline):
     fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'mining', 'essentialservice', 'destination', 'advertisement', 'serviceType', 'airport')
+               'mining', 'essentialservice', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia',
+               'section')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -146,7 +147,7 @@ class ActivityImageInLine(nested_admin.NestedTabularInline):
     extra = 1
     exclude = ('destination', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
-    fields = ('title', 'imageFile', 'isHeaderImage')
+    fields = ('title', 'imageFile', 'isHeaderImage', 'trivia', 'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -217,7 +218,8 @@ class ActivityDestinationImageInLine(nested_admin.NestedTabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport',
+               'trivia', 'section')
     fields = ('title', 'imageFile')
     classes = ['collapse']
     def render_image(self, obj):
@@ -278,7 +280,8 @@ class DestinationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
+               'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport', 'trivia',
+               'section')
     fields = ('title', 'imageFile', 'isHeaderImage')
     form = ImageForm
     classes = ['collapse']
@@ -350,7 +353,8 @@ class PeriodImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice','advertisement', 'accomodation', 'serviceType', 'airport')
+               'retail', 'mining', 'essentialservice','advertisement', 'accomodation', 'serviceType', 'airport',
+               'trivia', 'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -412,7 +416,8 @@ class EventImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'destination', 'period', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport',
+               'trivia', 'section')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -491,7 +496,8 @@ class RestaurantImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'transportation', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia',
+               'section')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -572,7 +578,8 @@ class TourImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('activity', 'activityDestination', 'period', 'destination', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport',
+               'trivia', 'section')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -658,7 +665,7 @@ class AdvertisementImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile')
     exclude = ('period', 'destination', 'event', 'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-               'activity', 'activityDestination', 'tour', 'accomodation', 'serviceType', 'airport')
+               'activity', 'activityDestination', 'tour', 'accomodation', 'serviceType', 'airport', 'trivia', 'section')
     classes = ['collapse']
     def render_image(self, obj):
         return mark_safe(IMAGE_SRC % obj.imageFile.url)
@@ -684,7 +691,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
         ('Other Settings', {'fields': ['numberOfShows', 'numberOfClicks', 'highlighted']}),
         ('Where to Show Advertisement', {'fields': ['activityDestination', 'accomodation', 'event', 'restaurant',
                                                     'destination', 'essentialservice', 'transportation', 'retail',
-                                                    'mining']}
+                                                    'mining', 'trivia']}
          ),
         ('Where to Redirect Advertisement (in Touchscreen SPA)', {'fields': ['redirectTo']})
     ]
@@ -709,7 +716,8 @@ class ImageAdmin(admin.ModelAdmin):
         ('Image Information', {'fields': ['title', 'imageFile', 'isHeaderImage']}),
         ('Where to Show Image', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
                                             'restaurant', 'transportation', 'retail', 'mining', 'essentialservice',
-                                            'destination', 'advertisement', 'serviceType', 'airport']}
+                                            'destination', 'advertisement', 'serviceType', 'airport', 'section',
+                                            'trivia']}
          ),
     ]
     form = ImageForm
@@ -746,7 +754,8 @@ class TransportationImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'retail', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia',
+               'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -827,7 +836,8 @@ class RetailImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia',
+               'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -907,7 +917,8 @@ class MiningImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'retail',
-               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
+               'essentialservice', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia',
+               'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -987,7 +998,7 @@ class EssentialServiceImageInLine(admin.TabularInline):
     extra = 1
     fields = ('title', 'imageFile', 'isHeaderImage')
     exclude = ('activity', 'activityDestination', 'tour', 'period', 'event', 'restaurant', 'transportation', 'mining',
-               'retail', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport')
+               'retail', 'accomodation', 'destination', 'advertisement', 'serviceType', 'airport', 'trivia', 'section')
     form = ImageForm
     classes = ['collapse']
     def render_image(self, obj):
@@ -1066,7 +1077,8 @@ class ActivityDestinationImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'serviceType', 'airport',
+               'trivia', 'section')
     fields = ('title', 'imageFile', 'render_image')
     readonly_fields = ('render_image',)
 
@@ -1125,7 +1137,8 @@ class ServiceTypeImageInLine(admin.TabularInline):
     model = Image
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
-               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination', 'airport')
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination', 'airport',
+               'trivia', 'section')
     fields = ('title', 'imageFile', 'isHeaderImage')
     classes = ['collapse']
     form = ImageForm
@@ -1175,7 +1188,7 @@ class AirportImageInLine(admin.TabularInline):
     extra = 1
     exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
                'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination',
-               'serviceType')
+               'serviceType', 'trivia', 'section')
     fields = ('title', 'imageFile', 'isHeaderImage')
     classes = ['collapse']
     form = ImageForm
@@ -1213,3 +1226,61 @@ class AirportAdmin(admin.ModelAdmin):
 
 admin.site.register(Airport, AirportAdmin)
 ## End of Airport Administration ##
+
+## Start of Trivia Administration ##
+class TriviaImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination',
+               'serviceType', 'airport')
+    fields = ('title', 'imageFile')
+    classes = ['collapse']
+    form = ImageForm
+
+class TriviaAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Trivia Title', {'fields': ['title']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
+    ]
+    inlines = [TriviaImageInLine]
+    list_display = ('id', 'title')
+    def __init__(self, *args, **kwargs):
+        super(TriviaAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+
+admin.site.register(Trivia, TriviaAdmin)
+## End of Trivia Administration ##
+
+## Start of Section Administration ##
+class SectionImageInLine(admin.TabularInline):
+    model = Image
+    extra = 1
+    exclude = ('destination', 'activity', 'tour', 'period', 'event', 'restaurant', 'transportation',
+               'retail', 'mining', 'essentialservice', 'advertisement', 'accomodation', 'activityDestination',
+               'serviceType', 'airport', 'trivia')
+    fields = ('title', 'imageFile')
+    classes = ['collapse']
+    form = ImageForm
+
+class SectionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Section Title & Text', {'fields': ['title', 'text', 'trivia']}),
+        ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
+        ('Order Settings', {'fields': ['order']}),
+    ]
+    inlines = [TriviaImageInLine]
+    list_display = ('id', 'title')
+    def __init__(self, *args, **kwargs):
+        super(SectionAdmin, self).__init__(*args, **kwargs)
+        self.list_display_links = ('title',)
+
+    class Media:
+        js = ('https://code.jquery.com/jquery-1.12.4.min.js', 'admin-script.js',)
+
+admin.site.register(Section, SectionAdmin)
+## End of Section Administration ##
