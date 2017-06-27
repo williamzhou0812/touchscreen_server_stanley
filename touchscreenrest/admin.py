@@ -1245,7 +1245,9 @@ class TriviaAdmin(admin.ModelAdmin):
         ('Order Settings', {'fields': ['order']}),
     ]
     inlines = [TriviaImageInLine]
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'numberOfClicks')
+    actions = [reset_number_of_clicks, export_as_csv_action("Export selected Trivia as CSV",
+                                                            fields=['id', 'title', 'order', 'numberOfClicks'])]
     def __init__(self, *args, **kwargs):
         super(TriviaAdmin, self).__init__(*args, **kwargs)
         self.list_display_links = ('title',)
