@@ -387,9 +387,10 @@ class SectionSerializer(serializers.ModelSerializer):
 class TriviaSerializer(serializers.ModelSerializer):
     imageTrivia = ImageSerializer(many=True, read_only=True)
     sectionTrivia = serializers.SerializerMethodField('get_sections')
+    icon = serializers.FileField(max_length=None, use_url=True)
     class Meta:
         model = Trivia
-        fields = ('id', 'title', 'order', 'imageTrivia', 'sectionTrivia')
+        fields = ('id', 'title', 'order', 'imageTrivia', 'sectionTrivia', 'icon')
 
     def get_sections(self, trivia):
         queryset = Section.objects.filter(Q(trivia=trivia), DISPLAY_QUERY)
