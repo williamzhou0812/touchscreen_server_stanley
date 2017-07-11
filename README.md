@@ -87,3 +87,9 @@ to allow multiple device access via LAN/WLAN
 * Configure the configuration file (`myserver.conf`)
 * To run the backup: `sudo /usr/local/bin/automysqlbackup /etc/automysqlbackup/myserver.conf`
 * TO-DO: Figure out how to automate backup 
+
+###Deploying Production Version Instructions
+ * Set `Debug = False` in `settings.py`
+ * Turn off logging with: `LOGGING_CONFIG = None` in `settings.py`
+ * Launch python with: `sudo python manage.py runserver 0.0.0.0:8000 --insecure`
+ 
