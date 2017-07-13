@@ -95,7 +95,7 @@ to allow multiple device access via LAN/WLAN
  
 ###Deploying Production Version Instructions (working)
  * Set `Debug = False` in `settings.py`
- * Install mod_wsgi via Terminal: `pip install mod_wsgi`
+ * Install mod_wsgi via Terminal: `pip install mod_wsgi` if error can try adding `sudo` or installing apache via homebrew (on  mac osx sierra) `$ brew install homebrew/apache/httpd24`
  * Set static folder by adding `STATIC_ROOT = os.path.join(BASE_DIR, 'static')` in `settings.py` below the line `STATIC_URL = '/static/'`
  * Run `python manage.py collectstatic`
  * Run server with (in touchscreen base directory via Terminal): `mod_wsgi-express start-server --url-alias /static static --application-type module touchscreen.wsgi`
