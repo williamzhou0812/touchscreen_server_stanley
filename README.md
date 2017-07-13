@@ -88,8 +88,14 @@ to allow multiple device access via LAN/WLAN
 * To run the backup: `sudo /usr/local/bin/automysqlbackup /etc/automysqlbackup/myserver.conf`
 * TO-DO: Figure out how to automate backup 
 
-###Deploying Production Version Instructions (doesn't work for now)
+~~Deploying Production Version Instructions (doesn't work for now)~~
  * Set `Debug = False` in `settings.py`
  * Turn off logging with: `LOGGING_CONFIG = None` in `settings.py`
  * Launch python with: `sudo python manage.py runserver 0.0.0.0:8000 --insecure`
  
+###Deploying Production Version Instructions (working)
+ * Set `Debug = False` in `settings.py`
+ * Install mod_wsgi via Terminal: `pip install mod_wsgi`
+ * Set static folder by adding `STATIC_ROOT = os.path.join(BASE_DIR, 'static')` in `settings.py` below the line `STATIC_URL = '/static/'`
+ * Run `python manage.py collectstatic`
+ * Run server with (in touchscreen base directory via Terminal): `mod_wsgi-express start-server --url-alias /static static --application-type module touchscreen.wsgi`
