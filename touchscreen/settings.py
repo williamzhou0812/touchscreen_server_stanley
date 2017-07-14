@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'nested_admin',
+    'reversion',
     'touchscreenrest.apps.TouchscreenrestConfig',
 ]
 

@@ -31,6 +31,8 @@ Utilising MySQL Database System
 
 * Install django-nested-admin via Terminal: ```pip install django-nested-admin```
 
+* Install django-reversion via Terminal: `pip install django-reversion`
+
 * Clone the project via [SourceTree](https://www.sourcetreeapp.com/)
 
 * Configure MySQL (Database System)
@@ -93,6 +95,10 @@ to allow multiple device access via LAN/WLAN
  * Turn off logging with: `LOGGING_CONFIG = None` in `settings.py`
  * Launch python with: `sudo python manage.py runserver 0.0.0.0:8000 --insecure`
  
+###Setup django-revisions
+ * Run in project directory (via Terminal): `python manage.py migrate`
+ * Run `python manage.py createinitialrevisions`
+
 ###Deploying Production Version Instructions (working)
  * Set `Debug = False` in `settings.py`
  * Install mod_wsgi via Terminal: `pip install mod_wsgi` if error can try adding `sudo` or installing apache via homebrew (on  mac osx sierra) `$ brew install homebrew/apache/httpd24`

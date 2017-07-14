@@ -7,6 +7,7 @@ from touchscreenrest.models import Activity, ActivityDestination, Destination, P
     Transportation, Retail, Mining, EssentialService, Tour, Accomodation, Map, Advertisement, Image, Video, ServiceType, \
     Airport, AirportContact, Trivia, Section
 import nested_admin
+from reversion.admin import VersionAdmin
 import csv
 from django.http import HttpResponse
 
@@ -105,7 +106,7 @@ class AccomodationAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class AccomodationAdmin(admin.ModelAdmin):
+class AccomodationAdmin(VersionAdmin):
     fieldsets = [
         ('Accommodation Title', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -251,7 +252,7 @@ class ActivityDestinationInLine(nested_admin.NestedStackedInline):
     form = ActivityDestinationForm
     extra = 1
 
-class ActivityAdmin(nested_admin.NestedModelAdmin):
+class ActivityAdmin(nested_admin.NestedModelAdmin, VersionAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title', 'icon']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -321,7 +322,7 @@ class DestinationAdvertisementInLine(admin.StackedInline):
     classes = ['collapse']
     form = AdvertisementForm
 
-class DestinationAdmin(admin.ModelAdmin):
+class DestinationAdmin(VersionAdmin):
     fieldsets = [
         ('Destination Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -386,7 +387,7 @@ class PeriodEventInLine(admin.StackedInline):
     extra = 1
     classes = ['collapse']
 
-class PeriodAdmin(admin.ModelAdmin):
+class PeriodAdmin(VersionAdmin):
     fieldsets = [
         ('Period Information', {'fields': ['title']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -455,7 +456,7 @@ class EventAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class EventAdmin(admin.ModelAdmin):
+class EventAdmin(VersionAdmin):
     fieldsets = [
         ('Event Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -535,7 +536,7 @@ class RestaurantAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class RestaurantAdmin(admin.ModelAdmin):
+class RestaurantAdmin(VersionAdmin):
     fieldsets = [
         ('Restaurant Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -617,7 +618,7 @@ class TourAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class TourAdmin(admin.ModelAdmin):
+class TourAdmin(VersionAdmin):
     fieldsets = [
         ('Tour Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -648,7 +649,7 @@ admin.site.register(Tour, TourAdmin)
 ## End of Tour Administration ##
 
 ## Start of Map Administration ##
-class MapAdmin(admin.ModelAdmin):
+class MapAdmin(VersionAdmin):
     fieldsets = [
         ('Map Information', {'fields': ['title', 'mapImage', 'mapType']}),
         ('Where to Show Map', {'fields': ['tour', 'restaurant', 'transportation', 'retail', 'mining',
@@ -682,7 +683,7 @@ class AdvertisementVideoInLine(admin.TabularInline):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
     render_video.short_description = 'Video preview'
 
-class AdvertisementAdmin(admin.ModelAdmin):
+class AdvertisementAdmin(VersionAdmin):
     fieldsets = [
         ('Advertisement Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -711,7 +712,7 @@ admin.site.register(Advertisement, AdvertisementAdmin)
 ## End of Advertisement Administration ##
 
 ## Start of Image Administration ##
-class ImageAdmin(admin.ModelAdmin):
+class ImageAdmin(VersionAdmin):
     fieldsets = [
         ('Image Information', {'fields': ['title', 'imageFile', 'isHeaderImage']}),
         ('Where to Show Image', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
@@ -725,7 +726,7 @@ admin.site.register(Image, ImageAdmin)
 ## End of Image Administration ##
 
 ## Start of Video Administration ##
-class VideoAdmin(admin.ModelAdmin):
+class VideoAdmin(VersionAdmin):
     fieldsets = [
         ('Video Information', {'fields': ['title', 'isDisplayVideo', 'videoFile', 'numberOfShows']}),
         ('Where to Show Video', {'fields': ['activity', 'activityDestination', 'tour', 'accomodation', 'period', 'event',
@@ -794,7 +795,7 @@ class TransportationAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class TransportationAdmin(admin.ModelAdmin):
+class TransportationAdmin(VersionAdmin):
     fieldsets = [
         ('Car Hire & Transportation Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -876,7 +877,7 @@ class RetailAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class RetailAdmin(admin.ModelAdmin):
+class RetailAdmin(VersionAdmin):
     fieldsets = [
         ('Retail Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -957,7 +958,7 @@ class MiningAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class MiningAdmin(admin.ModelAdmin):
+class MiningAdmin(VersionAdmin):
     fieldsets = [
         ('Mining Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -1035,7 +1036,7 @@ class EssentialServiceAdvertisementInLine(admin.StackedInline):
     form = AdvertisementForm
     classes = ['collapse']
 
-class EssentialServiceAdmin(admin.ModelAdmin):
+class EssentialServiceAdmin(VersionAdmin):
     fieldsets = [
         ('Essential Service Information', {'fields': ['title',]}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -1106,7 +1107,7 @@ class ActivityDestinationAdvertisementInLine(admin.StackedInline):
                'destination', 'activity', 'essentialservices', 'serviceType', 'display', 'displayFrom', 'displayTo')
     form = AdvertisementForm
 
-class ActivityDestinationAdmin(admin.ModelAdmin):
+class ActivityDestinationAdmin(VersionAdmin):
     fieldsets = [
         ('Activity Information', {'fields': ['title', 'description']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -1158,7 +1159,7 @@ class ServiceTypeVideoInLine(admin.TabularInline):
         return mark_safe(VIDEO_SRC % obj.videoFile.url)
     render_video.short_description = 'Video preview'
 
-class ServiceTypeAdmin(admin.ModelAdmin):
+class ServiceTypeAdmin(VersionAdmin):
     fieldsets = [
         ('Service Subsection 2 Title', {'fields': ['title', 'icon']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -1207,7 +1208,7 @@ class AirportContactInLine(admin.TabularInline):
     extra = 1
     clases = ['collapse']
 
-class AirportAdmin(admin.ModelAdmin):
+class AirportAdmin(VersionAdmin):
     fieldsets = [
         ('Airport Information', {'fields': ['title', 'header', 'description', 'logo', 'image_logo']}),
     ]
@@ -1238,7 +1239,7 @@ class TriviaImageInLine(admin.TabularInline):
     classes = ['collapse']
     form = ImageForm
 
-class TriviaAdmin(admin.ModelAdmin):
+class TriviaAdmin(VersionAdmin):
     fieldsets = [
         ('Trivia Title', {'fields': ['title', 'icon', 'numberOfClicks']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
@@ -1269,7 +1270,7 @@ class SectionImageInLine(admin.TabularInline):
     classes = ['collapse']
     form = ImageForm
 
-class SectionAdmin(admin.ModelAdmin):
+class SectionAdmin(VersionAdmin):
     fieldsets = [
         ('Section Title & Text', {'fields': ['title', 'text', 'trivia']}),
         ('Display Settings', {'fields': ['display', 'displayFrom', 'displayTo']}),
