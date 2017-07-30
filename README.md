@@ -8,6 +8,8 @@ Utilising MySQL Database System
 
 * Install [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 
+* Note down the generated password (Change temporary password to the one you like later via `MySQL Workbench`)
+
 * MySQL Workbench is a GUI tool to view and alter the tables and data in the database
 
 * Install [Python 2.x](https://www.python.org/downloads/)
@@ -18,6 +20,8 @@ Utilising MySQL Database System
     * Run (via terminal) ```python get-pip.py``` (If error try ```sudo python get-pip.py``` instead)
 
 * Install Django via Terminal: ```pip install Django``` (Similarly, if error try ```sudo pip install Django```)
+
+* Add mysql to `.bash_profile`: `export PATH=${PATH}:/usr/local/mysql/bin/` (located in `~/.bash_profile`)
 
 * Install Django REST Framework via Terminal: ```pip install djangorestframework```
 
@@ -105,4 +109,5 @@ to allow multiple device access via LAN/WLAN
  * Set static folder by adding `STATIC_ROOT = os.path.join(BASE_DIR, 'static')` in `settings.py` below the line `STATIC_URL = '/static/'`
  * Run `python manage.py collectstatic`
  * Run server with (in touchscreen base directory via Terminal): `mod_wsgi-express start-server --url-alias /static static --application-type module touchscreen.wsgi`
- * Current NAC Server run command: `mod_wsgi-express start-server --url-alias /static static --url-alias /accomodation_logos /projects/touchscreen/accomodation_logos --url-alias /activity_icons /projects/touchscreen/activity_icons --url-alias /airport_logos /projects/touchscreen/airport_logos --url-alias /essential_services_logos /projects/touchscreen/essential_services_logos --url-alias /images /projects/touchscreen/images --url-alias /maps /projects/touchscreen/maps --url-alias /mining_logos /projects/touchscreen/mining_logos --url-alias /restaurant_logos /projects/touchscreen/restaurant_logos --url-alias /retail_logos /projects/touchscreen/retail_logos --url-alias /service_type_icons /projects/touchscreen/service_type_icons --url-alias /transportation_logos /projects/touchscreen/transportation_logos --url-alias /trivia_icons /projects/touchscreen/trivia_icons --url-alias /videos /projects/touchscreen/videos --application-type module touchscreen.wsgi`
+ * Current NAC Server run command: `mod_wsgi-express start-server --url-alias /static static --url-alias /accomodation_logos /projects/touchscreen/accomodation_logos --url-alias /activity_icons /projects/touchscreen/activity_icons --url-alias /airport_logos /projects/touchscreen/airport_logos --url-alias /essential_services_logos /projects/touchscreen/essential_services_logos --url-alias /images /projects/touchscreen/images --url-alias /maps /projects/touchscreen/maps --url-alias /mining_logos /projects/touchscreen/mining_logos --url-alias /restaurant_logos /projects/touchscreen/restaurant_logos --url-alias /retail_logos /projects/touchscreen/retail_logos --url-alias /service_type_icons /projects/touchscreen/service_type_icons --url-alias /transportation_logos /projects/touchscreen/transportation_logos --url-alias /trivia_icons /projects/touchscreen/trivia_icons --url-alias /videos /projects/touchscreen/videos --url-alias /contract_files /projects/touchscreen/contract_files --url-alias /payment_proofs /projects/touchscreen/payment_proofs --application-type module touchscreen.wsgi`
+ * Alternatively, just type in `./runserver.sh`
