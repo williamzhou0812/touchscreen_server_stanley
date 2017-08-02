@@ -37,7 +37,16 @@ Utilising MySQL Database System
 
 * Install django-reversion via Terminal: `pip install django-reversion`
 
-* Clone the project via [SourceTree](https://www.sourcetreeapp.com/)
+* Alternatively instead of typing `pip install ...`, type `pip install -r requirements.txt` (Word of warning, untested!)
+
+* Checking out the source code:
+    * Install [Git](https://git-scm.com/downloads)
+    * Setup project directory: `mkdir ~/Documents/`
+    * Cloning project: `git clone https://bitbucket.org/ictgroup4850/touchscreen`
+    * Insert relevant user credentials
+    * If setting up for **NAC Server IN PNG** type: `git checkout NAC_Server`
+    * If setting up for **NAC Server OFFICE USE** type: `git checkout CMSProfile`
+    * Restore relevant MySQL database and Media Files
 
 * Configure MySQL (Database System)
     * Start MySQL Server via Systems Preferences
