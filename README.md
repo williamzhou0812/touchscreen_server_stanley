@@ -75,6 +75,14 @@ Utilising MySQL Database System
     * Open Terminal, navigate to project directory, and execute: `python manage.py makemigrations` and `python manage.py migrate`
     * To create a new administrator user execute `python manage.py createsuperuser`
 
+* Restoring MySQL database and MediaFiles:
+    * Open MySQLWorkbench
+    * Click on the connection, input required credentials
+    * On the left hand side, click on `Data Import / Restore`
+    * Select `From self-contained file` and locate the relevant SQL File.
+    * Select target schema (the one recently created) and click on `Start Import`
+    * Open `settings.py` inside <project directory/touchscreen> and check at the bottom part of the file where the `MEDIA_ROOT` is located, copy Media Files to that particular directory (might have to create folders)
+
 ###How to run REST Server
 * Navigate to project directory via Terminal
 * Execute ```sudo python manage.py runserver``` for local testing
